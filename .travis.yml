@@ -1,0 +1,30 @@
+matrix:
+  # React configuration:
+
+  # include:
+  #   language: node_js
+  #   node_js:
+  #     - "stable"
+  #   cache:
+  #     directories:
+  #       - node_modules
+  #   script:
+  #     - npm test
+  #     - npm run build
+  #   deploy:
+  #     provider: netlify
+  #     skip_cleanup: true
+  #     domain: jobmatcher.netlify.com
+  #     project: .client/build/
+  #   on:
+  #     branch: master
+    language: node_js
+    node_js:
+      - "iojs"
+      - "7"
+
+    language: python
+    python:
+      - "3.6"
+    script:
+      - pytest
