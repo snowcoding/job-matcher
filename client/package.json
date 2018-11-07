@@ -6,9 +6,15 @@
     "bootstrap": "^4.1.3",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+<<<<<<< HEAD
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "reactstrap": "^6.5.0"
+=======
+    "react-redux": "^5.1.0",
+    "react-scripts": "2.1.1",
+    "redux": "^4.0.1"
+>>>>>>> bf68c5f2ca89ab4463164f0c6681f223a263365b
   },
   "scripts": {
     "start": "react-scripts start",
