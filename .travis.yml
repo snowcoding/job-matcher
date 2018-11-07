@@ -18,11 +18,14 @@ matrix:
   #     project: .client/build/
   #   on:
   #     branch: master
+
+    # Specifying Node.js versions
     language: node_js
     node_js:
       - "iojs"
       - "7"
 
+    # Specifying Python versions
     language: python
     python:
       - "3.6"
