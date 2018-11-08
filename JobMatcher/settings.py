@@ -109,17 +109,17 @@ JWT_AUTH = {
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 # SQLite
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # PostgreSQL
-# DATABASES = {
-#     'default': dj_database_url.config(default=config("DATABASE_URL"))
-# }
+DATABASES = {
+    'default': dj_database_url.config(default=config("DATABASE_URL"))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
