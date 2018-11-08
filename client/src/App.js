@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Auth from './features/auth/components/index';
+import { Route } from 'react-router-dom';
+import Auth from './features/auth/components/';
 
 import './App.css';
 
@@ -7,7 +8,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Auth />
+				<Route path="/auth" component={Auth} />
 			</div>
 		);
 	}
