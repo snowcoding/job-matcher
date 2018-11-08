@@ -10,6 +10,7 @@ python-decouple = "*"
 gunicorn = "*"
 "psycopg2-binary" = "*"
 whitenoise = "*"
+pytest = "*"
 
 [dev-packages]
 
