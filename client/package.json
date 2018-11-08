@@ -1,12 +1,8 @@
 {
 	"name": "client",
 	"version": "0.1.0",
-	"main": "server.js",
 	"private": true,
 	"dependencies": {
-		"body-parser": "^1.18.3",
-		"express": "^4.16.4",
-		"jsonwebtoken": "^8.3.0",
 		"react": "^16.6.0",
 		"react-dom": "^16.6.0",
 		"react-redux": "^5.1.0",
@@ -17,8 +13,7 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"dev": "nodemon server.js"
+		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -28,8 +23,5 @@
 		"not dead",
 		"not ie <= 11",
 		"not op_mini all"
-	],
-	"devDependencies": {
-		"nodemon": "^1.18.6"
-	}
+	]
 }
