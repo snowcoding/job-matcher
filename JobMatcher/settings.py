@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'JobMatcherApp'
+    'JobMatcherApp', # This will be the API application
+    'rest_framework', # This is the DRF library
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,8 @@ DATABASES = {
     'default': dj_database_url.config(default=config("DATABASE_URL"))
 }
 
+AUTH_USER_MODEL = "JobMatcherApp.User" 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -141,3 +144,20 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#Direct from DRF Docs
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissions'
+    # ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [], #No Authentication
+    # 'DEFAULT_PERMISSION_CLASSES': [] #No Persmissions
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
