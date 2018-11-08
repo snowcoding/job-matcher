@@ -1,4 +1,5 @@
 import { userConstants } from '../constants';
+import { userService } from '../ervices';
 import { alertActions } from './';
 
 export const userActions = {
@@ -12,8 +13,7 @@ function signin(username, password) {
 
 		userService.login(username, password).then(
 			user => {
-				dispatch(success(user));
-				history.push('/');
+				dispatch(success(user)).push('/');
 			},
 			error => {
 				dispatch(failure(error.toString()));
