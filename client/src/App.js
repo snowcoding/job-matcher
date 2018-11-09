@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import Auth from "./features/auth/container";
+import Auth from "./features/auth/component";
 
 import "./App.css";
 import Landing from "./layouts/Landing";
