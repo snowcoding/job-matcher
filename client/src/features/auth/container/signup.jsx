@@ -74,6 +74,7 @@ class Signup extends Component {
 		);
 	}
 }
+
 const MapPropsToState = state => ({
 	state: state.user
 });
