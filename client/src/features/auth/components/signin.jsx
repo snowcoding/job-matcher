@@ -35,12 +35,6 @@ class Signin extends Component {
 						Is Seeker
 					</Label>
 				</FormGroup>
-				<FormGroup check>
-					<Input type="checkbox" name="check" id="exampleCheck" />
-					<Label for="exampleCheck" check>
-						Is Employer
-					</Label>
-				</FormGroup>
 				<Button>Sign in</Button>
 			</Form>
 		);
