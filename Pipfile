@@ -12,6 +12,8 @@ gunicorn = "*"
 whitenoise = "*"
 djangorestframework = "*"
 
+pytest = "*"
+
 [dev-packages]
 
 [requires]
