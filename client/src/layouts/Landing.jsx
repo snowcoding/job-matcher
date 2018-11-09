@@ -4,7 +4,7 @@ import { Jumbotron } from "reactstrap";
 
 const Landing = props => {
 	return (
-		<div>
+		<div className="landing">
 			<Jumbotron>
 				<h1 className="display-3">Job Matcher</h1>
 				<p className="lead">
