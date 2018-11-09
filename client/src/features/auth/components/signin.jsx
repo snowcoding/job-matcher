@@ -1,42 +1,51 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {
+	Col,
+	Container,
+	Button,
+	Form,
+	FormGroup,
+	Label,
+	Input,
+} from 'reactstrap';
 
 class Signin extends Component {
 	render() {
 		return (
-			<Form>
-				<Row form>
-					<Col md={6}>
+			<Container className="Signin">
+				<h2>Sign In</h2>
+				<Form className="form">
+					<Col>
 						<FormGroup>
-							<Label for="exampleEmail">Email</Label>
+							<Label>Email</Label>
 							<Input
 								type="email"
 								name="email"
 								id="exampleEmail"
-								placeholder="with a placeholder"
+								placeholder="myemail@email.com"
 							/>
 						</FormGroup>
 					</Col>
-					<Col md={6}>
+					<Col>
 						<FormGroup>
 							<Label for="examplePassword">Password</Label>
 							<Input
 								type="password"
 								name="password"
 								id="examplePassword"
-								placeholder="password placeholder"
+								placeholder="********"
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<FormGroup check>
-					<Input type="checkbox" name="check" id="exampleCheck" />
-					<Label for="exampleCheck" check>
-						Is Seeker
-					</Label>
-				</FormGroup>
-				<Button>Sign in</Button>
-			</Form>
+					<FormGroup check>
+						<Input type="checkbox" name="check" id="exampleCheck" />
+						<Label for="exampleCheck" check>
+							Is Seeker
+						</Label>
+					</FormGroup>
+					<Button>Sign-In</Button>
+				</Form>
+			</Container>
 		);
 	}
 }
