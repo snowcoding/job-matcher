@@ -49,10 +49,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'JobMatcherApp', # This will be the API application
     'rest_framework', # This is the DRF library
+    'corsheaders', #CORS library
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -161,3 +163,12 @@ REST_FRAMEWORK = {
     )
 }
 
+# We will start with all for now and later add our netlify
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = (
+#     'google.com',
+#     'hostname.example.com',
+#     'localhost:8000',
+#     '127.0.0.1:9000'
+# )
