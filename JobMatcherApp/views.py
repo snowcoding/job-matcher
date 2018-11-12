@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework_jwt.settings import api_settings
 
 # Import UserSerializer from the local serializer file
 # import {UserSerializer} from './serializer
@@ -16,6 +17,10 @@ from .serializer import (UserSerializer, EmployerSerializer, SeekerSerializer)
 # class Modal extends React.Component {
 #   static propTypes = {}
 # }
+
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -35,6 +40,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
 # @TODO  
 class SignUpView(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
+    def generate_token(self, user):
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        return token
+
     def post(self, request, format=None):
 
         print(request.data)
@@ -50,7 +64,8 @@ class SignUpView(APIView):
             request.data.pop('is_seeker')
         
         # initializing serialized_user
-        serialized_user = None
+        serialized_user = None 
+        token = None
 
         # Check all fields for existence  
         if is_seeker is not None and email is not None and first_name is not None and last_name is not None and password is not None:
@@ -59,9 +74,11 @@ class SignUpView(APIView):
             try:
                 if is_seeker:
                     user = Seeker.objects.create_user(**request.data)
+                    token = self.generate_token(user)
                     serialized_user = SeekerSerializer(user)
                 else:
                     user = Employer.objects.create_user(**request.data)
+                    token = self.generate_token(user)
                     serialized_user = EmployerSerializer(user)
             
             # If email is already taken, catch the Integrity Error
@@ -72,5 +89,5 @@ class SignUpView(APIView):
         if serialized_user is None:
             return Response({'error':'malformed request, please make sure all required fields are included'}, 400)
         else:
-            return Response({'message':'Signed up Successfully', 'data':serialized_user.data})
+            return Response({'message':'Signed up Successfully', 'data':serialized_user.data, 'token': token})
         
