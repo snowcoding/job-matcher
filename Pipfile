@@ -11,6 +11,7 @@ gunicorn = "*"
 "psycopg2-binary" = "*"
 whitenoise = "*"
 djangorestframework = "*"
+djangorestframework-jwt = "*"
 
 pytest = "*"
 
