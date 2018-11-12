@@ -51,7 +51,7 @@ class SignUpView(APIView):
 
     def post(self, request, format=None):
 
-        print(request.data)
+        # print(request.data)
         
         is_seeker = request.data.get('is_seeker', None)
         email = request.data.get('email', None)
