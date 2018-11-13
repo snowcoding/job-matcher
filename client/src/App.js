@@ -7,13 +7,17 @@ import Testing from "./features/testing/container";
 import "./App.css";
 import Landing from "./layouts/Landing";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import Billing from "./Billing/Billing";
 class App extends Component {
+
 	render() {
 		return (
 			<div className="App">
 				<Switch>
 					<Route path="/auth" component={Auth} />
 					<Route path="/" exact component={Landing} />
+          <Route path="/billing" component={Billing} />
 
 					<Route
 						path="/testing"
