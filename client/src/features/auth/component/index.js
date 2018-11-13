@@ -6,9 +6,9 @@ import Signin from "../container/signin";
 const Auth = () => {
 	return (
 		<div>
-			<Route path="/auth/signup" component={Signup} />
+			<Route path="/auth/login" component={Signup} />
 
-			<Route path="auth/signin/" component={Signin} />
+			<Route path="/auth/signin" component={Signin} />
 		</div>
 	);
 };

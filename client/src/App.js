@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Auth from "./features/auth/component";
+import ProtectedRoutes from "./features/auth/container/ProtectedRoutes";
+import Testing from "./features/testing/container";
 
 import "./App.css";
 import Landing from "./layouts/Landing";
@@ -9,8 +11,13 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Route path="/auth" component={Auth} />
-				<Route path="/" exact component={Landing} />
+				<Switch>
+					<Route path="/auth" component={Auth} />
+					<Route path="/" exact component={Landing} />
+					<ProtectedRoutes>
+						<Route path="/testing" exact component={Testing} />
+					</ProtectedRoutes>
+				</Switch>
 			</div>
 		);
 	}
