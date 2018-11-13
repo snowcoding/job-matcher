@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { signUpUser } from "../store/action";
 import { connect } from "react-redux";
-class Signup extends Component {
+class SignUp extends Component {
 	state = {
 		email: "",
 		password: "",
@@ -81,4 +81,4 @@ const MapPropsToState = state => ({
 export default connect(
 	MapPropsToState,
 	{ signUpUser }
-)(Signup);
+)(SignUp);
