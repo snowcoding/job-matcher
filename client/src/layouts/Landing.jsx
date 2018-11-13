@@ -18,7 +18,7 @@ const Landing = props => {
 					content out within the larger container.
 				</p>
 
-				<Link to="auth/signin">Sign in</Link>
+				<Link to="auth/login">Sign in</Link>
 				<br />
 				<Link to="auth/signup">Sign up</Link>
 			</Jumbotron>
