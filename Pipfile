@@ -12,8 +12,8 @@ gunicorn = "*"
 whitenoise = "*"
 djangorestframework = "*"
 djangorestframework-jwt = "*"
-
 pytest = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
