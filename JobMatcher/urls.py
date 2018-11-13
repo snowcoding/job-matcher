@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 
 from django.urls import path, include
+from django.views.generic import RedirectView
+
 from JobMatcherApp import urls
 
 #These are the base routes for each application. We only have 1 application
 #at this. There's always an admin application. (so theres 2 application)
 urlpatterns = [
+    path('', RedirectView.as_view(url='api/v1/', permanent=False)),
     path('admin/', admin.site.urls),
     path('api/v1/', include(urls)),
 ]

@@ -2,8 +2,9 @@
 import * as action from "./actionTypes";
 import { addErrorHandler } from "./error";
 import axios from "axios";
-const URL =
+let URL =
 	process.env.URL || "https://django-deploy-heroku-backend.herokuapp.com";
+// URL = "https://jobmatcher-api-dev.herokuapp.com";
 
 const signUpHandler = user => ({
 	type: action.SIGNUP__USER,
