@@ -5,4 +5,4 @@ class SignIn extends Component {
 		return <div>This is a Sign-In Page</div>;
 	}
 }
-export default x;
+export default SignIn;
