@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Auth from "./features/auth/component/Auth";
-import ProtectedRoutes from "./features/auth/container/ProtectedRoutes";
+import ProtectedPages from "./features/auth/container/ProtectedPages";
 import Testing from "./features/testing/container";
 
 import "./App.css";
@@ -14,9 +14,12 @@ class App extends Component {
 				<Switch>
 					<Route path="/auth" component={Auth} />
 					<Route path="/" exact component={Landing} />
-					<ProtectedRoutes>
-						<Route path="/testing" exact component={Testing} />
-					</ProtectedRoutes>
+
+					<Route
+						path="/testing"
+						exact
+						component={ProtectedPages(Testing)}
+					/>
 				</Switch>
 			</div>
 		);
