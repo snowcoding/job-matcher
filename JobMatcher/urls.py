@@ -18,7 +18,10 @@ from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
+    # Admin panel
     path('admin/', admin.site.urls),
+    # Receives a POST request with a user's username and password.
+    # Returns JWT used for authenticated requests.
     path('token-auth/', obtain_jwt_token),
     path('api/', include('JobMatcherApp.urls'))
 ]
