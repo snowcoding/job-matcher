@@ -174,3 +174,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     'localhost:8000',
 #     '127.0.0.1:9000'
 # )
+
+# Stripe
+STRIPE_SECRET_KEY = 'sk_test_bSWYTy4plcn7TGrih7uyv22p'
