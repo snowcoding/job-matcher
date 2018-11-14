@@ -17,7 +17,7 @@ class App extends Component {
 				<Switch>
 					<Route path="/auth" component={Auth} />
 					<Route path="/" exact component={Landing} />
-          <Route path="/billing" component={Billing} />
+          			<Route path="/billing" component={Billing} />
 
 					<Route
 						path="/testing"
