@@ -19,7 +19,8 @@ router.register('users', UserViewSet)
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('signup', SignUpView.as_view()),
-    path('signin', obtain_jwt_token)
+    path('signin', obtain_jwt_token),
+    path('charge/', views.charge, name='charge')
 ]
 
 urlpatterns += router.urls
