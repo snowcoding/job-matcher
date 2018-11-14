@@ -55,4 +55,4 @@ function mapStateToProps(state) {
 
 // const connectedNavBar = connect(mapStateToProps)(NavBar);
 // export { connectedNavBar as NavBar };
-default export NavBar;
+export default  NavBar;
