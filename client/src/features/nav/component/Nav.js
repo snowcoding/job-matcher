@@ -15,20 +15,34 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
+//import { Navbar } from 'reactstrap';
+import HamburgerMenu from './HamburgerMenu/HamburgerMenu';
 
 class NavBar extends Component {
     render() {
-  const user = this.props.authentication.user;
-
-        return (
-            <div>
-                {user && user.firstName &&
-                    <h3>Signed in as: <Link to="/">{user.firstName}</Link></h3>
-				}
-				<h2> Free Apps: 3 </h2>
-				<h2> Balance credits: 3 </h2>
-            </div>
-        )
+        const user = this.props.authentication.user;
+        if (user) {
+                return (
+                    <div>
+                        <Link to='/' className="Brand-logo"> Job Matcher</Link>
+                        {/* {user && user.firstName &&
+                            <h3>Signed in as: <Link to="/">{user.firstName}</Link></h3>
+                        } */}
+                                <h2> Free Apps: 3 </h2>
+                                <h2> Balance credits: 3 </h2>
+                                <HamburgerMenu />
+                    </div>
+                )
+            }
+        else {
+            return (
+                <div>
+                    <Link to='/' className="Brand-logo"> Job Matcher</Link>
+                    <h3>Sign in</h3>
+                    <h3>Sign up</h3>
+                </div>
+            )
+        }
     }
 }
 
@@ -39,5 +53,6 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedNavBar = connect(mapStateToProps)(NavBar);
-export { connectedNavBar as NavBar };
+// const connectedNavBar = connect(mapStateToProps)(NavBar);
+// export { connectedNavBar as NavBar };
+default export NavBar;
