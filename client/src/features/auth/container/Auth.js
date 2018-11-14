@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Input from "../component/Input";
 import zxcvbn from "zxcvbn";
+import LinkedIn from "./LinkedIn";
 // import anime from "animejs";
 
 // redux
@@ -54,6 +55,7 @@ class Auth extends Component {
 				minLength: 7
 			}
 		},
+
 		password2: {
 			type: "password",
 			value: "",
@@ -61,6 +63,22 @@ class Auth extends Component {
 			placeholder: "Password",
 			name: "password2",
 			label: "Password",
+			touch: false,
+			controlClass: "form-control",
+			errors: [],
+			valid: false,
+			validation: {
+				strength: 0,
+				minLength: 7
+			}
+		},
+		is_seeker: {
+			type: "checkbox",
+			value: "",
+			required: true,
+			placeholder: "radio",
+			name: "is_seeker",
+			label: "is_seeker",
 			touch: false,
 			controlClass: "form-control",
 			errors: [],
@@ -200,6 +218,7 @@ class Auth extends Component {
 				/>
 			)
 		);
+		// console.log(this.props);
 		return (
 			<form onSubmit={this.handleSubmit} className="main-form-container">
 				<Route
@@ -220,6 +239,7 @@ class Auth extends Component {
 				<button type="submit" className={controledClass + " mt-l"}>
 					{btn_name}
 				</button>
+				<LinkedIn />
 			</form>
 		);
 	}
