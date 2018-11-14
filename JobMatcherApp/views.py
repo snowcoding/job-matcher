@@ -12,6 +12,11 @@ from rest_framework_jwt.settings import api_settings
 # import {UserSerializer} from './serializer
 from .serializer import (UserSerializer, EmployerSerializer, SeekerSerializer)
 
+#Stripe configs
+import stripe
+from django.conf import settings
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 # Create your views here.
 # class Modal extends React.Component {
@@ -91,3 +96,13 @@ class SignUpView(APIView):
         else:
             return Response({'message':'Signed up Successfully', 'data':serialized_user.data, 'token': token})
         
+
+def charge(request):
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=500,
+            currency='usd',
+            description='A Django charge',
+            source=request.POST['stripeToken']
+        )
+        return (request)
