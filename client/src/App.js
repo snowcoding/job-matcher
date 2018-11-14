@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Auth from "./features/auth/component/Auth";
+import Auth from "./features/auth/container/Auth";
 import ProtectedPages from "./features/auth/container/ProtectedPages";
 import Testing from "./features/testing/container";
 

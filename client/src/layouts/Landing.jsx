@@ -20,7 +20,7 @@ const Landing = props => {
 
 				<Link to="auth/login">Sign in</Link>
 				<br />
-				<Link to="auth/signup">Sign up</Link>
+				<Link to="auth/register">Sign up</Link>
 			</Jumbotron>
 		</div>
 	);
