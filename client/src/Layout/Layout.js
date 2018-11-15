@@ -7,7 +7,6 @@ import Testing from "../features/testing/container";
 import NavBar from "../features/nav/component/NavBar";
 import Landing from "../layouts/Landing";
 import Billing from "../features/Billing/Billing";
-import BrowseCard from "../components/BrowseCard";
 
 export default class Layout extends React.Component {
   render() {
@@ -20,7 +19,6 @@ export default class Layout extends React.Component {
             <Switch>
               <Route path="/auth" component={Auth} />
               <Route path="/billing" component={Billing} />
-              <Route path="/browse" component={BrowseCard} />
 
               <Route
                 path="/testing"
