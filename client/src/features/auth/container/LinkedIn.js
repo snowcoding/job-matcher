@@ -30,7 +30,7 @@ class LinkedIn extends Component {
 	};
 	render() {
 		// console.log(this.props);
-		return <div onClick={this.startAuth}>Linked in</div>;
+		return <div onClick={this.startAuth}>Apply with LinkedIn</div>;
 	}
 }
 
