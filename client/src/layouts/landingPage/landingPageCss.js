@@ -12,6 +12,8 @@ export const LandingDiv = styled.div`
 		),
 		url(../../asset/bg-lg.jpg);
 	background-size: cover;
+	clip-path: polygon(100% 0, 100% 91%, 0 100%, 0 0);
+
 	color: white;
 `;
 export const LandingHeading = styled.h1`
@@ -21,10 +23,10 @@ export const LandingHeading = styled.h1`
 	@keyframes movieInLeftSlow {
 		0% {
 			opacity: 0;
-			transform: translateY(70px);
+			transform: translateX(-50px);
 		}
 		80% {
-			transform: translateY(-10px);
+			transform: translateX(10px);
 		}
 		100% {
 			opacity: 1;
@@ -42,10 +44,10 @@ export const CenterDiv = styled.div`
 	@keyframes movieInLeft {
 		0% {
 			opacity: 0;
-			transform: translate(-60%, -50%);
+			transform: translate(-50%, -55%);
 		}
 		80% {
-			transform: translate(-55%, -50%);
+			transform: translate(-50%, -53%);
 		}
 		100% {
 			opacity: 1;
