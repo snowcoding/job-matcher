@@ -17,13 +17,6 @@ for (var userCount = 10; userCount > 0; userCount--) {
     summary: faker.company.catchPhrase(),
     confirmBeforeSpending: faker.random.boolean(),
     jobs: []
-
-    // desiredTitle: faker.name.jobTitle(),
-    // topSkills: [],
-    // additionalSkills: [],
-    // familiarWith: [],
-    // experience: faker.lorem.paragraph(),
-    // education: faker.lorem.paragraph(),
   };
 
   //job
