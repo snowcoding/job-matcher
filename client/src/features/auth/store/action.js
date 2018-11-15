@@ -32,7 +32,9 @@ export const signUpUser = data => {
 			})
 			.catch(error => {
 				console.log("errorr", { error });
-				dispatch(addErrorHandler(error.response.data));
+				error.response
+					? dispatch(addErrorHandler(error.response.data))
+					: dispatch(addErrorHandler(error.message));
 			});
 	};
 };
