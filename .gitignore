@@ -1,10 +1,32 @@
-.env
-
-# yarn-lock 
-yarn.lock
-
+### OS specific
 .DS_Store
 
+### Editors
 .vscode/
+.idea/
 
+### Frontend
 node_modules/
+
+### Backend
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Tests
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+
+# Django stuff
+*.log
+db.sqlite3
+
+# Environments
+.env
+.venv/
+env/
+venv/
