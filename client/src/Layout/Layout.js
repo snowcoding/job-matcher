@@ -7,23 +7,30 @@ import Testing from "../features/testing/container";
 import NavBar from "../features/nav/component/NavBar";
 import Landing from "../layouts/Landing";
 import Billing from "../features/Billing/Billing";
+import BrowseCard from "../components/BrowseCard";
 
 export default class Layout extends React.Component {
   render() {
     return (
-      <Container>
-        <Row>
-          <NavBar />
-        </Row>
-        <Row>
-          <Switch>
-            <Route path="/auth" component={Auth} />
-            <Route path="/" exact component={Landing} />
-            <Route path="/billing" component={Billing} />
-            <Route path="/testing" exact component={ProtectedPages(Testing)} />
-          </Switch>
-        </Row>
-      </Container>
+      <div>
+        <NavBar />
+        <Route path="/" exact component={Landing} />
+        <Container>
+          <Row>
+            <Switch>
+              <Route path="/auth" component={Auth} />
+              <Route path="/billing" component={Billing} />
+              <Route path="/browse" component={BrowseCard} />
+
+              <Route
+                path="/testing"
+                exact
+                component={ProtectedPages(Testing)}
+              />
+            </Switch>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }
