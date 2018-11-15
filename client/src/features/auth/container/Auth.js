@@ -177,35 +177,31 @@ class Auth extends Component {
 	};
 	handleSubmit = e => {
 		e.preventDefault();
-		let isValid = this.state.email.valid && this.state.password.valid;
-		// !this.state.name.touch &&
-		// this.state.name.valid;
 		let { name, email, password, is_seeker } = this.state;
-		if (isValid) {
-			this.props.location.pathname.includes("login")
-				? this.props.login({
-						email: email.value,
-						password: password.value
-				  })
-				: this.props.signUpUser(
-						{
-							first_name: name.value.split(" ")[0],
-							last_name: name.value.split(" ")[1],
-							email: email.value,
-							password: password.value,
-							is_seeker: is_seeker.value ? false : true
-						},
-						() => {
-							if (this.props.currentUser !== null) {
-								this.props.history.push("/");
-							}
-						}
-				  );
+
+		if (this.props.location.pathname.includes("login")) {
+			let isValid = this.state.email.valid && this.state.password.valid;
+			if (isValid) {
+				this.props.login({
+					email: email.value,
+					password: password.value
+				});
+			}
+		} else {
+			let isValid =
+				this.state.email.valid &&
+				this.state.password.valid &&
+				this.state.name.valid;
+			if (isValid) {
+				this.props.signUpUser({
+					first_name: name.value.split(" ")[0],
+					last_name: name.value.split(" ")[1],
+					email: email.value,
+					password: password.value,
+					is_seeker: is_seeker.value ? false : true
+				});
+			}
 		}
-		// this.setState({
-		// 	passwordError: result[0],
-		// 	passwordStrength: result[1]
-		// });
 	};
 
 	passwordValidetor = password => {
@@ -257,7 +253,6 @@ class Auth extends Component {
 				/>
 			)
 		);
-		// console.log(this.state.is_seeker);
 		return !this.props.authenticatoin_succeed ? (
 			<form onSubmit={this.handleSubmit} className="main-form-container">
 				{this.props.error && <p> {this.props.error} </p>}
