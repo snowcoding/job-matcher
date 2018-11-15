@@ -197,7 +197,7 @@ class Auth extends Component {
 						last_name: name.value.split(" ")[1],
 						email: email.value,
 						password: password.value,
-						is_seeker: is_seeker.value
+						is_seeker: is_seeker.value ? false : true
 				  });
 		}
 
@@ -283,8 +283,13 @@ class Auth extends Component {
 		);
 	}
 }
+const MapStateToProps = state => ({
+	fetching: state.user.fetching,
+	currentUser: state.user.currentUser,
+	error: state.user.error
+});
 export default connect(
-	null,
+	MapStateToProps,
 	{
 		signUpUser,
 		login

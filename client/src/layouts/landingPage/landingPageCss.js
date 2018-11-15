@@ -67,6 +67,9 @@ export const StyledLink = styled(Link)`
 
 	&:hover {
 		text-decoration: none;
+		font-size: 17px;
+		margin: 9px;
+
 		color: white;
 		box-shadow: 0 10px 16px 2px #2e2e2e62;
 	}
