@@ -3,6 +3,7 @@ export const FETCHING = "FETCHING";
 export const GET__USERS = "GET__USERS";
 export const SIGNUP__USER = "SIGNUP__USER";
 export const LOGIN__USER = "LOGIN__USER";
+export const LOGOUT__USER = "LOGOUT__USER";
 export const DELETE__USER = "DELETE_USER";
 export const UPDATE__USER = "UPDATE__USER";
 
