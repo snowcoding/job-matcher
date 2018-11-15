@@ -179,7 +179,7 @@ class Auth extends Component {
 			password: password.value,
 			is_seeker: is_seeker.value
 		});
-		// this.props.history.push("/notes/new");
+		this.props.history.push("/");
 		// this.setState({
 		// 	passwordError: result[0],
 		// 	passwordStrength: result[1]
@@ -235,7 +235,7 @@ class Auth extends Component {
 				/>
 			)
 		);
-		console.log(this.state.is_seeker);
+		// console.log(this.state.is_seeker);
 		return (
 			<form onSubmit={this.handleSubmit} className="main-form-container">
 				<Route
