@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 const initialState = {
 	fetching: false,
+	authenticatoin_succeed: false,
 	is_seeker: null,
 	currentUser: null,
 	token: null,
@@ -19,6 +20,8 @@ function userReduceer(state = initialState, action) {
 				...state,
 				error: null,
 				fetching: false,
+				authenticatoin_succeed: true,
+				is_seeker: action.user.data["desired_title"] ? true : false,
 				token: action.user.token,
 				currentUser: { ...action.user.data }
 			};
@@ -26,8 +29,18 @@ function userReduceer(state = initialState, action) {
 			return {
 				...state,
 				error: null,
+				authenticatoin_succeed: true,
 				fetching: false,
 				currentUser: action.currentUser
+			};
+		case actionTypes.LOGOUT__USER:
+			localStorage.removeItem("token");
+			return {
+				...state,
+				error: null,
+				authenticatoin_succeed: false,
+				fetching: false,
+				currentUser: null
 			};
 		case actionTypes.DELETE__USER:
 			return {

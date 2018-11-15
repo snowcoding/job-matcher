@@ -7,7 +7,7 @@ import LinkedIn from "./LinkedIn";
 // redux
 import { connect } from "react-redux";
 import { signUpUser, login } from "../store/action";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 // css
 import "../component/auth.css";
@@ -102,7 +102,7 @@ class Auth extends Component {
 			...this.state
 		};
 		let stateName = event.target.name;
-
+		let isValid = true;
 		updateState[stateName].value = event.target.value;
 		//check whether the input have been touch, help to check validation
 		updateState[stateName].touch = true;
@@ -115,9 +115,11 @@ class Auth extends Component {
 			if (result[1] >= 3) {
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
+				isValid = true;
 			} else {
 				updateState[stateName].errors.push(result[0]);
 				updateState[stateName].valid = false;
+				isValid = false;
 			}
 			//update strength of the password
 			updateState[stateName].validation.strength = result[1];
@@ -126,8 +128,10 @@ class Auth extends Component {
 			// handle miss match passwords
 			if (updateState.password.value !== event.target.value) {
 				updateState[stateName].errors.push("miss match password");
+				isValid = false;
 				updateState[stateName].valid = false;
 			} else {
+				isValid = true;
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
 			}
@@ -135,22 +139,26 @@ class Auth extends Component {
 		if (stateName === "name") {
 			// handle correct name
 			if (this.validateFullname(event.target.value)) {
+				isValid = true;
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
 			} else {
 				updateState[stateName].errors.push("Please Enter Full Name");
+				isValid = false;
 				updateState[stateName].valid = false;
 			}
 		}
 		if (stateName === "email") {
 			// validate email
 			if (this.validateEmail(event.target.value)) {
+				isValid = true;
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
 			} else {
 				updateState[stateName].errors.push(
 					"Please Enter valid Email address"
 				);
+				isValid = false;
 				updateState[stateName].valid = false;
 			}
 		}
@@ -158,33 +166,20 @@ class Auth extends Component {
 			updateState[stateName].value = event.target.checked;
 		}
 		// if all input type are valid, we enable the button to register or login
-		let isValid =
-			updateState.email.valid &&
-			updateState.password.valid &&
-			updateState.name.valid;
+
 		// check if passwords are the same during registration
-		if (!updateState.password2.touch) {
-			isValid =
-				updateState.email.valid &&
-				updateState.password.valid &&
-				updateState.password2.valid &&
-				updateState.name.valid;
-		}
-		if (isValid) {
-			updateState.formValid = true;
-		} else {
-			updateState.formValid = false;
-		}
+
+		updateState.formValid = isValid;
+
 		this.setState({
 			...updateState
 		});
 	};
 	handleSubmit = e => {
 		e.preventDefault();
-		let isValid =
-			this.state.email.valid &&
-			this.state.password.valid &&
-			this.state.name.valid;
+		let isValid = this.state.email.valid && this.state.password.valid;
+		// !this.state.name.touch &&
+		// this.state.name.valid;
 		let { name, email, password, is_seeker } = this.state;
 		if (isValid) {
 			this.props.location.pathname.includes("login")
@@ -192,16 +187,21 @@ class Auth extends Component {
 						email: email.value,
 						password: password.value
 				  })
-				: this.props.signUpUser({
-						first_name: name.value.split(" ")[0],
-						last_name: name.value.split(" ")[1],
-						email: email.value,
-						password: password.value,
-						is_seeker: is_seeker.value ? false : true
-				  });
+				: this.props.signUpUser(
+						{
+							first_name: name.value.split(" ")[0],
+							last_name: name.value.split(" ")[1],
+							email: email.value,
+							password: password.value,
+							is_seeker: is_seeker.value ? false : true
+						},
+						() => {
+							if (this.props.currentUser !== null) {
+								this.props.history.push("/");
+							}
+						}
+				  );
 		}
-
-		this.props.history.push("/");
 		// this.setState({
 		// 	passwordError: result[0],
 		// 	passwordStrength: result[1]
@@ -258,8 +258,9 @@ class Auth extends Component {
 			)
 		);
 		// console.log(this.state.is_seeker);
-		return (
+		return !this.props.authenticatoin_succeed ? (
 			<form onSubmit={this.handleSubmit} className="main-form-container">
+				{this.props.error && <p> {this.props.error} </p>}
 				<Route
 					path="/auth/login"
 					exact
@@ -279,14 +280,18 @@ class Auth extends Component {
 					{btn_name}
 				</button>
 				<LinkedIn />
+				{this.props.fetching && <p> authenticating </p>}
 			</form>
+		) : (
+			<Redirect to="/" />
 		);
 	}
 }
 const MapStateToProps = state => ({
 	fetching: state.user.fetching,
 	currentUser: state.user.currentUser,
-	error: state.user.error
+	error: state.user.error,
+	authenticatoin_succeed: state.user.authenticatoin_succeed
 });
 export default connect(
 	MapStateToProps,
