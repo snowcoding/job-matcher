@@ -19,7 +19,7 @@ class Auth extends Component {
 			value: "",
 			required: true,
 			placeholder: "Full name",
-			name: "fullname",
+			name: "name",
 			controlClass: "form-control",
 			label: "Full name",
 			touch: false,
@@ -97,15 +97,21 @@ class Auth extends Component {
 		signIn: false
 	};
 
-	inputHandler = (event, stateName) => {
+	inputHandler = event => {
 		let updateState = {
 			...this.state
 		};
+		let stateName = event.target.name;
 
 		updateState[stateName].value = event.target.value;
+		//check whether the input have been touch, help to check validation
 		updateState[stateName].touch = true;
+
+		// validate each input based on its type
 		if (stateName === "password" || stateName === "password2") {
+			// check the strength of the input value, and update the validation
 			let result = this.passwordValidetor(event.target.value);
+
 			if (result[1] >= 3) {
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
@@ -113,9 +119,21 @@ class Auth extends Component {
 				updateState[stateName].errors.push(result[0]);
 				updateState[stateName].valid = false;
 			}
-			updateState[stateName].validation.strength = result[1]; //update strength of the password
+			//update strength of the password
+			updateState[stateName].validation.strength = result[1];
+		}
+		if (stateName === "password2") {
+			// handle miss match passwords
+			if (updateState.password.value !== event.target.value) {
+				updateState[stateName].errors.push("miss match password");
+				updateState[stateName].valid = false;
+			} else {
+				updateState[stateName].valid = true;
+				updateState[stateName].errors = [];
+			}
 		}
 		if (stateName === "name") {
+			// handle correct name
 			if (this.validateFullname(event.target.value)) {
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
@@ -125,6 +143,7 @@ class Auth extends Component {
 			}
 		}
 		if (stateName === "email") {
+			// validate email
 			if (this.validateEmail(event.target.value)) {
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
@@ -138,10 +157,19 @@ class Auth extends Component {
 		if (stateName === "is_seeker") {
 			updateState[stateName].value = event.target.checked;
 		}
+		// if all input type are valid, we enable the button to register or login
 		let isValid =
 			updateState.email.valid &&
 			updateState.password.valid &&
 			updateState.name.valid;
+		// check if passwords are the same during registration
+		if (!updateState.password2.touch) {
+			isValid =
+				updateState.email.valid &&
+				updateState.password.valid &&
+				updateState.password2.valid &&
+				updateState.name.valid;
+		}
 		if (isValid) {
 			updateState.formValid = true;
 		} else {
@@ -172,13 +200,7 @@ class Auth extends Component {
 						is_seeker: is_seeker.value
 				  });
 		}
-		console.log("signupser ", {
-			first_name: name.value.split(" ")[0],
-			last_name: name.value.split(" ")[1],
-			email: email.value,
-			password: password.value,
-			is_seeker: is_seeker.value
-		});
+
 		this.props.history.push("/");
 		// this.setState({
 		// 	passwordError: result[0],
