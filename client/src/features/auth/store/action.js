@@ -4,7 +4,7 @@ import { addErrorHandler } from "./error";
 import axios from "axios";
 let URL =
 	process.env.URL || "https://django-deploy-heroku-backend.herokuapp.com";
-// URL = "https://jobmatcher-api-dev.herokuapp.com";
+URL = "https://jobmatcher-api-prod-pr-37.herokuapp.com";
 
 const signUpHandler = user => ({
 	type: action.SIGNUP__USER,
@@ -28,11 +28,13 @@ export const signUpUser = data => {
 		axios
 			.post(`${URL}/api/v1/signup`, data)
 			.then(result => {
-				dispatch(signUpHandler(result.data.data));
+				dispatch(signUpHandler(result.data));
 			})
 			.catch(error => {
 				console.log("errorr", { error });
-				dispatch(addErrorHandler(error.response.data));
+				error.response
+					? dispatch(addErrorHandler(error.response.data))
+					: dispatch(addErrorHandler(error.message));
 			});
 	};
 };
