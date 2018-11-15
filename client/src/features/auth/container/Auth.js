@@ -27,9 +27,9 @@ class Auth extends Component {
 			errors: [],
 			validation: {}
 		},
-		username: {
+		email: {
 			type: "text",
-			id: "username",
+			id: "email",
 			value: "",
 			required: true,
 			placeholder: "Email",
@@ -124,7 +124,7 @@ class Auth extends Component {
 				updateState[stateName].valid = false;
 			}
 		}
-		if (stateName === "username") {
+		if (stateName === "email") {
 			if (this.validateEmail(event.target.value)) {
 				updateState[stateName].valid = true;
 				updateState[stateName].errors = [];
@@ -139,7 +139,7 @@ class Auth extends Component {
 			updateState[stateName].value = event.target.checked;
 		}
 		let isValid =
-			updateState.username.valid &&
+			updateState.email.valid &&
 			updateState.password.valid &&
 			updateState.name.valid;
 		if (isValid) {
@@ -154,20 +154,20 @@ class Auth extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		let isValid =
-			this.state.username.valid &&
+			this.state.email.valid &&
 			this.state.password.valid &&
 			this.state.name.valid;
-		let { name, username, password, is_seeker } = this.state;
+		let { name, email, password, is_seeker } = this.state;
 		if (isValid) {
 			this.props.location.pathname.includes("login")
 				? this.props.login({
-						email: username.value,
+						email: email.value,
 						password: password.value
 				  })
 				: this.props.signUpUser({
 						first_name: name.value.split(" ")[0],
 						last_name: name.value.split(" ")[1],
-						email: username.value,
+						email: email.value,
 						password: password.value,
 						is_seeker: is_seeker.value
 				  });
@@ -175,7 +175,7 @@ class Auth extends Component {
 		console.log("signupser ", {
 			first_name: name.value.split(" ")[0],
 			last_name: name.value.split(" ")[1],
-			email: username.value,
+			email: email.value,
 			password: password.value,
 			is_seeker: is_seeker.value
 		});
