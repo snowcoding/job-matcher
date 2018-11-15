@@ -3,6 +3,7 @@ const initialState = {
 	fetching: false,
 	is_seeker: null,
 	currentUser: null,
+	token: null,
 	error: null
 };
 
@@ -18,7 +19,8 @@ function userReduceer(state = initialState, action) {
 				...state,
 				error: null,
 				fetching: false,
-				currentUser: { ...action.user }
+				token: action.user.token,
+				currentUser: { ...action.user.data }
 			};
 		case actionTypes.LOGIN__USER:
 			return {

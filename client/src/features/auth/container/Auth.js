@@ -15,6 +15,7 @@ class Auth extends Component {
 	state = {
 		name: {
 			type: "text",
+			id: "name",
 			value: "",
 			required: true,
 			placeholder: "Full name",
@@ -28,6 +29,7 @@ class Auth extends Component {
 		},
 		username: {
 			type: "text",
+			id: "username",
 			value: "",
 			required: true,
 			placeholder: "Email",
@@ -41,6 +43,7 @@ class Auth extends Component {
 		},
 		password: {
 			type: "password",
+			id: "password",
 			value: "",
 			required: true,
 			placeholder: "Password",
@@ -58,6 +61,7 @@ class Auth extends Component {
 
 		password2: {
 			type: "password",
+			id: "password2",
 			value: "",
 			required: true,
 			placeholder: "Password",
@@ -74,11 +78,12 @@ class Auth extends Component {
 		},
 		is_seeker: {
 			type: "checkbox",
-			value: "",
+			value: false,
 			required: true,
 			placeholder: "radio",
 			name: "is_seeker",
-			label: "is_seeker",
+			label: "Are You Employer?",
+			id: "ProtectedPages",
 			touch: false,
 			controlClass: "form-control",
 			errors: [],
@@ -130,6 +135,9 @@ class Auth extends Component {
 				updateState[stateName].valid = false;
 			}
 		}
+		if (stateName === "is_seeker") {
+			updateState[stateName].value = event.target.checked;
+		}
 		let isValid =
 			updateState.username.valid &&
 			updateState.password.valid &&
@@ -149,7 +157,7 @@ class Auth extends Component {
 			this.state.username.valid &&
 			this.state.password.valid &&
 			this.state.name.valid;
-		let { name, username, password } = this.state;
+		let { name, username, password, is_seeker } = this.state;
 		if (isValid) {
 			this.props.location.pathname.includes("login")
 				? this.props.login({
@@ -157,11 +165,20 @@ class Auth extends Component {
 						password: password.value
 				  })
 				: this.props.signUpUser({
-						fullname: name.value,
+						first_name: name.value.split(" ")[0],
+						last_name: name.value.split(" ")[1],
 						email: username.value,
-						password: password.value
+						password: password.value,
+						is_seeker: is_seeker.value
 				  });
 		}
+		console.log("signupser ", {
+			first_name: name.value.split(" ")[0],
+			last_name: name.value.split(" ")[1],
+			email: username.value,
+			password: password.value,
+			is_seeker: is_seeker.value
+		});
 		// this.props.history.push("/notes/new");
 		// this.setState({
 		// 	passwordError: result[0],
@@ -218,7 +235,7 @@ class Auth extends Component {
 				/>
 			)
 		);
-		// console.log(this.props);
+		console.log(this.state.is_seeker);
 		return (
 			<form onSubmit={this.handleSubmit} className="main-form-container">
 				<Route

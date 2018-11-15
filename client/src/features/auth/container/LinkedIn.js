@@ -26,10 +26,10 @@ class LinkedIn extends Component {
 	};
 
 	componentWillUnmount = () => {
-		this.open.close();
+		// this.open.close();
 	};
 	render() {
-		console.log(this.props);
+		// console.log(this.props);
 		return <div onClick={this.startAuth}>Linked in</div>;
 	}
 }
