@@ -14,11 +14,44 @@ export const LandingDiv = styled.div`
 	background-size: cover;
 	color: white;
 `;
+export const LandingHeading = styled.h1`
+	animation: movieInLeftSlow 3s;
+	font-size: 70px;
+
+	@keyframes movieInLeftSlow {
+		0% {
+			opacity: 0;
+			transform: translateY(70px);
+		}
+		80% {
+			transform: translateY(-10px);
+		}
+		100% {
+			opacity: 1;
+			transform: translate(0);
+		}
+	}
+`;
 export const CenterDiv = styled.div`
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	animation: movieInLeft 2s;
+
+	@keyframes movieInLeft {
+		0% {
+			opacity: 0;
+			transform: translate(-60%, -50%);
+		}
+		80% {
+			transform: translate(-55%, -50%);
+		}
+		100% {
+			opacity: 1;
+			transform: translate(-50%, -50%);
+		}
+	}
 `;
 export const StyledLink = styled(Link)`
 	padding: 10px 20px;

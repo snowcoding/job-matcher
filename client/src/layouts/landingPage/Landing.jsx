@@ -1,13 +1,18 @@
 import React from "react";
 import "./index.css";
 // import { Jumbotron } from "reactstrap";
-import { LandingDiv, StyledLink, CenterDiv } from "./landingPageCss";
+import {
+	LandingDiv,
+	StyledLink,
+	CenterDiv,
+	LandingHeading
+} from "./landingPageCss";
 // import LandingPageSvg from "./LandingPageSvg";
 
 const Landing = props => {
 	return (
 		<LandingDiv>
-			<h1>Job Matcher</h1>
+			<LandingHeading>Job Matcher</LandingHeading>
 			<CenterDiv>
 				<StyledLink to="/auth/login"> Login </StyledLink>
 				<StyledLink to="/auth/register"> Register </StyledLink>
