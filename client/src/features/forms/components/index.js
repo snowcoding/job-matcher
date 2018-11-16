@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledInput, FormDiv } from "./indexCss";
-const Forms = ({ text, state, inputHandler }) => {
+const Forms = ({ text, state, inputHandler, is_seeker }) => {
 	let arr = Object.entries(state);
 	let inputs = arr.map((item, index) => (
 		<StyledInput
