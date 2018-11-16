@@ -20,11 +20,11 @@ export default class Layout extends React.Component {
 						<Switch>
 							<Route path="/auth" component={Auth} />
 							<Route path="/billing" component={Billing} />
-							<Route
+							{/* <Route
 								path="/forms"
 								component={ProtectedPages(FormsContainer)}
-							/>
-
+							/> */}
+							<Route path="/forms" component={FormsContainer} />
 							<Route
 								path="/testing"
 								exact

@@ -8,10 +8,10 @@ import LinkedIn from "./LinkedIn";
 import { connect } from "react-redux";
 import { signUpUser, login } from "../store/action";
 import { Route, Redirect } from "react-router-dom";
-
+import Auth from "../component/Auth";
 // css
 import "../component/auth.css";
-class Auth extends Component {
+class AuthContainer extends Component {
 	state = {
 		name: {
 			type: "text",
@@ -254,31 +254,32 @@ class Auth extends Component {
 			)
 		);
 		return !this.props.authenticatoin_succeed ? (
-			<form onSubmit={this.handleSubmit} className="main-form-container">
-				{this.props.error && <p> {this.props.error} </p>}
-				<Route
-					path="/auth/login"
-					exact
-					render={props => loginElements}
-				/>
-				<Route
-					path="/auth/register"
-					exact
-					render={props => registerElements}
-				/>
-				<span className="d-block form-hint">
-					To conform with our Strong Password policy, you are reqired
-					to use a sufficiently strong password.Password must be more
-					than {this.state.password.validation.minLength} characters.
-				</span>
-				<button type="submit" className={controledClass + " mt-l"}>
-					{btn_name}
-				</button>
-				<LinkedIn />
-				{this.props.fetching && <p> authenticating </p>}
-			</form>
+			// <form onSubmit={this.handleSubmit} className="main-form-container">
+			// 	{this.props.error && <p> {this.props.error} </p>}
+			// 	<Route
+			// 		path="/auth/login"
+			// 		exact
+			// 		render={props => loginElements}
+			// 	/>
+			// 	<Route
+			// 		path="/auth/register"
+			// 		exact
+			// 		render={props => registerElements}
+			// 	/>
+			// 	<span className="d-block form-hint">
+			// 		To conform with our Strong Password policy, you are reqired
+			// 		to use a sufficiently strong password.Password must be more
+			// 		than {this.state.password.validation.minLength} characters.
+			// 	</span>
+			// 	<button type="submit" className={controledClass + " mt-l"}>
+			// 		{btn_name}
+			// 	</button>
+			// 	<LinkedIn />
+			// 	{this.props.fetching && <p> authenticating </p>}
+			// </form>
+			<Auth />
 		) : (
-			<Redirect to="/" />
+			<Redirect to="/forms" />
 		);
 	}
 }
@@ -294,4 +295,4 @@ export default connect(
 		signUpUser,
 		login
 	}
-)(Auth);
+)(AuthContainer);

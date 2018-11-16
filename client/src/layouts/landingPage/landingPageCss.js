@@ -10,7 +10,7 @@ export const LandingDiv = styled.div`
 			rgba(74, 74, 74, 0.7),
 			rgba(47, 47, 47, 0.7)
 		),
-		url(../../asset/bg-lg.jpg);
+		url(../../assets/bg-lg.jpg);
 	background-size: cover;
 	clip-path: polygon(100% 0, 100% 91%, 0 100%, 0 0);
 

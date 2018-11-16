@@ -13,7 +13,8 @@ const ProtectedPages = ChildComponent => {
 		}
 	}
 	const MapPropsToState = state => ({
-		is_authenticated: localStorage.getItem("token") ? true : false
+		// is_authenticated: localStorage.getItem("token") ? true : false
+		is_authenticated: state.user.currentUser ? true : false
 	});
 
 	return connect(MapPropsToState)(ProtectedChildComponent);
