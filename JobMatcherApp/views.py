@@ -1,3 +1,5 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, mixins
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -6,6 +8,8 @@ from JobMatcherApp.models import Employer, Seeker
 from . import serializers
 
 
+@swagger_auto_schema(methods=['get'],
+                     responses={200: openapi.Response('response description', serializers.ProfileSerializer)})
 @api_view(http_method_names=['GET'])
 def me(request):
     """Returns representation of the authenticated user making the request."""
@@ -18,6 +22,7 @@ def me(request):
     return Response(data=serializer.data)
 
 
+@swagger_auto_schema(methods=['post'], request_body=serializers.ProfileSerializer)
 @api_view(http_method_names=['POST'])
 @permission_classes([])
 def signup(request):
