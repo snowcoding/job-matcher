@@ -1,6 +1,8 @@
+from rest_framework import viewsets, mixins
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
+from JobMatcherApp.models import Employer, Seeker
 from . import serializers
 
 
@@ -31,3 +33,14 @@ def signup(request):
         serializer = serializers.SignupEmployerSerializer(instance=profile)
 
     return Response(data=serializer.data)
+
+
+class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = serializers.SeekerSerializer
+    queryset = Seeker.objects.all()
+
+
+class EmployerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin,
+                      viewsets.GenericViewSet):
+    serializer_class = serializers.EmployerSerializer
+    queryset = Employer.objects.all()
