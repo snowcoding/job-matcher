@@ -14,7 +14,7 @@ urlpatterns = [
     # JWT: Refresh the tokens as they are supposed to expire
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # Users: signup and user info
+    # Signup and profile info
     path('signup/', views.signup, name='signup'),
     path('me/', views.me, name='me'),
 ]

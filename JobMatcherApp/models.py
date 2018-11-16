@@ -2,6 +2,7 @@ import uuid
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, BaseUserManager, AbstractUser
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.http import int_to_base36
 from django.utils.translation import gettext_lazy as _
@@ -78,3 +79,33 @@ class User(AbstractUser, BaseModel):
         return f'{self.id}: {self.email}'
 
 
+class Profile(BaseModel):
+    user = models.OneToOneField(verbose_name=_('user'), to='User', related_name='%(class)s', on_delete=models.CASCADE)
+    photo = models.URLField(blank=True)
+    summary = models.CharField(_('summary'), max_length=500, blank=True)
+    confirm_spending = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+
+class SkillsField(ArrayField):
+    """ArrayField subclass to be used for saving skills under Seeker. Requires Postgres database."""
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('base_field', models.CharField(max_length=30, blank=False))
+        kwargs.setdefault('blank', True)
+        kwargs.setdefault('default', list)
+        super().__init__(*args, **kwargs)
+
+
+class Seeker(Profile):
+    desired_title = models.CharField(_('desired title'), max_length=150, blank=True)
+    top_skills = SkillsField(size=5)
+    extra_skills = SkillsField()
+    other_skills = SkillsField()
+    experience = models.CharField(max_length=500, blank=True, default='')
+    education = models.CharField(max_length=500, blank=True, default='')
+
+
+class Employer(Profile):
+    company_name = models.CharField(_('company name'), max_length=30, blank=True)
