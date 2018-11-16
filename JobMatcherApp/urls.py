@@ -4,6 +4,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from . import views
+
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 
@@ -11,4 +13,8 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # JWT: Refresh the tokens as they are supposed to expire
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Users: signup and user info
+    path('signup/', views.signup, name='signup'),
+    path('me/', views.me, name='me'),
 ]
