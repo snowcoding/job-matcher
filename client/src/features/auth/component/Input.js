@@ -38,9 +38,6 @@ const Input = props => {
 		) : null;
 	return value !== undefined ? (
 		<div className="form-group">
-			<label htmlFor={id} className="form-label">
-				{label}
-			</label>
 			{/** Render the first error if there are any errors **/}
 			{!valid && errors.length > 0 && (
 				<div className="error form-hint font-weight-bold text-right m-0 mb-2">
@@ -48,6 +45,7 @@ const Input = props => {
 				</div>
 			)}
 			{strengthMeter}
+
 			<input
 				type={type}
 				className={controlClass}
@@ -58,6 +56,15 @@ const Input = props => {
 				onChange={onChange}
 				autoComplete="off"
 			/>
+			{type === "checkbox" ? (
+				<label htmlFor={id} className="form-label-checkbox">
+					{label}
+				</label>
+			) : (
+				<label htmlFor={id} className="form-label">
+					{label}
+				</label>
+			)}
 		</div>
 	) : null;
 };

@@ -25,11 +25,7 @@ export default class Layout extends React.Component {
 								component={ProtectedPages(FormsContainer)}
 							/> */}
 							<Route path="/forms" component={FormsContainer} />
-							<Route
-								path="/testing"
-								exact
-								component={ProtectedPages(Testing)}
-							/>
+							<Route path="/testing" exact component={Testing} />
 						</Switch>
 					</Row>
 				</Container>

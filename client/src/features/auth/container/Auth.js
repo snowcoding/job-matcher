@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Input from "../component/Input";
 import zxcvbn from "zxcvbn";
-import LinkedIn from "./LinkedIn";
+
 // import anime from "animejs";
 
 // redux
@@ -9,6 +8,7 @@ import { connect } from "react-redux";
 import { signUpUser, login } from "../store/action";
 import { Route, Redirect } from "react-router-dom";
 import Auth from "../component/Auth";
+import LinkedIn from "./LinkedIn";
 // css
 import "../component/auth.css";
 class AuthContainer extends Component {
@@ -80,21 +80,22 @@ class AuthContainer extends Component {
 			type: "checkbox",
 			value: false,
 			required: true,
-			placeholder: "radio",
+			placeholder: "checkbox",
 			name: "is_seeker",
 			label: "Are You Employer?",
 			id: "ProtectedPages",
 			touch: false,
 			controlClass: "form-control",
 			errors: [],
-			valid: false,
+			valid: true,
 			validation: {
 				strength: 0,
 				minLength: 7
 			}
 		},
 		formValid: false,
-		signIn: false
+		signIn: false,
+		window_open: false
 	};
 
 	inputHandler = event => {
@@ -227,57 +228,71 @@ class AuthContainer extends Component {
 		let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(value);
 	};
+	openPop = e => {
+		const width = 600,
+			height = 600;
+		const left = window.innerWidth / 2 - width / 2;
+		const top = window.innerHeight / 2 - height / 2;
+		const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86k7v2sks14nul&redirect_uri=http://localhost:3000/testing&state=987654321&scope=r_basicprofile`;
+		// console.log(window);
+		// window.location.href = url;
+		let w = window.open(
+			url,
+			"",
+			`toolbar=no, location=no, directories=no, status=no, menubar=no,
+	scrollbars=no, resizable=no, copyhistory=no, width=${width},
+	height=${height}, top=${top}, left=${left}`
+		);
+		this.setState({
+			window_open: w
+		});
+	};
+	startAuth = async e => {
+		await this.openPop();
 
+		console.log(this.state.window_open);
+	};
 	render() {
-		let btn_name = this.props.location.pathname.includes("login")
+		let actionType = this.props.location.pathname.includes("login")
 			? "Login"
 			: "Register";
-
-		let controledClass = this.state.formValid ? "btn" : "btn disabled";
-		let arr = Object.entries(this.state);
-		let registerElements = arr.map((i, idx, arr) => (
-			<Input
-				key={i[0]}
-				{...i[1]}
-				button="Register"
-				onChange={e => this.inputHandler(e, i[0])}
-			/>
-		));
-		let loginElements = arr.map((i, idx, arr) =>
-			idx === 0 || i[0] === "password2" ? null : (
-				<Input
-					key={i[0]}
-					{...i[1]}
-					button="Login"
-					onChange={e => this.inputHandler(e, i[0])}
-				/>
-			)
-		);
 		return !this.props.authenticatoin_succeed ? (
-			// <form onSubmit={this.handleSubmit} className="main-form-container">
-			// 	{this.props.error && <p> {this.props.error} </p>}
-			// 	<Route
-			// 		path="/auth/login"
-			// 		exact
-			// 		render={props => loginElements}
-			// 	/>
-			// 	<Route
-			// 		path="/auth/register"
-			// 		exact
-			// 		render={props => registerElements}
-			// 	/>
-			// 	<span className="d-block form-hint">
-			// 		To conform with our Strong Password policy, you are reqired
-			// 		to use a sufficiently strong password.Password must be more
-			// 		than {this.state.password.validation.minLength} characters.
-			// 	</span>
-			// 	<button type="submit" className={controledClass + " mt-l"}>
-			// 		{btn_name}
-			// 	</button>
-			// 	<LinkedIn />
-			// 	{this.props.fetching && <p> authenticating </p>}
-			// </form>
-			<Auth />
+			<React.Fragment>
+				<Route
+					path="/auth/login"
+					exact
+					render={props => (
+						<Auth
+							formValid={this.state.formValid}
+							state={this.state}
+							inputHandler={this.inputHandler}
+							handleSubmit={this.handleSubmit}
+							error={this.props.error}
+							password={this.state.password}
+							fetching={this.props.fetching}
+							login
+							window_open={this.state.window_open}
+						/>
+					)}
+				/>
+				<Route
+					path="/auth/register"
+					exact
+					render={props => (
+						<Auth
+							state={this.state}
+							formValid={this.state.formValid}
+							inputHandler={this.inputHandler}
+							handleSubmit={this.handleSubmit}
+							error={this.props.error}
+							password={this.state.password}
+							fetching={this.props.fetching}
+							window_open={this.state.window_open}
+						/>
+					)}
+				/>
+				<LinkedIn onclick={this.startAuth} actionType={actionType} />
+			</React.Fragment>
 		) : (
 			<Redirect to="/forms" />
 		);
