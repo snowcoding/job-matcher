@@ -1,6 +1,5 @@
 from django.db import transaction
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User, Seeker, Employer
@@ -29,8 +28,7 @@ class ProfileSerializer(serializers.Serializer):
     It allows creating and updating profiles and their related users.
     """
 
-    email = serializers.EmailField(source='user.email', max_length=255,
-                                   validators=[UniqueValidator(queryset=User.objects.all())])
+    email = serializers.EmailField(source='user.email', max_length=255)
     password = serializers.CharField(source='user.password', max_length=128, write_only=True)
     first_name = serializers.CharField(source='user.first_name', allow_blank=True, max_length=30, required=False)
     last_name = serializers.CharField(source='user.last_name', allow_blank=True, max_length=150, required=False)
@@ -39,6 +37,19 @@ class ProfileSerializer(serializers.Serializer):
 
     class Meta:
         fields = ['email', 'password', 'first_name', 'last_name', 'is_seeker', 'is_employer']
+
+    def validate_email(self, email):
+        """Make sure the given email is not taken by someone else"""
+        queryset = User.objects.all()
+
+        # When updating, exclude the profile.user from the validation as it obviously has the same email
+        if self.instance is not None:
+            queryset = queryset.exclude(id=self.instance.user_id)
+
+        if queryset.filter(email__iexact=email).exists():
+            raise serializers.ValidationError('This email has been taken by someone else.')
+
+        return email
 
     @transaction.atomic
     def update(self, instance, validated_data):
