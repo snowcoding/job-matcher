@@ -234,8 +234,6 @@ class AuthContainer extends Component {
 		const left = window.innerWidth / 2 - width / 2;
 		const top = window.innerHeight / 2 - height / 2;
 		const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86k7v2sks14nul&redirect_uri=http://localhost:3000/testing&state=987654321&scope=r_basicprofile`;
-		// console.log(window);
-		// window.location.href = url;
 		let w = window.open(
 			url,
 			"",
@@ -249,8 +247,6 @@ class AuthContainer extends Component {
 	};
 	startAuth = async e => {
 		await this.openPop();
-
-		console.log(this.state.window_open);
 	};
 	render() {
 		let actionType = this.props.location.pathname.includes("login")
