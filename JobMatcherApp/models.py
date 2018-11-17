@@ -103,8 +103,8 @@ class Seeker(Profile):
     top_skills = SkillsField(size=5)
     extra_skills = SkillsField()
     other_skills = SkillsField()
-    experience = models.CharField(max_length=500, blank=True, default='')
-    education = models.CharField(max_length=500, blank=True, default='')
+    experience = models.CharField(max_length=500, blank=True)
+    education = models.CharField(max_length=500, blank=True)
 
 
 class Employer(Profile):

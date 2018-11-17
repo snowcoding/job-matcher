@@ -42,8 +42,8 @@ class Migration(migrations.Migration):
                 ('top_skills', JobMatcherApp.models.SkillsField(base_field=models.CharField(max_length=30), blank=True, default=list, size=5)),
                 ('extra_skills', JobMatcherApp.models.SkillsField(base_field=models.CharField(max_length=30), blank=True, default=list, size=None)),
                 ('other_skills', JobMatcherApp.models.SkillsField(base_field=models.CharField(max_length=30), blank=True, default=list, size=None)),
-                ('experience', models.CharField(blank=True, default='', max_length=500)),
-                ('education', models.CharField(blank=True, default='', max_length=500)),
+                ('experience', models.CharField(blank=True, max_length=500)),
+                ('education', models.CharField(blank=True, max_length=500)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='seeker', to=settings.AUTH_USER_MODEL, verbose_name='user')),
             ],
             options={
