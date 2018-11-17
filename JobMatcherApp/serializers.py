@@ -1,6 +1,5 @@
 from django.db import transaction
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User, Seeker, Employer
@@ -29,63 +28,47 @@ class ProfileSerializer(serializers.Serializer):
     It allows creating and updating profiles and their related users.
     """
 
-    email = serializers.EmailField(source='user.email', max_length=255,
-                                   validators=[UniqueValidator(queryset=User.objects.all())])
+    email = serializers.EmailField(source='user.email', max_length=255)
     password = serializers.CharField(source='user.password', max_length=128, write_only=True)
     first_name = serializers.CharField(source='user.first_name', allow_blank=True, max_length=30, required=False)
     last_name = serializers.CharField(source='user.last_name', allow_blank=True, max_length=150, required=False)
-    is_seeker = serializers.BooleanField(source='user.is_seeker', required=False)
-    is_employer = serializers.BooleanField(source='user.is_employer', required=False)
+    is_seeker = serializers.ReadOnlyField(source='user.is_seeker')
+    is_employer = serializers.ReadOnlyField(source='user.is_employer')
 
     class Meta:
         fields = ['email', 'password', 'first_name', 'last_name', 'is_seeker', 'is_employer']
 
-    def validate(self, attrs):
-        """
-        Makes sure either of `is_employer` or `is_seeker` are passed when signing up.
-        """
-        user_data = attrs.get('user', {})
-        is_seeker = user_data.get('is_seeker', False)
-        is_employer = user_data.get('is_employer', False)
+    def validate_email(self, email):
+        """Make sure the given email is not taken by someone else"""
+        queryset = User.objects.all()
 
-        if not any([is_seeker, is_employer]) or is_seeker == is_employer:
-            raise serializers.ValidationError('must pass either `is_employer` or `is_seeker` and not both')
+        # When updating, exclude the profile.user from the validation as it obviously has the same email
+        if self.instance is not None:
+            queryset = queryset.exclude(id=self.instance.user_id)
 
-        return attrs
+        if queryset.filter(email__iexact=email).exists():
+            raise serializers.ValidationError('This email has been taken by someone else.')
 
-    @transaction.atomic
-    def create(self, validated_data):
-        """
-        Creates new Profile (Seeker or Employer) and the auth User model.
-        """
-        # Create auth user model first
-        user_data = validated_data.pop('user', {})
-        user = User.objects.create_user(**user_data)
-        # Creat respective profile
-        if user.is_seeker:
-            return Seeker.objects.create(user=user, **validated_data)
-        else:
-            return Employer.objects.create(user=user, **validated_data)
+        return email
 
     @transaction.atomic
     def update(self, instance, validated_data):
         """
         Updates existing Profile (Seeker or Employer) and the auth User model.
         """
-        # Update auth user model first
-        user_data = validated_data.pop('user', {})
-        user_serializer = UserSerializer(instance=instance.user, data=user_data)
-        user_serializer.is_valid(raise_exception=True)
-        user_serializer.save()
-        # Update profile by calling super as ModelSerializer can handle updating its instances
-        return super().save()
+        # Update auth user model first.
+        # Since we have `validated_user_data`, we don't need to validate it again and rather directly use .update()
+        validated_user_data = validated_data.pop('user', {})
+        UserSerializer().update(instance=instance.user, validated_data=validated_user_data)
+        # Update profile by calling super as ModelSerializer handles updating its instance (Seeker or Employer)
+        return super().update(instance, validated_data)
 
 
 class SignupMixin:
     """Returns JWT access and refresh tokens instead of profile fields"""
 
-    def to_representation(self, instance):
-        refresh = RefreshToken.for_user(instance.user)
+    def to_representation(self, validated_data):
+        refresh = RefreshToken.for_user(self.instance.user)
         return {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
@@ -98,6 +81,17 @@ class SeekerSerializer(ProfileSerializer, serializers.ModelSerializer):
     class Meta:
         model = Seeker
         fields = ['id', *ProfileSerializer.Meta.fields, 'desired_title', 'top_skills', 'extra_skills', 'other_skills']
+
+    @transaction.atomic  # Ensure creation of both models is done in a single transaction not to create inconsistencies
+    def create(self, validated_data):
+        """
+        Creates new User and Seeker profile.
+        """
+        # Create auth user model first
+        validated_user_data = validated_data.pop('user', {})
+        user = User.objects.create_user(is_seeker=True, **validated_user_data)
+        # Create Seeker profile
+        return Seeker.objects.create(user=user, **validated_data)
 
 
 class SignupSeekerSerializer(SignupMixin, SeekerSerializer):
@@ -112,7 +106,18 @@ class EmployerSerializer(ProfileSerializer, serializers.ModelSerializer):
         model = Employer
         fields = ['id', *ProfileSerializer.Meta.fields, 'company_name']
 
+    @transaction.atomic
+    def create(self, validated_data):
+        """
+        Creates new User and Employer profile.
+        """
+        # Create auth user model first
+        validated_user_data = validated_data.pop('user', {})
+        user = User.objects.create_user(is_employer=True, **validated_user_data)
+        # Create Employer profile
+        return Employer.objects.create(user=user, **validated_data)
 
-class SignupEmployerSerializer(SignupMixin, SeekerSerializer):
+
+class SignupEmployerSerializer(SignupMixin, EmployerSerializer):
     """Serializer to be used for representing Employer after signup."""
     pass

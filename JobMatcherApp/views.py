@@ -9,10 +9,10 @@ from . import serializers
 
 
 @swagger_auto_schema(methods=['get'],
-                     responses={200: openapi.Response('response description', serializers.ProfileSerializer)})
+                     responses={200: openapi.Response('Seeker or Employer profile', serializers.ProfileSerializer)})
 @api_view(http_method_names=['GET'])
 def me(request):
-    """Returns representation of the authenticated user making the request."""
+    """Returns representation of the authenticated user profile (Seeker or Employer) making the request."""
 
     if request.user.is_seeker:
         serializer = serializers.SeekerSerializer(instance=request.user.seeker)
@@ -22,21 +22,27 @@ def me(request):
     return Response(data=serializer.data)
 
 
-@swagger_auto_schema(methods=['post'], request_body=serializers.ProfileSerializer)
+@swagger_auto_schema(methods=['post'], request_body=serializers.SignupSeekerSerializer)
 @api_view(http_method_names=['POST'])
 @permission_classes([])
-def signup(request):
-    """Signs up a user and returns an access and refresh JSON web token pair"""
+def signup_seeker(request):
+    """Signs up a Seeker and returns an access and refresh JSON web token pair"""
 
-    serializer = serializers.ProfileSerializer(data=request.data)
+    serializer = serializers.SignupSeekerSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
-    profile = serializer.save()
+    serializer.save()
+    return Response(data=serializer.data)
 
-    if profile.user.is_seeker:
-        serializer = serializers.SignupSeekerSerializer(instance=profile)
-    else:
-        serializer = serializers.SignupEmployerSerializer(instance=profile)
 
+@swagger_auto_schema(methods=['post'], request_body=serializers.SignupEmployerSerializer)
+@api_view(http_method_names=['POST'])
+@permission_classes([])
+def signup_employer(request):
+    """Signs up a Employer and returns an access and refresh JSON web token pair"""
+
+    serializer = serializers.SignupEmployerSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
     return Response(data=serializer.data)
 
 
