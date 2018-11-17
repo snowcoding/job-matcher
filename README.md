@@ -26,3 +26,39 @@ Stretch Goals
 - Implement in-app messaging
 - Free but Premium Tier for all Lambda grads and hiring partners
 - Lambda Badges on profile for grads, verified by Lambda Staff
+
+
+## Local setup
+
+1. Clone repo
+
+1. Create `.env` file withe following content
+
+    ```.env
+    DEBUG=True
+    SECRET_KEY=NOTSOSECRETANYMORE
+    ALLOWED_HOSTS=localhost,127.0.0.1
+    DATABASE_URL=sqlite:///db.sqlite3
+    ```
+
+1. Install virtual environment and packages using [Pipenv](https://pipenv.readthedocs.io/en/latest/)
+
+    ```bash
+    pipenv install
+    ```
+
+1. Activate virtual environment
+    ```bash
+    pipenv shell
+    ```
+
+1. Apply migrations
+    ```bash
+    pyton manage.py migrate
+    ```
+
+1. Start Django server
+
+    ```bash
+    pyton manage.py runserver
+    ```
