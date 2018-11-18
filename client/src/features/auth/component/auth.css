@@ -39,6 +39,7 @@
 .form-textarea::-webkit-input-placeholder {
 	transform: translateY(0);
 	font-size: 12px;
+	transition: all 0.3s;
 }
 .form-label,
 .form-label-checkbox {

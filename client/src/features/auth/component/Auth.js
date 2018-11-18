@@ -1,6 +1,5 @@
 import React from "react";
 import Input from "./Input";
-import LinkedIn from "../container/LinkedIn";
 
 const Auth = props => {
 	let btn_name = props.login ? "Login" : "Register";

@@ -169,8 +169,17 @@ class AuthContainer extends Component {
 		// if all input type are valid, we enable the button to register or login
 
 		// check if passwords are the same during registration
-
-		updateState.formValid = isValid;
+		if (this.props.location.pathname.includes("login")) {
+			updateState.formValid =
+				isValid && this.state.email.touch && this.state.password.touch;
+		} else {
+			updateState.formValid =
+				isValid &&
+				this.state.email.touch &&
+				this.state.password.touch &&
+				this.state.name.touch &&
+				this.state.password2.touch;
+		}
 
 		this.setState({
 			...updateState
