@@ -37,6 +37,7 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.spl
 
 # ALLOWED_HOSTS = []
 
+#planning to work on Oauth with linked in
 
 # Application definition
 
@@ -47,6 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
     'JobMatcherApp', # This will be the API application
     'rest_framework', # This is the DRF library
     'corsheaders', #CORS library
@@ -165,6 +171,11 @@ REST_FRAMEWORK = {
     )
 }
 
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+SITE_ID = 1
 # We will start with all for now and later add our netlify
 CORS_ORIGIN_ALLOW_ALL = True
 
