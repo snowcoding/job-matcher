@@ -1,0 +1,185 @@
+.main-form-container {
+	width: 400px;
+	margin: 100px auto;
+	font-size: 16px;
+	padding: 30px;
+	border: 1px solid #80808047;
+	background-color: #ffffff;
+}
+.main-form-container-xl {
+	width: 500px;
+	min-height: 60vh;
+	margin: 60px auto;
+	font-size: 16px;
+	padding: 50px;
+	border: 1px solid #80808047;
+	background-color: #ffffff;
+	z-index: 2000;
+}
+
+.form {
+	padding: 10px 20px;
+}
+.form-control,
+.form-textarea {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(2.25rem + 2rem);
+	padding: 10px 7.5px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: 2.5px;
+	overflow: visible;
+	transition: border-color 0.15s ease-in-out, 0.15s ease-in-out;
+}
+.form-control::-webkit-input-placeholder,
+.form-textarea::-webkit-input-placeholder {
+	font-size: 14px;
+}
+.form-control:focus,
+.form-textarea:focus {
+	color: #495057;
+	background-color: #fff;
+	border-color: #80bdff;
+	outline: 0;
+	box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+.form-group {
+	width: 100%;
+	padding: 10px 0;
+	position: relative;
+	margin-bottom: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 80px;
+	/* border: 1px solid; */
+}
+.form-label {
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.form-textarea {
+	height: auto;
+}
+.form-file {
+	font-size: 13px;
+}
+
+.is-invalid {
+	border-color: #dc3545;
+}
+.is-invalid:focus {
+	border-color: #dc3545;
+	-webkit-box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+	box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+.control-label {
+	font-weight: bold;
+	color: #52657a;
+}
+
+.form-hint {
+	font-size: 14px;
+	line-height: 1.4;
+	margin: 30px auto 5px;
+	color: #070707;
+}
+.form-hint.error {
+	color: #c00;
+	font-size: 12px;
+	text-align: right;
+	display: inline-block;
+	position: absolute;
+	top: 30px;
+	right: 0;
+}
+
+.btn {
+	letter-spacing: 1px;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 8px 15px;
+	border-radius: 10px;
+	background-color: #007bff;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+.disabled {
+	background-color: #ebebeb;
+	color: #c5c5c5;
+	cursor: not-allowed;
+}
+
+.mt-l {
+	margin-top: 30px;
+}
+
+.password-count {
+	bottom: 16px;
+	right: 10px;
+	font-size: 10px;
+}
+
+.strength-meter {
+	position: relative;
+	height: 3px;
+	background: #ddd;
+	margin: 7px 0;
+	border-radius: 2px;
+}
+.strength-meter:before,
+.strength-meter:after {
+	content: "";
+	height: inherit;
+	background: transparent;
+	display: block;
+	border-color: #fff;
+	border-style: solid;
+	border-width: 0 6px 0;
+	position: absolute;
+	width: calc(20% + 6px);
+	z-index: 10;
+}
+.strength-meter:before {
+	left: calc(20% - 3px);
+}
+.strength-meter:after {
+	right: calc(20% - 3px);
+}
+
+.strength-meter-fill {
+	background: transparent;
+	height: inherit;
+	position: absolute;
+	width: 0;
+	border-radius: inherit;
+	transition: width 0.5s ease-in-out, background 0.25s;
+}
+.strength-meter-fill[data-strength="0"] {
+	width: 20%;
+	background: darkred;
+}
+.strength-meter-fill[data-strength="1"] {
+	width: 40%;
+	background: orangered;
+}
+.strength-meter-fill[data-strength="2"] {
+	width: 60%;
+	background: orange;
+}
+.strength-meter-fill[data-strength="3"] {
+	width: 80%;
+	background: yellowgreen;
+}
+.strength-meter-fill[data-strength="4"] {
+	width: 100%;
+	background: green;
+}
