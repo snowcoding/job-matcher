@@ -1,23 +1,26 @@
 import React, { Component } from "react";
 import Form from "../components";
 
-class EducationContainer extends Component {
+class ExprienceContainer extends Component {
 	state = {
 		date: {
-			id: "education_data",
-			date: [new Date(), new Date()]
+			date: [new Date(), new Date()],
+			id: "expreince_data"
 		},
-		school: {
+		title: {
 			value: ""
 		},
-		study: {
+		company: {
 			value: ""
 		},
-		Degree: {
+		location: {
+			value: ""
+		},
+		headline: {
 			value: ""
 		},
 		description: {
-			id: "education_description",
+			id: "exprience_description",
 			value: ""
 		}
 	};
@@ -35,12 +38,12 @@ class EducationContainer extends Component {
 	render() {
 		return (
 			<Form
-				title="Education"
 				onChange={this.onChange}
 				state={this.state}
+				title="Expreince"
 			/>
 		);
 	}
 }
 
-export default EducationContainer;
+export default ExprienceContainer;

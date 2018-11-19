@@ -11,7 +11,6 @@ export const StyledInput = styled.input`
 	line-height: 1.5;
 	color: #495057;
 	background-color: #fff;
-	background-clip: padding-box;
 	border: 1px solid #ced4da;
 	border-radius: 2.5px;
 	overflow: visible;
@@ -23,13 +22,55 @@ export const StyledInput = styled.input`
 		border-color: #80bdff;
 		outline: none;
 		box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+		&::-webkit-input-placeholder {
+			transform: translateY(-200%);
+			opacity: 0;
+			transition: all 0.3s;
+		}
+		& ~ .form-label {
+			top: -10px;
+			color: #333333dc;
+		}
+	}
+	&:-webkit-input-placeholder,
+	&::-webkit-input-placeholder {
+		transform: translateY(0);
+		font-size: 12px;
+		transition: all 0.3s;
 	}
 `;
 
 export const FormDiv = styled.div`
-	width: 100%;
 	width: 500px;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid black;
+	min-height: 60vh;
+	margin: 60px auto;
+	font-size: 12px;
+	padding: 50px;
+	border: 1px solid #80808047;
+	background-color: #ffffff;
+	z-index: 2000;
+`;
+export const Title = styled.h1`
+	font-size: 20px;
+`;
+export const FormGroup = styled.div`
+	width: 100%;
+	padding: 10px 0;
+	position: relative;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 63px;
+	text-align: start;
+`;
+export const StyledLabel = styled.label`
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	top: 0;
+	color: transparent;
+	color: #495057;
+	transition: all 0.4s;
 `;

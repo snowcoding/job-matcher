@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Forms from "../components/index";
 import EducationContainer from "./Form_Education";
+import ExprienceContainer from "./Form_Exprience";
+import PasswordContainer from "./Form_Password";
+import SkillsContainer from "./Form_Skills";
+import PersonalContainer from "./Form_Personal";
 import {
 	updateProfile,
 	updateProfileImg,
 	updateProfilePassword
 } from "../store/action";
 // import TypeForm from "react-typeform";
-// import StepZilla from "react-stepzilla";
+import StepZilla from "react-stepzilla";
 
 class FormsContainer extends Component {
 	constructor(props) {
@@ -25,37 +29,6 @@ class FormsContainer extends Component {
 			},
 			img: {
 				type: "file",
-				value: ""
-			},
-			desired_title: {
-				value: ""
-			},
-			summary: {
-				value: ""
-			},
-
-			top_skills: {
-				value: ""
-			},
-			additional_skills: {
-				value: ""
-			},
-			familiar_with: {
-				value: ""
-			},
-			experience: {
-				value: ""
-			},
-			old_password: {
-				type: "password",
-				value: ""
-			},
-			new_password: {
-				type: "password",
-				value: ""
-			},
-			new_password2: {
-				type: "password",
 				value: ""
 			}
 		};
@@ -84,16 +57,39 @@ class FormsContainer extends Component {
 		console.log(this.state);
 	};
 	render() {
+		let steps = [
+			{
+				name: "personal",
+				component: (
+					<Forms
+						title="Personal"
+						state={this.state}
+						is_seeker={this.props.is_seeker}
+						onChange={this.inputHandler}
+					/>
+				)
+			},
+			{
+				name: "Skill",
+				component: <SkillsContainer />
+			},
+			{
+				name: "Exprience",
+				component: <ExprienceContainer />
+			},
+			{
+				name: "Education",
+				component: <EducationContainer />
+			},
+			{
+				name: "Password",
+				component: <PasswordContainer />
+			}
+		];
 		return (
 			<form className="form" onSubmit={this.handleSubmit}>
-				<Forms
-					text="question 1"
-					state={this.state}
-					is_seeker={this.props.is_seeker}
-					inputHandler={this.inputHandler}
-				/>
-				<button type="submit">Save</button>
-				<EducationContainer />
+				<StepZilla steps={steps} />
+				{/* <button type="submit">Save</button> */}
 			</form>
 		);
 	}
