@@ -1,60 +1,100 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Forms from "../components/index";
-import TypeForm from "react-typeform";
+import EducationContainer from "./Form_Education";
+import {
+	updateProfile,
+	updateProfileImg,
+	updateProfilePassword
+} from "../store/action";
+// import TypeForm from "react-typeform";
+// import StepZilla from "react-stepzilla";
 
 class FormsContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: "",
-			email: "",
-			company_name: "",
-			desired_title: "",
-			summary: "",
-			old_password: "",
-			new_password: "",
-			new_password2: "",
-			top_skills: "",
-			additional_skills: "",
-			familiar_with: "",
-			experience: "",
-			eduction: ""
+			name: {
+				value: ""
+			},
+			email: {
+				value: ""
+			},
+			company_name: {
+				value: ""
+			},
+			img: {
+				type: "file",
+				value: ""
+			},
+			desired_title: {
+				value: ""
+			},
+			summary: {
+				value: ""
+			},
+
+			top_skills: {
+				value: ""
+			},
+			additional_skills: {
+				value: ""
+			},
+			familiar_with: {
+				value: ""
+			},
+			experience: {
+				value: ""
+			},
+			old_password: {
+				type: "password",
+				value: ""
+			},
+			new_password: {
+				type: "password",
+				value: ""
+			},
+			new_password2: {
+				type: "password",
+				value: ""
+			}
 		};
 	}
 	componentDidMount = () => {
-		// let name = `${this.props.currentUser.first_name} ${
-		// 	this.props.currentUser.last_name
-		// }`;
-		// let { email } = this.props.currentUser;
-		// this.setState({
-		// 	name,
-		// 	email
-		// });
+		if (this.props.currentUser) {
+			let name = `${this.props.currentUser.first_name} ${
+				this.props.currentUser.last_name
+			}`;
+			let { email } = this.props.currentUser;
+			this.setState({
+				name,
+				email
+			});
+		}
 	};
 	inputHandler = e => {
-		this.setState({ [e.target.name]: e.target.v });
+		let updateState = { ...this.state };
+		updateState[e.target.name].value = e.target.value;
+
+		this.setState({ ...updateState });
 	};
-	submit() {
+	handleSubmit = e => {
 		// Call your submit function here
-	}
+		e.preventDefault();
+		console.log(this.state);
+	};
 	render() {
 		return (
-			<TypeForm onSubmit={this.submit} submitBtnText="done">
+			<form className="form" onSubmit={this.handleSubmit}>
 				<Forms
 					text="question 1"
 					state={this.state}
 					is_seeker={this.props.is_seeker}
 					inputHandler={this.inputHandler}
 				/>
-				<Forms
-					text="question 2"
-					state={this.state}
-					is_seeker={this.props.is_seeker}
-					inputHandler={this.inputHandler}
-				/>
-				{/* <Forms text="question 3" /> */}
-			</TypeForm>
+				<button type="submit">Save</button>
+				<EducationContainer />
+			</form>
 		);
 	}
 }
@@ -62,4 +102,7 @@ const MapStateToProps = state => ({
 	currentUser: state.user.currentUser,
 	is_seeker: state.user.is_seeker
 });
-export default connect(MapStateToProps)(FormsContainer);
+export default connect(
+	MapStateToProps,
+	{ updateProfile, updateProfileImg, updateProfilePassword }
+)(FormsContainer);
