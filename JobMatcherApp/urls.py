@@ -1,9 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from . import views
 
@@ -16,8 +13,6 @@ urlpatterns = [
 
     # JWT: Signin using email and password
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # JWT: Refresh the tokens as they are supposed to expire
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # Signup and profile info
     path('signup/seeker/', views.signup_seeker, name='signup_seeker'),
