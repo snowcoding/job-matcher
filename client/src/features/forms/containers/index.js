@@ -86,11 +86,19 @@ class FormsContainer extends Component {
 				component: <PasswordContainer />
 			}
 		];
+
 		return (
-			<form className="form" onSubmit={this.handleSubmit}>
-				<StepZilla steps={steps} />
-				{/* <button type="submit">Save</button> */}
-			</form>
+			<div className="step-progress">
+				<StepZilla
+					steps={steps}
+					showSteps={true}
+					showNavigation={true}
+					nextTextOnFinalActionStep="next"
+				/>
+				<button type="submit" onClick={this.handleSubmit}>
+					Save
+				</button>
+			</div>
 		);
 	}
 }

@@ -74,3 +74,9 @@ export const StyledLabel = styled.label`
 	color: #495057;
 	transition: all 0.4s;
 `;
+
+// justify-content: space-between;
+//     margin-top: 0;
+//     margin-bottom: 1rem;
+//     display: flex;
+//     width: 100%;
