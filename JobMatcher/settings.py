@@ -35,7 +35,9 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.spl
 # DEBUG = True
 
 # ALLOWED_HOSTS = []
-
+#LINKED IN CREDENTIALS
+#Client ID:	869wj9yfdzq2u7
+#Client Secret:	fh4Dy825d2Jx3394
 
 # Application definition
 
@@ -46,6 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.linkedin',
+    'allauth.socialaccount.providers.linkedin_oauth2',
     'JobMatcherApp',  # This will be the API application
     'rest_framework',  # This is the DRF library
     'rest_framework_simplejwt',  # JWT library
@@ -99,6 +107,18 @@ WSGI_APPLICATION = 'JobMatcher.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(default=config("DATABASE_URL"))
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'jobmatcher',
+#         # 'USER': 'dbuser',
+#         # 'PASSWORD': 'dbpassword',
+#         'HOST': 'localhost',
+#         'OPTIONS': {
+#             'sslmode': 'require',
+#         },
+#     },
+# }
 
 AUTH_USER_MODEL = "JobMatcherApp.User"
 
@@ -145,6 +165,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+AUTHENTICATION_BACKENDS = (
+    #This setting controls which backends are used.
+     # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    #login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend', 
+)
+
+SITE_ID = 1
 # Direct from DRF Docs
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

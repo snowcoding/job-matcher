@@ -27,4 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('JobMatcherApp.urls')),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    #0auth accounts path
+    # path('accounts/', include('accounts.urls', namespace='accounts')),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/', include('allauth.urls')),
 ]
