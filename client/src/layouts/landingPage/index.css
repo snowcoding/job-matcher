@@ -1,5 +1,5 @@
 .background {
-	background-image: url("../../asset/bg-lg.jpg");
+	background-image: url("../../assets/bg-lg.jpg");
 	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
 	background-size: cover;
 	animation: movieInLeft 0.4s ease-in-out;

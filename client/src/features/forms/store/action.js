@@ -1,6 +1,6 @@
 import * as actionType from "./actionType";
 import axios from "axios";
-let URL = "backend";
+
 const profileUpdateHandler = user => ({
 	type: actionType.UPDATE_PROFILE,
 	user
@@ -21,7 +21,7 @@ const profileErrorHandler = error => ({
 export const updateProfile = data => dispatch => {
 	dispatch({ type: actionType.FETCHING_UPDATE_PROFILE });
 	axios
-		.post(`${URL}/api/v1/me`)
+		.post(`/api/v1/me`)
 		.then(result => {
 			dispatch(profileUpdateHandler(result.data));
 		})
@@ -34,7 +34,7 @@ export const updateProfile = data => dispatch => {
 export const updateProfileImg = data => dispatch => {
 	dispatch({ type: actionType.FETCHING_UPDATE_PROFILE });
 	axios
-		.post(`${URL}/api/v1/me`)
+		.post(`/api/v1/me`)
 		.then(result => {
 			dispatch(userImgUpdateHandler(result.data));
 		})
@@ -47,7 +47,7 @@ export const updateProfileImg = data => dispatch => {
 export const updateProfilePassword = data => dispatch => {
 	dispatch({ type: actionType.FETCHING_UPDATE_PROFILE });
 	axios
-		.post(`${URL}/api/v1/me`)
+		.post(`/api/v1/me`)
 		.then(result => {
 			dispatch(passwordUpdateHandler(result.data));
 		})

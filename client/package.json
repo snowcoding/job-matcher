@@ -43,5 +43,6 @@
   "devDependencies": {
     "faker": "^4.1.0",
     "fs": "^0.0.1-security"
-  }
+  },
+  "proxy": "https://jobmatcher-api-stage.herokuapp.com"
 }
