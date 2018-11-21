@@ -1,18 +1,22 @@
 import React from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import PropTypes from "prop-types";
 
 import {
 	StyledInput,
 	FormDiv,
 	StyledLabel,
-	FormGroup,
+	FormGroup,SaveButton,
 	Title
 } from "./indexCss";
-// import StepZilla from "react-stepzilla";
 
-const Forms = ({ state, onChange, is_seeker, title, name, onSubmit }) => {
+const Forms = ({ state, onChange,  title, onSubmit }) => {
+	//Form will display a set of group form,
+	//TODO represent the state of inputs using visual aid.
+
 	let arr = Object.entries(state);
 	let inputs = arr.map((item, index) =>
+		//check for date input type and using daterangepicker lib
 		!item[0].includes("date") ? (
 			<FormGroup key={item[1].id || item[0]}>
 				<StyledInput
@@ -39,9 +43,16 @@ const Forms = ({ state, onChange, is_seeker, title, name, onSubmit }) => {
 		<FormDiv>
 			<Title>{title}</Title>
 			{inputs}
-			<button onClick={onSubmit}> save </button>
+			<SaveButton onClick={onSubmit}> save </SaveButton>
 		</FormDiv>
 	);
 };
 
 export default Forms;
+Forms.propTypes = {
+	state: PropTypes.object,
+	title: PropTypes.string,
+	onSubmit:  PropTypes.func,
+	onChange:  PropTypes.func,
+
+};

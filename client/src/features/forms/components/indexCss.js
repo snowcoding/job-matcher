@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import {
-		Nav,Row,
+		Nav,Row, Button,
 	} from 'react-bootstrap';
+export  const SaveButton = styled(Button)`
+	margin-top 20px;
+`;
 export  const StyledRow = styled(Row)`
     display: flex;
     flex-wrap: wrap;
