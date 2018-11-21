@@ -2,7 +2,7 @@ import * as actionType from "./actionType";
 import axios from "axios";
 let url = "https://jobmatcher-api-stage.herokuapp.com"
 
-axios.defaults.headers.common['Authorization'] = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0Mjc0NzM4LCJqdGkiOiIzOTM5MTliY2U1NWE0MmY1YTc5MGM5MDM4NmNmYzlhNSIsInVzZXJfaWQiOiI5d3dycWM5cHZrIn0.39RYgkEv6wdujwKB52rlljz4_Vwkq1tcW6u6VuIeLU8';
+axios.defaults.headers.common['Authorization'] = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0MzA1MDMyLCJqdGkiOiIyYmI4ZTc3NzlkZDE0Y2ZhYjY0ZDNkYzZhZjdkMTlkMCIsInVzZXJfaWQiOiJkamwxMWw2a3NtIn0.4hdSzQ3fAeqKDi-4Cplr5jhDVuN08kwUup5snN6-OHc';
 
 
 

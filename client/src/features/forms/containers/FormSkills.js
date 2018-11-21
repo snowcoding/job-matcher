@@ -29,7 +29,7 @@ class SkillsContainer extends Component {
 		updateState[e.target.name].value = e.target.value;
 		this.setState({ ...updateState });
 	};
-	onSubmit =() =>{
+	onSubmit =(e) =>{
 		console.log("form skll on submit func");
 		e.preventDefault();
 		console.log(this.state);
