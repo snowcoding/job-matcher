@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Profile from "../components/Profile";
-
+import Form from '../components';
 import {getProfile,updateUser} from '../../auth/store/action';
 import FormEducation from './FormEducation';
 import FormExprience from './FormExprience';
@@ -35,7 +35,7 @@ class ProfileContainer extends Component {
 		console.log("form container index rendering ", this.props.authenticatoin_succeed)
 		return (
 			this.props.authenticatoin_succeed ? <Profile  is_seeker={this.props.is_seeker} tabs={tabs}  />
-				: <h1> geting profile </h1>
+				: <Form title="geting profile " state={{}}/>
 		)
 	}
 }

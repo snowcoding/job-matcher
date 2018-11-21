@@ -45,16 +45,15 @@ const Forms = ({ state, onChange,  title, onSubmit, btnName }) => {
 		<FormDiv>
 			<Title>{title}</Title>
 			{inputs}
-			<SaveButton onClick={onSubmit}> { btnName && btnName ||  "Save"} </SaveButton>
+			<SaveButton onClick={onSubmit}> { btnName ||  "Save"} </SaveButton>
 		</FormDiv>
 	);
 };
 
 export default Forms;
 Forms.propTypes = {
-	state: PropTypes.object,
-	title: PropTypes.string,
+	state: PropTypes.object.isRequired,
+	title: PropTypes.string.isRequired,
 	onSubmit:  PropTypes.func,
 	onChange:  PropTypes.func,
-
 };
