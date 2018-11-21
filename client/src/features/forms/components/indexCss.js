@@ -25,45 +25,7 @@ export  const StyledNav = styled(Nav)`
         height: 30px;
     }
 `;
-export const StyledInput = styled.input`
-	display: block;
-	margin: 10px 0;
-	width: 100%;
-	box-sizing: border-box;
-	height: calc(2.25rem + 2rem);
-	padding: 10px 7.5px;
-	font-size: 14px;
-	line-height: 1.5;
-	color: #495057;
-	background-color: #fff;
-	border: 1px solid #ced4da;
-	border-radius: 2.5px;
-	overflow: visible;
-	transition: border-color 0.15s ease-in-out, 0.15s ease-in-out;
 
-	&:focus {
-		color: #495057;
-		background-color: #fff;
-		border-color: #80bdff;
-		outline: none;
-		box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-		&::-webkit-input-placeholder {
-			transform: translateY(-200%);
-			opacity: 0;
-			transition: all 0.3s;
-		}
-		& ~ .form-label {
-			top: -10px;
-			color: #333333dc;
-		}
-	}
-	&:-webkit-input-placeholder,
-	&::-webkit-input-placeholder {
-		transform: translateY(0);
-		font-size: 12px;
-		transition: all 0.3s;
-	}
-`;
 
 export const FormDiv = styled.div`
 	width: 100%;
@@ -89,15 +51,56 @@ export const FormGroup = styled.div`
 	height: 63px;
 	text-align: start;
 `;
+
+
+export const StyledInput = styled.input`
+	display: block;
+	margin: 10px 0;
+	width: 100%;
+	box-sizing: border-box;
+	height: 50px;
+	padding: 10px 7.5px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 2.5px;
+	overflow: visible;
+	transition: border-color 0.15s ease-in-out, 0.15s ease-in-out;
+
+	&:focus {
+		color: #495057;
+		background-color: #fff;
+		border-color: #80bdff;
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+		
+		&:-webkit-input-placeholder,
+		&::-webkit-input-placeholder {
+			transform: translateY(-200%);
+			opacity: 0;
+			transition: all 0.3s;
+		}
+
+		
+	}
+`;
+
 export const StyledLabel = styled.label`
 	position: absolute;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	top: 0;
+	top: 20px;
 	color: transparent;
 	color: #495057;
 	transition: all 0.4s;
+	opacity: 0;
+	 ${StyledInput}:focus ~ & {
+			opacity: 1;
+			top: 0px;
+		}
 `;
 
 // justify-content: space-between;
