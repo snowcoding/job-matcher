@@ -24,7 +24,7 @@ export default class Layout extends React.Component {
 								path="/forms"
 								component={ProtectedPages(ProfileContainer)}
 							/> */}
-							<Route path="/forms" component={ProfileContainer} />
+							<Route path="/profile" component={ProfileContainer} />
 							<Route path="/testing" exact component={Testing} />
 						</Switch>
 					</Row>
