@@ -36,6 +36,7 @@ export const FormDiv = styled.div`
 	border: 1px solid #80808047;
 	background-color: #ffffff;
 	z-index: 2000;
+	color: #0079ff;
 `;
 export const Title = styled.h1`
 	font-size: 20px;
@@ -64,7 +65,8 @@ export const StyledInput = styled.input`
 	line-height: 1.5;
 	color: #495057;
 	background-color: #fff;
-	border: 1px solid #ced4da;
+	border: none;
+	border-bottom: 1px solid #ced4da;
 	border-radius: 2.5px;
 	overflow: visible;
 	transition: border-color 0.15s ease-in-out, 0.15s ease-in-out;

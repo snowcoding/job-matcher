@@ -1,7 +1,6 @@
 import React from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import PropTypes from "prop-types";
-
 import {
 	StyledInput,
 	FormDiv,
@@ -10,7 +9,7 @@ import {
 	Title
 } from "./indexCss";
 import './form.css'
-const Forms = ({ state, onChange,  title, onSubmit }) => {
+const Forms = ({ state, onChange,  title, onSubmit, btnName }) => {
 	//Form will display a set of group form,
 	//TODO represent the state of inputs using visual aid.
 
@@ -46,7 +45,7 @@ const Forms = ({ state, onChange,  title, onSubmit }) => {
 		<FormDiv>
 			<Title>{title}</Title>
 			{inputs}
-			<SaveButton onClick={onSubmit}> save </SaveButton>
+			<SaveButton onClick={onSubmit}> { btnName && btnName ||  "Save"} </SaveButton>
 		</FormDiv>
 	);
 };

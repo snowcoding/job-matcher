@@ -10,7 +10,7 @@ const Profile  = props => {
 	//Profile function make the use of react-bootstrap Tap components to display  all forms
 	//it takes is_seeker props to use conditional rendering whether the user is employer or not
 
-	let stepsToArry = Object.entries(props.steps);
+	let stepsToArry = Object.entries(props.tabs);
 
 	 let steps =  stepsToArry.filter(item =>
 		props.is_seeker ?
@@ -47,6 +47,6 @@ export  default  Profile;
 
 
 Profile.propTypes = {
-	steps: PropTypes.object,
-	is_seeker:  PropTypes.bool,
+	tabs: PropTypes.object.isRequired,
+	is_seeker:  PropTypes.bool.isRequired,
 };

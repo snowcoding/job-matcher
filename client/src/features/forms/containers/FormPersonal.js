@@ -33,7 +33,8 @@ class PersonalContainer extends Component {
 		}
 	};
 
-	onChange = e => {
+
+    onChange = e => {
 		let updateState = JSON.parse(JSON.stringify(this.state));
 		updateState[e.target.name].value = e.target.value;
 		this.setState({ ...updateState });
@@ -55,19 +56,22 @@ class PersonalContainer extends Component {
 
 	render() {
 		return (
+			this.props.authenticatoin_succeed ?
 			<Form
 				onSubmit={this.onSubmit}
 				onChange={this.onChange}
+				btnName="Update Personal Info"
 				state={this.state}
 				title="Personal"
 			/>
+				: null
 		);
 	}
 }
 const MapStateToProps = state => ({
 	currentUser: state.user.currentUser,
 	is_seeker: state.user.is_seeker,
-	authenticatoin_succeed: state.authenticatoin_succeed
+	authenticatoin_succeed: state.user.authenticatoin_succeed
 });
 export default connect(
 	MapStateToProps,

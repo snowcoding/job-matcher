@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Profile from "../components/Profile";
-import {
-	updateProfileImg,
-	updateProfilePassword
-} from "../store/action";
+
 import {getProfile,updateUser} from '../../auth/store/action';
 import FormEducation from './FormEducation';
 import FormExprience from './FormExprience';
@@ -17,6 +14,7 @@ import PropTypes from "prop-types";
 
 class ProfileContainer extends Component {
 	//ProfileContainer  will connect all form container and to profile component for rendering to screen.
+
     componentDidMount =  () => {
 		//TODO get current user info, to populate the form.
 		this.props.getProfile();
@@ -24,7 +22,8 @@ class ProfileContainer extends Component {
 	};
 
 	render() {
-		let steps = {
+		let tabs = this.props.authenticatoin_succeed ?
+		  {
 			"Personal": <FormPersonal />,
 			"Skill": <FormSkills />,
 			"Company": <FormCompany />,
@@ -32,19 +31,23 @@ class ProfileContainer extends Component {
 			"Exprience": <FormExprience />,
 			"Passowrd": <FormPassword />
 		}
-
+ 			: {};
+		console.log("form container index rendering ", this.props.authenticatoin_succeed)
 		return (
-			<Profile  is_seeker={this.props.is_seeker} steps={steps}  />
+			this.props.authenticatoin_succeed ? <Profile  is_seeker={this.props.is_seeker} tabs={tabs}  />
+				: <h1> geting profile </h1>
 		)
 	}
 }
 const MapStateToProps = state => ({
 	currentUser: state.user.currentUser,
 	is_seeker: state.user.is_seeker,
+	authenticatoin_succeed: state.user.authenticatoin_succeed
+
 });
 export default connect(
 	MapStateToProps,
-	{  updateProfileImg, updateProfilePassword, getProfile, updateUser }
+	{  getProfile, updateUser }
 )(ProfileContainer);
 
 ProfileContainer.propTypes = {
