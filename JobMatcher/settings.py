@@ -48,12 +48,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.linkedin',
+    #'django.contrib.sites',
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount',
+    #'allauth.socialaccount.providers.linkedin',
     'allauth.socialaccount.providers.linkedin_oauth2',
+    'oauth2_provider',
     'JobMatcherApp',  # This will be the API application
     'rest_framework',  # This is the DRF library
     'rest_framework_simplejwt',  # JWT library
@@ -165,15 +166,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-AUTHENTICATION_BACKENDS = (
-    #This setting controls which backends are used.
-     # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-    #login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend', 
-)
+# AUTHENTICATION_BACKENDS = (
+#     #This setting controls which backends are used.
+#      # Needed to login by username in Django admin, regardless of `allauth`
+#     'django.contrib.auth.backends.ModelBackend',
+#     #login by e-mail
+#     'allauth.account.auth_backends.AuthenticationBackend', 
+# )
 
-SITE_ID = 1
+# SITE_ID = 1
 # Direct from DRF Docs
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

@@ -30,8 +30,10 @@ djangorestframework-simplejwt = "==3.2.3"
 drf-yasg = "==1.10.1"
 django-heroku = "*"
 django-allauth = "*"
+django-oauth-toolkit = "*"
 
 [dev-packages]
+pylint = "*"
 # Todo (VS): Agree on python version 3.6 or 3.7
 #[requires]
 #python_version = "3.6"
