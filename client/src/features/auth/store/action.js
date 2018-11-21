@@ -3,8 +3,9 @@ import * as action from "./actionTypes";
 import { addErrorHandler } from "./error";
 import axios from "axios";
 import * as actionType from "../../forms/store/actionType";
-let url = "https://jobmatcher-api-stage.herokuapp.com"
-axios.defaults.headers.common['Authorization'] = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0Mjc0NzM4LCJqdGkiOiIzOTM5MTliY2U1NWE0MmY1YTc5MGM5MDM4NmNmYzlhNSIsInVzZXJfaWQiOiI5d3dycWM5cHZrIn0.39RYgkEv6wdujwKB52rlljz4_Vwkq1tcW6u6VuIeLU8';
+let url = "https://jobmatcher-api-stage.herokuapp.com";
+url = 'http://127.0.0.1:8000';
+axios.defaults.headers.common['Authorization'] = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0MzEwNTMyLCJqdGkiOiJhMDg1M2I4Zjc4NTg0MmEyYjNmNGIxYThiNWIwMDc0YSIsInVzZXJfaWQiOiJlcHJtcjIxb3pqIn0.rvbuULGYnQvqwZhFl11Qv8s4HGaKsEM7ZeHFsIodKbs';
 
 
 const signUpHandler = user => ({
@@ -94,6 +95,7 @@ export const updateUser = (data, typeUser) => {
 				localStorage.setItem("jwt", result.data.token);
 				localStorage.setItem("id", result.data.id);
 				dispatch(updateUserHandler(result.data));
+				console.log({result})
 			})
 			.catch(error => {
 				console.log("errorr", error.response.data);

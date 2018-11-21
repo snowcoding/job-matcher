@@ -35,18 +35,17 @@ class EducationContainer extends Component {
 		this.setState({ ...updateState });
 	};
 	onSubmit =(e) =>{
-		console.log("form Education on submit func");
 		e.preventDefault();
-		console.log(this.state);
-		let url = this.props.is_seeker ? "seekers/" : "employers/";
+		let url =  "seekers/" ;
 		url += this.props.currentUser.id + "/";
-		let data;
-		if(this.props.is_seeker){
-
-		}else{
-			data = this.state;
-			this.props.updateUser(data, url)
-		}
+		let data = this.state;
+		this.props.updateUser({
+			data: data.date.date,
+			school: data.school.value,
+			study: data.school.value,
+			degree: data.school.value,
+			description: data.description.value
+		}, url);
 	}
 
 	render() {

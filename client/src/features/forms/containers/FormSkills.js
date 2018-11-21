@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "../components/";
 
-class SkillsContainer extends Component {
+class FormSkills extends Component {
 	state = {
 		desired_title: {
 			name: "desired title",
@@ -14,7 +14,7 @@ class SkillsContainer extends Component {
 			name: "top skills",
 			value: ""
 		},
-		additional_skills: {
+		extra_skills: {
 			name: "additional skills",
 			value: ""
 		},
@@ -33,15 +33,16 @@ class SkillsContainer extends Component {
 		console.log("form skll on submit func");
 		e.preventDefault();
 		console.log(this.state);
-		let url = this.props.is_seeker ? "seekers/" : "employers/";
+		let url = "seekers/";
 		url += this.props.currentUser.id + "/";
-		let data;
-		if(this.props.is_seeker){
+		let data = this.state;
+		this.props.updateUser({
+			desired_title: data.desired_title.value,
+			top_skills: data.top_skills.value.split(" "),
+			extra_skills: data.extra_skills.value.split(" "),
+			other_skills: data.familiar_with.value.split(" ")
+		}, url)
 
-		}else{
-			data = this.state;
-			this.props.updateUser(data, url)
-		}
 	}
 
 	render() {
@@ -56,4 +57,4 @@ class SkillsContainer extends Component {
 	}
 }
 
-export default SkillsContainer;
+export default FormSkills;

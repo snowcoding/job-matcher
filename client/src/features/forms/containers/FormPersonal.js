@@ -16,7 +16,8 @@ class PersonalContainer extends Component {
 		img: {
 			name: "image",
 			type: "file",
-			value: ""
+			value: "",
+			controlledClass: "image_input",
 		}
 	};
 
@@ -42,13 +43,14 @@ class PersonalContainer extends Component {
 		console.log(this.state);
 		let url = this.props.is_seeker ? "seekers/" : "employers/";
 		url += this.props.currentUser.id + "/";
-		let data;
-		if(this.props.is_seeker){
 
-		}else{
-			data = this.state;
-			this.props.updateUser(data, url)
-		}
+		let data = this.state;
+			this.props.updateUser({
+				email: data.email.value,
+				first_name: data.name.value.split(" ")[0],
+				last_name: data.name.value.split(" ")[1],
+			}, url)
+
 	}
 
 	render() {

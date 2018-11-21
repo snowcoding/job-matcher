@@ -38,18 +38,18 @@ class ExprienceContainer extends Component {
 		this.setState({ ...updateState });
 	};
 	onSubmit =(e) =>{
-		console.log("form Exprience on submit func");
 		e.preventDefault();
-		console.log(this.state);
-		let url = this.props.is_seeker ? "seekers/" : "employers/";
+		let url =  "seekers/";
 		url += this.props.currentUser.id + "/";
-		let data;
-		if(this.props.is_seeker){
-
-		}else{
-			data = this.state;
-			this.props.updateUser(data, url)
-		}
+		let data = this.state;
+		this.props.updateUser({
+			date: data.date.date,
+			title: data.title.value,
+			company: data.company.value,
+			location: data.location.value,
+			headline: data.headline.value,
+			description: data.description.value
+		}, url)
 	}
 
 	render() {

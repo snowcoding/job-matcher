@@ -9,7 +9,7 @@ import {
 	FormGroup,SaveButton,
 	Title
 } from "./indexCss";
-
+import './form.css'
 const Forms = ({ state, onChange,  title, onSubmit }) => {
 	//Form will display a set of group form,
 	//TODO represent the state of inputs using visual aid.
@@ -26,6 +26,7 @@ const Forms = ({ state, onChange,  title, onSubmit }) => {
 					placeholder={item[1].placeholder ||item[1].name ||item[0]}
 					value={item[1].value}
 					onChange={onChange}
+					className={item[1].controlledClass || "form_input"}
 				/>
 				<StyledLabel htmlFor={item[1].id || item[0]}>
 					{item[1].name || item[0]}
@@ -36,6 +37,8 @@ const Forms = ({ state, onChange,  title, onSubmit }) => {
 				key={item[1].id || item[0]}
 				onChange={onChange}
 				value={item[1].date}
+				calendarClassName={item[1].controlledClass || "icalander"}
+				className={item[1].controlledClass || "icalander2"}
 			/>
 		)
 	);

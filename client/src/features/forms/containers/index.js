@@ -11,7 +11,7 @@ import FormExprience from './FormExprience';
 import FormPassword from './FormPassword';
 import FormPersonal from './FormPersonal';
 import FormCompany from './FormCompany';
-import SkillsContainer from './FormSkills';
+import FormSkills from './FormSkills';
 
 import PropTypes from "prop-types";
 
@@ -26,7 +26,7 @@ class ProfileContainer extends Component {
 	render() {
 		let steps = {
 			"Personal": <FormPersonal />,
-			"Skill": <SkillsContainer />,
+			"Skill": <FormSkills />,
 			"Company": <FormCompany />,
 			"Education": <FormEducation />,
 			"Exprience": <FormExprience />,

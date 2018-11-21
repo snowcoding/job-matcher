@@ -35,13 +35,11 @@ class PasswordContainer extends Component {
 		console.log(this.state);
 		let url = this.props.is_seeker ? "seekers/" : "employers/";
 		url += this.props.currentUser.id + "/";
-		let data;
-		if(this.props.is_seeker){
-
-		}else{
-			data = this.state;
-			this.props.updateUser(data, url)
-		}
+		let data = this.state;
+		this.props.updateUser({
+							oldPassword: data.old_password.value,
+							newPassword: data.new_password.value,
+						}, url)
 	}
 
 	render() {

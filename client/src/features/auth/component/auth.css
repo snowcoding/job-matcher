@@ -75,7 +75,9 @@
 	text-align: start;
 	/* border: 1px solid; */
 }
-
+.image_input{
+	border: none;
+}
 .form-textarea {
 	height: auto;
 }

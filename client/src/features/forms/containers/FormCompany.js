@@ -21,15 +21,13 @@ class CompanyContainer extends Component {
 		console.log("form password on submit func");
 		e.preventDefault();
 		console.log(this.state);
-		let url = this.props.is_seeker ? "seekers/" : "employers/";
+		let url =  "employers/";
 		url += this.props.currentUser.id + "/";
-		let data;
-		if(this.props.is_seeker){
+		let data = this.state;
+		this.props.updateUser({
+			company: data.company.value
+		}, url)
 
-		}else{
-			data = this.state;
-			this.props.updateUser(data, url)
-		}
 	}
 
 	render() {
