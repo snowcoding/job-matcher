@@ -1,112 +1,169 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Forms from "../components/index";
-import EducationContainer from "./Form_Education";
-import ExprienceContainer from "./Form_Exprience";
-import PasswordContainer from "./Form_Password";
-import SkillsContainer from "./Form_Skills";
-import PersonalContainer from "./Form_Personal";
+import Profile from "../components/Profile";
 import {
-	updateProfile,
 	updateProfileImg,
 	updateProfilePassword
 } from "../store/action";
-// import TypeForm from "react-typeform";
-import StepZilla from "react-stepzilla";
+import {getProfile,updateUser} from '../../auth/store/action'
 
-class FormsContainer extends Component {
+class ProfileContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: {
-				value: ""
+			personal:{
+				name: {
+					value: ""
+				},
+				email: {
+					value: ""
+				},
+				img: {
+					type: "file",
+					value: ""
+				},
 			},
-			email: {
-				value: ""
+			company:{
+				company_name: {
+					name: "company name",
+					value: ""
+				},
 			},
-			company_name: {
-				value: ""
+			skill: {
+				desired_title: {
+					name: "desired title",
+					value: ""
+				},
+				summary: {
+					value: ""
+				},
+				top_skills: {
+					name: "top skills",
+					value: ""
+				},
+				additional_skills: {
+					name: "additional skills",
+					value: ""
+				},
+				familiar_with: {
+					name: "familiar with",
+					value: ""
+				},
 			},
-			img: {
-				type: "file",
-				value: ""
+			expreince: {
+				expreince_date: {
+					date: [new Date(), new Date()],
+					id: "expreince_data"
+				},
+				title: {
+					value: ""
+				},
+				company: {
+					value: ""
+				},
+				location: {
+					value: ""
+				},
+				headline: {
+					value: ""
+				},
+				exprience_description: {
+					id: "exprience_description",
+					value: ""
+				},
+			},
+			education:{
+				education_date: {
+					id: "education_data",
+					date: [new Date(), new Date()]
+				},
+				school: {
+					value: ""
+				},
+				study: {
+					value: ""
+				},
+				Degree: {
+					value: ""
+				},
+				education_description: {
+					id: "education_description",
+					value: ""
+				},
+			},
+			password:{
+				old_password: {
+					type: "password",
+					name: "old password",
+					value: ""
+				},
+				new_password: {
+					type: "password",
+					name: "new password",
+					value: ""
+				},
+				new_password2: {
+					id: "password2",
+					type: "password",
+					name: "confirm password",
+					value: ""
+				}
 			}
 		};
 	}
-	componentDidMount = () => {
-		if (this.props.currentUser) {
-			let name = `${this.props.currentUser.first_name} ${
-				this.props.currentUser.last_name
-			}`;
-			let { email } = this.props.currentUser;
-			this.setState({
-				name,
-				email
-			});
-		}
-	};
-	inputHandler = e => {
-		let updateState = { ...this.state };
-		updateState[e.target.name].value = e.target.value;
 
+	getUserProfile =  () =>{
+		this.props.getProfile();
+	}
+    componentDidMount =  () => {
+		this.getUserProfile();
+		let updateState = JSON.parse(JSON.stringify(this.state));
+		if(this.props.authenticatoin_succeed){
+				updateState.personal.name.value = `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`;
+				updateState.personal.email.value = this.props.currentUser.email;
+			this.setState({
+				...updateState
+			})
+			console.log("working")
+		}
+
+	};
+	inputHandler = (name, e) => {
+		let updateState = { ...this.state };
+
+		if (e.target) {
+			updateState[name][e.target.name].value = e.target.value;
+		} else {
+			updateState.date.date = e;
+		}
 		this.setState({ ...updateState });
 	};
 	handleSubmit = e => {
 		// Call your submit function here
 		e.preventDefault();
 		console.log(this.state);
+		let url = this.props.is_seeker ? "/seekers/" : "/employers/";
+		url += this.props.currentUser.id + "/";
+		let data;
+		if(this.props.is_seeker){
+
+		}else{
+			data = this.state;
+			this.props.updateUser(data, url)
+		}
 	};
 	render() {
-		let steps = [
-			{
-				name: "personal",
-				component: (
-					<Forms
-						title="Personal"
-						state={this.state}
-						is_seeker={this.props.is_seeker}
-						onChange={this.inputHandler}
-					/>
-				)
-			},
-			{
-				name: "Skill",
-				component: <SkillsContainer />
-			},
-			{
-				name: "Exprience",
-				component: <ExprienceContainer />
-			},
-			{
-				name: "Education",
-				component: <EducationContainer />
-			},
-			{
-				name: "Password",
-				component: <PasswordContainer />
-			}
-		];
-
 		return (
-			<div className="step-progress">
-				<StepZilla
-					steps={steps}
-					showSteps={true}
-					showNavigation={true}
-					nextTextOnFinalActionStep="next"
-				/>
-				<button type="submit" onClick={this.handleSubmit}>
-					Save
-				</button>
-			</div>
+			<Profile currentUser={this.props.currentUser} is_seeker={this.props.is_seeker} state={this.state} onSubmit={this.handleSubmit} onChange={this.inputHandler}/>
 		);
 	}
 }
 const MapStateToProps = state => ({
 	currentUser: state.user.currentUser,
-	is_seeker: state.user.is_seeker
+	is_seeker: state.user.is_seeker,
+	authenticatoin_succeed: state.authenticatoin_succeed
 });
 export default connect(
 	MapStateToProps,
-	{ updateProfile, updateProfileImg, updateProfilePassword }
-)(FormsContainer);
+	{  updateProfileImg, updateProfilePassword, getProfile, updateUser }
+)(ProfileContainer);

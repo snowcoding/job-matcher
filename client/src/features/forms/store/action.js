@@ -1,10 +1,11 @@
 import * as actionType from "./actionType";
 import axios from "axios";
+let url = "https://jobmatcher-api-stage.herokuapp.com"
 
-const profileUpdateHandler = user => ({
-	type: actionType.UPDATE_PROFILE,
-	user
-});
+axios.defaults.headers.common['Authorization'] = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0Mjc0NzM4LCJqdGkiOiIzOTM5MTliY2U1NWE0MmY1YTc5MGM5MDM4NmNmYzlhNSIsInVzZXJfaWQiOiI5d3dycWM5cHZrIn0.39RYgkEv6wdujwKB52rlljz4_Vwkq1tcW6u6VuIeLU8';
+
+
+
 const userImgUpdateHandler = img => ({
 	type: actionType.UPDATE_PROFILE_IMG,
 	img
@@ -18,23 +19,11 @@ const profileErrorHandler = error => ({
 	error
 });
 
-export const updateProfile = data => dispatch => {
-	dispatch({ type: actionType.FETCHING_UPDATE_PROFILE });
-	axios
-		.post(`/api/v1/me`)
-		.then(result => {
-			dispatch(profileUpdateHandler(result.data));
-		})
-		.catch(error => {
-			error.response
-				? dispatch(profileErrorHandler(error.response.data))
-				: dispatch(profileErrorHandler(error));
-		});
-};
+
 export const updateProfileImg = data => dispatch => {
 	dispatch({ type: actionType.FETCHING_UPDATE_PROFILE });
 	axios
-		.post(`/api/v1/me`)
+		.post(`${url}/api/v1/me`)
 		.then(result => {
 			dispatch(userImgUpdateHandler(result.data));
 		})
@@ -47,7 +36,7 @@ export const updateProfileImg = data => dispatch => {
 export const updateProfilePassword = data => dispatch => {
 	dispatch({ type: actionType.FETCHING_UPDATE_PROFILE });
 	axios
-		.post(`/api/v1/me`)
+		.post(`${url}/api/v1/me`)
 		.then(result => {
 			dispatch(passwordUpdateHandler(result.data));
 		})

@@ -1,5 +1,27 @@
 import styled from "styled-components";
-
+import {
+		Nav,Row,
+	} from 'react-bootstrap';
+export  const StyledRow = styled(Row)`
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    width: 100%;
+`;
+export  const StyledNav = styled(Nav)`
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;    
+    li{
+        height: 30px;
+    }
+`;
 export const StyledInput = styled.input`
 	display: block;
 	margin: 10px 0;
@@ -41,7 +63,7 @@ export const StyledInput = styled.input`
 `;
 
 export const FormDiv = styled.div`
-	width: 500px;
+	width: 100%;
 	min-height: 60vh;
 	margin: 60px auto;
 	font-size: 12px;

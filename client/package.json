@@ -11,6 +11,7 @@
     "jest": "^23.6.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.1",
+    "react-bootstrap": "^0.32.4",
     "react-burger-menu": "^2.5.4",
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.0",
@@ -44,5 +45,5 @@
     "faker": "^4.1.0",
     "fs": "^0.0.1-security"
   },
-  "proxy": "https://jobmatcher-api-stage.herokuapp.com"
+//  "proxy": "https://jobmatcher-api-stage.herokuapp.com"
 }

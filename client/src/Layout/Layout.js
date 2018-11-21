@@ -7,7 +7,7 @@ import Testing from "../features/testing/container";
 import NavBar from "../features/nav/component/NavBar";
 import Landing from "../layouts/landingPage/Landing";
 import Billing from "../features/Billing/Billing";
-import FormsContainer from "../features/forms/containers";
+import ProfileContainer from "../features/forms/containers";
 
 export default class Layout extends React.Component {
 	render() {
@@ -24,7 +24,7 @@ export default class Layout extends React.Component {
 								path="/forms"
 								component={ProtectedPages(FormsContainer)}
 							/> */}
-							<Route path="/forms" component={FormsContainer} />
+							<Route path="/forms" component={ProfileContainer} />
 							<Route path="/testing" exact component={Testing} />
 						</Switch>
 					</Row>

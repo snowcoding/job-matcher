@@ -10,21 +10,21 @@ import {
 } from "./indexCss";
 // import StepZilla from "react-stepzilla";
 
-const Forms = ({ state, onChange, is_seeker, title }) => {
+const Forms = ({ state, onChange, is_seeker, title, name, currentUser }) => {
 	let arr = Object.entries(state);
 	let inputs = arr.map((item, index) =>
-		item[0] !== "date" ? (
+		!item[0].includes("date") ? (
 			<FormGroup key={item[1].id || item[0]}>
 				<StyledInput
 					type={item[1].type || "text"}
 					name={item[1].name || item[0]}
 					id={item[1].id || item[0]}
-					placeholder={item[1].placeholder || item[0]}
+					placeholder={item[1].placeholder ||item[1].name ||item[0]}
 					value={item[1].value}
-					onChange={onChange}
+					onChange={e => onChange(name, e)}
 				/>
 				<StyledLabel htmlFor={item[1].id || item[0]}>
-					{item[0]}
+					{item[1].name || item[0]}
 				</StyledLabel>
 			</FormGroup>
 		) : (

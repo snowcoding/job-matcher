@@ -1,6 +1,8 @@
 import * as actionTypes from "./actionTypes";
+import * as actionType from "../../forms/store/actionType";
 const initialState = {
 	fetching: false,
+	FETCHING_GET_PROFILE: true,
 	authenticatoin_succeed: false,
 	is_seeker: null,
 	currentUser: null,
@@ -20,18 +22,14 @@ function userReduceer(state = initialState, action) {
 				...state,
 				error: null,
 				fetching: false,
-				authenticatoin_succeed: true,
-				is_seeker: action.user.data["desired_title"] ? true : false,
-				token: action.user.token,
-				currentUser: { ...action.user.data }
+				token: action.data.access,
 			};
 		case actionTypes.LOGIN__USER:
 			return {
 				...state,
 				error: null,
-				authenticatoin_succeed: true,
 				fetching: false,
-				currentUser: action.currentUser
+				token: action.data.access,
 			};
 		case actionTypes.LOGOUT__USER:
 			localStorage.removeItem("token");
@@ -56,17 +54,15 @@ function userReduceer(state = initialState, action) {
 				error: null,
 				currentUser: action.currentUser
 			};
-		case actionTypes.GET__USERS:
-			return {
-				...state,
-				fetching: false,
-				error: null,
-				users: action.users
-			};
+		case actionType.FETCHING_GET_PROFILE:
+			return {...state, FETCHING_GET_PROFILE: true}
+		case actionType.GET_PROFILE:
+			return {...state, FETCHING_GET_PROFILE: false, authenticatoin_succeed: true, currentUser: action.user, is_seeker: action.user.is_seeker }
 		case actionTypes.ADD__ERROR:
 			return {
 				...state,
 				error: action.error.error,
+				FETCHING_GET_PROFILE: false,
 				fetching: false
 			};
 		case actionTypes.DELETE__ERROR:
@@ -75,7 +71,8 @@ function userReduceer(state = initialState, action) {
 				is_seeker: null,
 				currentUser: null,
 				error: null,
-				fetching: false
+				fetching: false,
+				FETCHING_GET_PROFILE: false,
 			};
 		default:
 			return state;
