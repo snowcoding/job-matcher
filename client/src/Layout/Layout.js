@@ -22,7 +22,7 @@ export default class Layout extends React.Component {
 							<Route path="/billing" component={Billing} />
 							{/* <Route
 								path="/forms"
-								component={ProtectedPages(FormsContainer)}
+								component={ProtectedPages(ProfileContainer)}
 							/> */}
 							<Route path="/forms" component={ProfileContainer} />
 							<Route path="/testing" exact component={Testing} />

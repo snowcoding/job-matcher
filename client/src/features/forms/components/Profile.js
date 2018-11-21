@@ -1,27 +1,25 @@
 import React  from "react";
-import Forms from "./index";
+import PropTypes from 'prop-types';
+
 import {
 		Tab, Col,NavItem
 	} from 'react-bootstrap';
 import  {StyledNav, StyledRow} from './indexCss';
 
 const Profile  = props => {
+	//Profile function make the use of react-bootstrap Tap components to display  all forms
+	//it takes is_seeker props to use conditional rendering whether the user is employer or not
 
-	let stateToArry = Object.entries(props.state);
+	let stepsToArry = Object.entries(props.steps);
 
-	 let steps =  stateToArry.filter(item =>
+	 let steps =  stepsToArry.filter(item =>
 		props.is_seeker ?
-		item[0] !== "company" : item[0] !== "skill" && item[0] !== 'education'  && item[0] !== 'expreince'
+		item[0] !== "Company" : item[0] !== "Skill" && item[0] !== 'Education'  && item[0] !== 'Exprience'
 	).map((item, index)=>{
 			return([
 				<NavItem eventKey={index} key={index+10}>{item[0]}</NavItem>,
 				<Tab.Pane eventKey={index} key={index+10}>
-										<Forms
-											name={item[0]}
-											state={item[1]}
-											is_seeker={props.is_seeker}
-											onChange={props.onChange}
-										/>
+					{item[1]}
 				</Tab.Pane>
 			])
 	});
@@ -48,3 +46,7 @@ const Profile  = props => {
 export  default  Profile;
 
 
+Profile.propTypes = {
+	steps: PropTypes.object,
+	is_seeker:  PropTypes.bool,
+};

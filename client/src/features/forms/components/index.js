@@ -10,7 +10,7 @@ import {
 } from "./indexCss";
 // import StepZilla from "react-stepzilla";
 
-const Forms = ({ state, onChange, is_seeker, title, name, currentUser }) => {
+const Forms = ({ state, onChange, is_seeker, title, name, onSubmit }) => {
 	let arr = Object.entries(state);
 	let inputs = arr.map((item, index) =>
 		!item[0].includes("date") ? (
@@ -21,7 +21,7 @@ const Forms = ({ state, onChange, is_seeker, title, name, currentUser }) => {
 					id={item[1].id || item[0]}
 					placeholder={item[1].placeholder ||item[1].name ||item[0]}
 					value={item[1].value}
-					onChange={e => onChange(name, e)}
+					onChange={onChange}
 				/>
 				<StyledLabel htmlFor={item[1].id || item[0]}>
 					{item[1].name || item[0]}
@@ -39,6 +39,7 @@ const Forms = ({ state, onChange, is_seeker, title, name, currentUser }) => {
 		<FormDiv>
 			<Title>{title}</Title>
 			{inputs}
+			<button onClick={onSubmit}> save </button>
 		</FormDiv>
 	);
 };
