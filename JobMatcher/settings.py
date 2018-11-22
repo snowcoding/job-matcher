@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',  # JWT library
     'corsheaders',  # CORS library
     'drf_yasg', # API Swagger docs
+    'jobs'
 ]
 
 MIDDLEWARE = [
