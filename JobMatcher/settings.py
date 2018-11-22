@@ -35,9 +35,6 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.spl
 # DEBUG = True
 
 # ALLOWED_HOSTS = []
-#LINKED IN CREDENTIALS
-#Client ID:	869wj9yfdzq2u7
-#Client Secret:	fh4Dy825d2Jx3394
 
 # Application definition
 
@@ -48,14 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.sites',
-    #'allauth',
-    #'allauth.account',
-    #'allauth.socialaccount',
-    #'allauth.socialaccount.providers.linkedin',
-    'allauth.socialaccount.providers.linkedin_oauth2',
-    'oauth2_provider',
     'JobMatcherApp',  # This will be the API application
+    'oauth2_provider',
     'rest_framework',  # This is the DRF library
     'rest_framework_simplejwt',  # JWT library
     'corsheaders',  # CORS library
@@ -166,15 +157,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# AUTHENTICATION_BACKENDS = (
-#     #This setting controls which backends are used.
-#      # Needed to login by username in Django admin, regardless of `allauth`
-#     'django.contrib.auth.backends.ModelBackend',
-#     #login by e-mail
-#     'allauth.account.auth_backends.AuthenticationBackend', 
-# )
-
-# SITE_ID = 1
 # Direct from DRF Docs
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -183,14 +165,19 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.DjangoModelPermissions'
         'rest_framework.permissions.IsAuthenticated'
     ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [], #No Authentication
-    # 'DEFAULT_PERMISSION_CLASSES': [] #No Persmissions
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication', 
     )
+}
+
+OAUTH2_PROVIDER = {
+    
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24 * 30,
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
 }
 
 # JWT

@@ -184,7 +184,7 @@ class Auth extends Component {
 		if (isValid) {
 			this.props.location.pathname.includes("login")
 				? this.props.login({
-						email: email.value,
+						username: email.value,
 						password: password.value
 				  })
 				: this.props.signUpUser(

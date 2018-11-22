@@ -46,11 +46,16 @@ export const signUpUser = data => {
 export const login = data => {
 	return function(dispatch) {
 		dispatch({ type: action.FETCHING });
-
+		data = {
+			...data,
+			grant_type: "password",
+			client_id: "1cbDYVshiDGjrUV8j4BYm37IGsNHRsCtPsmz77hl",
+			client_secret: "3pJgSt6jvxQzWWCcCyeg0yzXL8HUcc5BHmj5ycBxoxQxR5t59Btq1XwGzS2pvS2nvxX8gOGUMYT6I25ntyipjEy8QWpMx9gGNrZv7MP3JycypnffHCSadpTgApeBsy7D",
+		}
 		axios
-			.post(`${URL}/api/v1/signin`, data)
+			.post(`http://localhost:8000/api/v1/o/token/`, data)
 			.then(result => {
-				localStorage.setItem("token", result.data.token);
+				localStorage.setItem("token", result.data.access_token);
 				dispatch(loginHandler(result.data));
 			})
 			.catch(error => {
