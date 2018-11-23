@@ -15,6 +15,7 @@ class BrowseContainer extends Component {
     }
 }
 const MapStateToProps = state => ({
-    data: state.data
+    data: state.randomUser.data,
+    FETCHING_GET_PROFILE: state.randomUser.FETCHING_GET_PROFILE
 })
-export  default  connect(null, {getRandomUser})(BrowseContainer);
+export  default  connect(MapStateToProps, {getRandomUser})(BrowseContainer);
