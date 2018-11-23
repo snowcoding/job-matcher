@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "39e701b5e859c66ed6d805db590a34a83adeaf2125695e9a6badc241399cd36e"
+            "sha256": "9ca435e49b697fb615671c33dad8b5e741a42583701b20b7bf76a6049e896e96"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -330,6 +330,7 @@
                 "sha256:65b3a120e4329e33c9889db89c80976c5272f56ea92d3e74da8a463992e3ff54",
                 "sha256:ea881206e59f41dbd0bd445437d792e43906703fff75ca8ff43ccdb11f33f263"
             ],
+            "markers": "python_version >= '3.0'",
             "version": "==2.20.1"
         },
         "ruamel.yaml": {
@@ -366,6 +367,14 @@
             ],
             "index": "pypi",
             "version": "==1.11.0"
+        },
+        "stripe": {
+            "hashes": [
+                "sha256:8aac44663f527ea1759e5b1cf40562a7ea5abf14b1e9dc53b6f359e72d93562c",
+                "sha256:9d42e9754e77c81faed9fa08a6d6a948047b78db32da2e44b8063a2ab87ae2d3"
+            ],
+            "index": "pypi",
+            "version": "==2.12.0"
         },
         "uritemplate": {
             "hashes": [

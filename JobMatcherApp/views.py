@@ -62,7 +62,7 @@ def charge(request):
         source=request.body
     )
 
-    return Response(data={'status': status})
+    return Response(data=status)
 
 
 class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
