@@ -21,4 +21,7 @@ urlpatterns = [
 
     # view sets
     path('', include(router.urls)),
+
+    # Billing
+    path('charge/' , views.charge, name='charge')
 ]
