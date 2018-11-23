@@ -4,10 +4,10 @@ from JobMatcherApp.models import BaseModel, Employer, SkillsField
 from django.utils.translation import gettext_lazy as _
 
 class Job(BaseModel):
-    employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    employer = models.ForeignKey(Employer, related_name='jobs', on_delete=models.CASCADE)
     title = models.CharField(_('desired title'), max_length=150, blank=True)
-    salary_min = models.DecimalField(max_digits=6, decimal_places=2)
-    salary_max = models.DecimalField(max_digits=6, decimal_places=2)
+    salary_min = models.DecimalField(max_digits=9, decimal_places=2)
+    salary_max = models.DecimalField(max_digits=9, decimal_places=2)
     top_skills = SkillsField(size=5)
     extra_skills = SkillsField()
     familiar_with = SkillsField()
