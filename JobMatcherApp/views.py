@@ -1,7 +1,7 @@
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, mixins
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.response import Response
 
 from JobMatcherApp.models import Employer, Seeker
@@ -50,8 +50,20 @@ class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.L
     serializer_class = serializers.SeekerSerializer
     queryset = Seeker.objects.all()
 
+    @action(methods=['get'], detail=False)
+    def random(self, request):
+        queryset = self.get_queryset().order_by("user_id").last();
+        serializer = self.get_serializer(queryset);
+        return  Response(data=serializer.data)
+
 
 class EmployerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin,
                       viewsets.GenericViewSet):
     serializer_class = serializers.EmployerSerializer
     queryset = Employer.objects.all()
+
+    @action(methods=['get'], detail=False)
+    def random(self, request):
+        queryset = self.get_queryset().order_by("user_id").last();
+        serializer = self.get_serializer(queryset);
+        return Response(data=serializer.data)

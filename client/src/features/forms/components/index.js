@@ -17,7 +17,7 @@ const Forms = ({ state, onChange,  title, onSubmit, btnName }) => {
 	let inputs = arr.map((item, index) =>
 		//check for date input type and using daterangepicker lib
 		!item[0].includes("date") ? (
-			<FormGroup key={item[1].id || item[0]}>
+			<FormGroup key={item[1].id || item[0]} className="form group">
 				<StyledInput
 					type={item[1].type || "text"}
 					name={item[1].name || item[0]}

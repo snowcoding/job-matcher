@@ -3,6 +3,7 @@ import * as action from "./actionTypes";
 import { addErrorHandler } from "./error";
 import axios from "axios";
 import * as actionType from "../../forms/store/actionType";
+import  Api from '../../../api'
 let url = "https://jobmatcher-api-stage.herokuapp.com";
 url = 'http://127.0.0.1:8000';
 axios.defaults.headers.common['Authorization'] = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0MzEwNTMyLCJqdGkiOiJhMDg1M2I4Zjc4NTg0MmEyYjNmNGIxYThiNWIwMDc0YSIsInVzZXJfaWQiOiJlcHJtcjIxb3pqIn0.rvbuULGYnQvqwZhFl11Qv8s4HGaKsEM7ZeHFsIodKbs';
@@ -64,14 +65,13 @@ export const signUpUser = data => {
 	};
 };
 
-export const login = data => {
+export const login = (data) => {
 	return function(dispatch) {
 		dispatch({ type: action.FETCHING });
 
-		axios
-			.post(`${url}/api/v1/signin`, data)
+		Api.endpoints.signIn(data)
 			.then(result => {
-				localStorage.setItem("token", result.data.token);
+				localStorage.setItem("access", result.data.access);
 				dispatch(loginHandler(result.data));
 			})
 			.catch(error => {

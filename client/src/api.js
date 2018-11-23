@@ -25,10 +25,16 @@ let authEndpoints = {
 }
 
 let profilesEndpoints = {
+  random(userType){
+    return api.get(`/${userType}s/random/`)
+  },
   me () {
     return api.get('/me/')
   },
   // Todo: Add more profile endpoints
+    signIn (data) {
+      return api.post(`/token/`, data)
+    },
 }
 
 let jobsEndpoints = {
