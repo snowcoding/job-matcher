@@ -69,6 +69,9 @@ class NavBar extends React.Component {
                   <DropdownItem>
                     <a href="/Billing">Billing</a>
                   </DropdownItem>
+                  <DropdownItem>
+                    <a href="/Job">Job</a>
+                  </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
                     {/* {!this.props.authentication.user ?

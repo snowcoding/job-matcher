@@ -35,6 +35,9 @@ let profilesEndpoints = {
 
 let jobsEndpoints = {
   // Todo: Add jobs endpoints here
+  jobs() {
+    return api.get("/jobs/");
+  }
 };
 
 let billingEndpoints = {
