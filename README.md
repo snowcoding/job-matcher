@@ -13,20 +13,20 @@ Job Seekers
 - Spend 10 credits to super app
 - Can purchase 100 credits for 10 dollars
 
-Employers 
+Employers
 
 - Start with one free posting
-- Purchase additional for $10 each
+- Purchase additional for \$10 each
 - Get 100 credits per job posted
 - Get one free call per day (employer version of app/match)
 - Once free calls are used, spend 1 credit to call
 - Spend 10 credits to super call
 
 Stretch Goals
+
 - Implement in-app messaging
 - Free but Premium Tier for all Lambda grads and hiring partners
 - Lambda Badges on profile for grads, verified by Lambda Staff
-
 
 ## Local setup
 
@@ -34,31 +34,33 @@ Stretch Goals
 
 1. Create `.env` file withe following content
 
-    ```.env
-    DEBUG=True
-    SECRET_KEY=NOTSOSECRETANYMORE
-    ALLOWED_HOSTS=localhost,127.0.0.1
-    DATABASE_URL=sqlite:///db.sqlite3
-    ```
+   ```.env
+   DEBUG=True
+   SECRET_KEY=NOTSOSECRETANYMORE
+   ALLOWED_HOSTS=localhost,127.0.0.1
+   DATABASE_URL=sqlite:///db.sqlite3
+   ```
 
 1. Install virtual environment and packages using [Pipenv](https://pipenv.readthedocs.io/en/latest/)
 
-    ```bash
-    pipenv install
-    ```
+   ```bash
+   pipenv install
+   ```
 
 1. Activate virtual environment
-    ```bash
-    pipenv shell
-    ```
+
+   ```bash
+   pipenv shell
+   ```
 
 1. Apply migrations
-    ```bash
-    pyton manage.py migrate
-    ```
+
+   ```bash
+   pyton manage.py migrate
+   ```
 
 1. Start Django server
 
-    ```bash
-    pyton manage.py runserver
-    ```
+   ```bash
+   pyton manage.py runserver
+   ```

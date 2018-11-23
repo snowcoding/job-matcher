@@ -9,26 +9,26 @@ import Landing from "../layouts/landingPage/Landing";
 import Billing from "../features/Billing/Billing";
 
 export default class Layout extends React.Component {
-	render() {
-		return (
-			<div>
-				<NavBar />
-				<Route path="/" exact component={Landing} />
-				<Container>
-					<Row>
-						<Switch>
-							<Route path="/auth" component={Auth} />
-							<Route path="/billing" component={Billing} />
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <Route path="/" exact component={Landing} />
+        <Container>
+          <Row>
+            <Switch>
+              <Route path="/auth" component={Auth} />
+              <Route path="/billing" component={Billing} />
 
-							<Route
-								path="/testing"
-								exact
-								component={ProtectedPages(Testing)}
-							/>
-						</Switch>
-					</Row>
-				</Container>
-			</div>
-		);
-	}
+              <Route
+                path="/testing"
+                exact
+                component={ProtectedPages(Testing)}
+              />
+            </Switch>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
 }

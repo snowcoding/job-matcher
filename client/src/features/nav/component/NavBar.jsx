@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   Collapse,
   Navbar,
@@ -11,8 +11,8 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
-
+  DropdownItem
+} from "reactstrap";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -34,14 +34,14 @@ class NavBar extends React.Component {
   render() {
     // const user = this.props.authentication.user;
     console.log("User", this.props);
-   // const user = this.props.authentication && this.props.authentication.user;
+    // const user = this.props.authentication && this.props.authentication.user;
     return (
       <div>
         <Navbar color="light" light expand="md">
           <NavbarBrand href="/">Job Matcher</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-          {/* {user &&  */}
+            {/* {user &&  */}
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink href="/components/">Free Apps: </NavLink>
@@ -55,29 +55,19 @@ class NavBar extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <a href="/">
-                        Home
-                    </a>
+                    <a href="/">Home</a>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/MyProfile">
-                        My Profile
-                    </a>
+                    <a href="/MyProfile">My Profile</a>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Matches">
-                        Matches
-                    </a>
+                    <a href="/Matches">Matches</a>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Messages">
-                        Messages
-                    </a>
+                    <a href="/Messages">Messages</a>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Billing">
-                        Billing
-                    </a>
+                    <a href="/Billing">Billing</a>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
@@ -85,12 +75,12 @@ class NavBar extends React.Component {
                     <a href="/login">Sign In</a> :
                     <a href="/" onClick={this.handleSignOut}>Sign Out</a>
                   } */}
-                  Sign Out
+                    Sign Out
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
-          {/* } */}
+            {/* } */}
           </Collapse>
         </Navbar>
       </div>
@@ -98,18 +88,17 @@ class NavBar extends React.Component {
   }
 }
 
-
 function mapStateToProps(state) {
-    const { authentication } = state;
-    return {
-        authentication
-    };
+  const { authentication } = state;
+  return {
+    authentication
+  };
 }
-    
+
 const ConnectedNavBar = connect(mapStateToProps)(NavBar);
 
 export default class Wrapper extends React.Component {
-    render(){
-       return (<ConnectedNavBar />);
-    }
+  render() {
+    return <ConnectedNavBar />;
+  }
 }

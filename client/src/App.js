@@ -4,13 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "./Layout/Layout";
 
 class App extends Component {
-	render() {
-		return (
-			<div className="App">
-				<Layout />
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className="App">
+        <Layout />
+      </div>
+    );
+  }
 }
 
 export default App;
