@@ -1,3 +1,4 @@
+import random
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, mixins
@@ -52,7 +53,11 @@ class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.L
 
     @action(methods=['get'], detail=False)
     def random(self, request):
-        queryset = self.get_queryset().order_by("user_id").last();
+        # TODO get rand users
+        number_of_records = self.get_queryset().order_by("user_id").count();
+        random_index = int(random.random() * number_of_records);
+        queryset = self.get_queryset().all()[random_index];
+
         serializer = self.get_serializer(queryset);
         return  Response(data=serializer.data)
 
@@ -64,6 +69,10 @@ class EmployerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins
 
     @action(methods=['get'], detail=False)
     def random(self, request):
-        queryset = self.get_queryset().order_by("user_id").last();
+
+        number_of_records = self.get_queryset().order_by("user_id").count();
+        random_index = int(random.random() * number_of_records);
+        queryset = self.get_queryset().all()[random_index];
+
         serializer = self.get_serializer(queryset);
         return Response(data=serializer.data)
