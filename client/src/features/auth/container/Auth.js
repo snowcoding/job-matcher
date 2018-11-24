@@ -188,7 +188,6 @@ class AuthContainer extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		let { name, email, password, is_seeker } = this.state;
-
 		if (this.props.location.pathname.includes("login")) {
 			let isValid = this.state.email.valid && this.state.password.valid;
 			if (isValid) {
@@ -198,12 +197,13 @@ class AuthContainer extends Component {
 				});
 			}
 		} else {
+			let userType = this.state.is_seeker ? "seeker" : "employer";
 			let isValid =
 				this.state.email.valid &&
 				this.state.password.valid &&
 				this.state.name.valid;
 			if (isValid) {
-				this.props.signUpUser({
+				this.props.signUpUser(userType, {
 					first_name: name.value.split(" ")[0],
 					last_name: name.value.split(" ")[1],
 					email: email.value,

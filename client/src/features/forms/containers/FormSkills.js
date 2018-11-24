@@ -33,15 +33,17 @@ class FormSkills extends Component {
 		console.log("form skll on submit func");
 		e.preventDefault();
 		console.log(this.state);
-		let url = "seekers/";
-		url += this.props.currentUser.id + "/";
+		let userType = this.props.is_seeker ? "seeker" : "employer";
+		let userId = this.props.currentUser.id ;
 		let data = this.state;
-		this.props.updateUser({
+
+		this.props.updateUser(userType, userId, {
 			desired_title: data.desired_title.value,
 			top_skills: data.top_skills.value.split(" "),
 			extra_skills: data.extra_skills.value.split(" "),
 			other_skills: data.familiar_with.value.split(" ")
-		}, url)
+		})
+
 
 	}
 

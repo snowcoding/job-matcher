@@ -35,17 +35,18 @@ class EducationContainer extends Component {
 		this.setState({ ...updateState });
 	};
 	onSubmit =(e) =>{
+		//adopt to seeker education field on backend;
 		e.preventDefault();
-		let url =  "seekers/" ;
-		url += this.props.currentUser.id + "/";
+		let userType = "seeker";
+		let userId = this.props.currentUser.id ;
 		let data = this.state;
-		this.props.updateUser({
+		this.props.updateUser(userType, userId, {
 			data: data.date.date,
 			school: data.school.value,
 			study: data.school.value,
 			degree: data.school.value,
 			description: data.description.value
-		}, url);
+		});
 	}
 
 	render() {

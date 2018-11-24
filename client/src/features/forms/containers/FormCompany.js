@@ -6,7 +6,7 @@ import {getProfile, updateUser} from "../../auth/store/action";
 
 class CompanyContainer extends Component {
 	state = {
-		company: {
+		company_name: {
 			name: "company name",
 			value: ""
 		},
@@ -18,17 +18,14 @@ class CompanyContainer extends Component {
 		this.setState({ ...updateState });
 	};
 	onSubmit =(e) =>{
-		console.log("form password on submit func");
 		e.preventDefault();
-		console.log(this.state);
-		let url =  "employers/";
-		url += this.props.currentUser.id + "/";
+		let userType = "employer";
+		let userId = this.props.currentUser.id ;
 		let data = this.state;
-		this.props.updateUser({
-			company: data.company.value
-		}, url)
-
-	}
+		this.props.updateUser(userType, userId, {
+				company_name: data.company_name.value
+		});
+	};
 
 	render() {
 		return (

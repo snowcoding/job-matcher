@@ -38,6 +38,12 @@ let profilesEndpoints = {
     signIn (data) {
       return api.post(`/token/`, data)
     },
+    signUp(userType,data) {
+       return api.post(`/${userType}s/signup/`, data)
+    },
+    updateUser(userType,userId , data){
+      return api.patch(`/${userType}s/${userId}/`, data)
+    }
 }
 
 let jobsEndpoints = {

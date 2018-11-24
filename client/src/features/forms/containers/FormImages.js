@@ -118,6 +118,7 @@ class ImagePicker extends React.Component {
       .use(Webcam, { id: 'MyWebcam' });
 
     this.uppy.on('complete', (complete) => {
+      console.log({complete})
       setImageUrls({
         thumbnail: complete.transloadit[0].results.thumbnail[0].url,
         small: complete.transloadit[0].results.small[0].url,

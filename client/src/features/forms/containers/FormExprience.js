@@ -38,18 +38,19 @@ class ExprienceContainer extends Component {
 		this.setState({ ...updateState });
 	};
 	onSubmit =(e) =>{
+		//adopt to seeker exprience field on backend;
 		e.preventDefault();
-		let url =  "seekers/";
-		url += this.props.currentUser.id + "/";
+		let userType = "seeker";
+		let userId = this.props.currentUser.id ;
 		let data = this.state;
-		this.props.updateUser({
+		this.props.updateUser(userType, userId, {
 			date: data.date.date,
 			title: data.title.value,
 			company: data.company.value,
 			location: data.location.value,
 			headline: data.headline.value,
 			description: data.description.value
-		}, url)
+		});
 	}
 
 	render() {

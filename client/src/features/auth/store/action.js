@@ -4,10 +4,6 @@ import { addErrorHandler } from "./error";
 import axios from "axios";
 import * as actionType from "../../forms/store/actionType";
 import  Api from '../../../api'
-let url = "https://jobmatcher-api-stage.herokuapp.com";
-url = 'http://127.0.0.1:8000';
-axios.defaults.headers.common['Authorization'] = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc0MzEwNTMyLCJqdGkiOiJhMDg1M2I4Zjc4NTg0MmEyYjNmNGIxYThiNWIwMDc0YSIsInVzZXJfaWQiOiJlcHJtcjIxb3pqIn0.rvbuULGYnQvqwZhFl11Qv8s4HGaKsEM7ZeHFsIodKbs';
-
 
 const signUpHandler = user => ({
 	type: action.SIGNUP__USER,
@@ -32,8 +28,7 @@ const getProfileHandler = user =>({
 })
 export const getProfile = () => dispatch =>{
 	dispatch({ type: actionType.FETCHING_GET_PROFILE });
-	axios
-		.get(`${url}/api/v1/me`)
+		Api.endpoints.me()
 		.then(result => {
 			console.log({result})
 			dispatch(getProfileHandler (result.data));
@@ -48,11 +43,11 @@ export const getProfile = () => dispatch =>{
 export const loginOut = () => ({
 	type: action.LOGOUT__USER
 });
-export const signUpUser = data => {
+export const signUpUser = (userType, data) => {
 	return function(dispatch) {
 		dispatch({ type: action.FETCHING });
-		axios
-			.post(`${url}/api/v1/signup`, data)
+
+			Api.endpoints.signUp(userType,data)
 			.then(result => {
 				dispatch(signUpHandler(result.data));
 			})
@@ -83,12 +78,10 @@ export const login = (data) => {
 	};
 };
 
-export const updateUser = (data, typeUser) => {
+export const updateUser = (userType, userId, data) => {
 	return function(dispatch) {
 		dispatch({ type: action.FETCHING });
-
-		axios
-			.patch(`${url}/api/v1/${typeUser}`, data)
+		Api.endpoints.updateUser(userType, userId, data)
 			.then(result => {
 				localStorage.removeItem("jwt", "id");
 
@@ -103,19 +96,4 @@ export const updateUser = (data, typeUser) => {
 			});
 	};
 };
-export const deleteUser = (userType) => {
-	return function(dispatch) {
-		dispatch({ type: action.FETCHING });
 
-		axios
-			.delete(`${url}/api/v1/${userType}`)
-			.then(result => {
-				localStorage.removeItem("jwt", "id");
-				dispatch(deleteUserHandler());
-			})
-			.catch(error => {
-				console.log("errorr", error);
-				dispatch(addErrorHandler(error.response.data));
-			});
-	};
-};

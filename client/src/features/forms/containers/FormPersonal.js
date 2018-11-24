@@ -51,15 +51,14 @@ class PersonalContainer extends Component {
 	onSubmit =(e) =>{
 		e.preventDefault();
 		console.log(this.state);
-		let url = this.props.is_seeker ? "seekers/" : "employers/";
-		url += this.props.currentUser.id + "/";
-
+		let userType = this.props.is_seeker ? "seeker" : "employer";
+		let userId = this.props.currentUser.id ;
 		let data = this.state;
-			this.props.updateUser({
-				email: data.email.value,
-				first_name: data.name.value.split(" ")[0],
-				last_name: data.name.value.split(" ")[1],
-			}, url)
+		this.props.updateUser(userType, userId, {
+			email: data.email.value,
+			first_name: data.name.value.split(" ")[0],
+			last_name: data.name.value.split(" ")[1],
+		})
 
 	}
 	closeUploadModal = e =>{
@@ -79,7 +78,6 @@ class PersonalContainer extends Component {
 						state={this.state}
 						title="Personal"
 					/>
-
 					<ImagePicker openModal={this.openModal} open={this.state.img.value} closeUploadModal={this.closeUploadModal}/>
 				</React.Fragment>
 				: null
