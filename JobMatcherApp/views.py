@@ -7,12 +7,6 @@ from rest_framework.response import Response
 from JobMatcherApp.models import Employer, Seeker
 from . import serializers
 
-# Stripe configs
-import stripe
-from django.conf import settings
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
 
 @swagger_auto_schema(methods=['get'],
                      responses={200: openapi.Response('Seeker or Employer profile', serializers.ProfileSerializer)})
@@ -50,19 +44,6 @@ def signup_employer(request):
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(data=serializer.data)
-
-
-@api_view(http_method_names=['POST'])
-@permission_classes([])
-def charge(request):
-    status = stripe.Charge.create(
-        amount=500,
-        currency='usd',
-        description='A test charge from Django',
-        source=request.body
-    )
-
-    return Response(data=status)
 
 
 class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
