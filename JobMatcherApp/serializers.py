@@ -36,7 +36,7 @@ class ProfileSerializer(serializers.Serializer):
     is_employer = serializers.ReadOnlyField(source='user.is_employer')
 
     class Meta:
-        fields = ['email', 'password', 'first_name', 'last_name', 'is_seeker', 'is_employer']
+        fields = ['email', 'password', 'first_name', 'last_name', 'is_seeker', 'is_employer', 'photo', 'summary']
 
     def validate_email(self, email):
         """Make sure the given email is not taken by someone else"""

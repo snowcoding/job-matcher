@@ -26,12 +26,25 @@ let authEndpoints = {
   // Todo: Add auth endpoints here
 };
 
+
 let profilesEndpoints = {
-  me() {
-    return api.get("/me/");
-  }
+  random(userType){
+    return api.get(`/${userType}s/random/`)
+  },
+  me () {
+    return api.get('/me/')
+  },
   // Todo: Add more profile endpoints
-};
+  signIn (data) {
+    return api.post(`/token/`, data)
+  },
+  signUp(userType,data) {
+     return api.post(`/${userType}s/signup/`, data)
+  },
+  updateUser(userType,userId , data){
+    return api.patch(`/${userType}s/${userId}/`, data)
+  }
+}
 
 let jobsEndpoints = {
   // Todo: Add jobs endpoints here

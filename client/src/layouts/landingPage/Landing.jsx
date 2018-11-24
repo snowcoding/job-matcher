@@ -1,13 +1,11 @@
 import React from "react";
 import "./index.css";
-// import { Jumbotron } from "reactstrap";
 import {
 	LandingDiv,
 	StyledLink,
 	CenterDiv,
 	LandingHeading
 } from "./landingPageCss";
-// import LandingPageSvg from "./LandingPageSvg";
 
 const Landing = props => {
 	return (
