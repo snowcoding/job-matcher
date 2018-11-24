@@ -1,7 +1,6 @@
 // import all action types
 import * as action from "./actionTypes";
 import { addErrorHandler } from "./error";
-import axios from "axios";
 import * as actionType from "../../forms/store/actionType";
 import  Api from '../../../api'
 
@@ -18,9 +17,6 @@ const updateUserHandler = currentUser => ({
 	currentUser
 });
 
-const deleteUserHandler = () => ({
-	type: action.DELETE__USER
-});
 
 const getProfileHandler = user =>({
 	type: actionType.GET_PROFILE,

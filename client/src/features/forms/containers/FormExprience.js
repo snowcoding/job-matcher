@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "../components";
 import connect from "react-redux/es/connect/connect";
-import {updateProfileImg, updateProfilePassword} from "../store/action";
+import {updateProfileImg} from "../store/action";
 import {getProfile, updateUser} from "../../auth/store/action";
 
 class ExprienceContainer extends Component {
@@ -71,5 +71,5 @@ const MapStateToProps = state => ({
 });
 export default connect(
 	MapStateToProps,
-	{  updateProfileImg, updateProfilePassword, getProfile, updateUser }
+	{  updateProfileImg, getProfile, updateUser }
 )(ExprienceContainer);

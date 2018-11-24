@@ -3,9 +3,6 @@ import BrowseElement from '../component/'
 import  {connect} from 'react-redux';
 import {getRandomUser} from '../store/action'
 class BrowseContainer extends Component {
-    constructor(props){
-        super(props)
-    }
 
     getRandomUserS =( ) =>{
         this.props.getRandomUser("seeker");
