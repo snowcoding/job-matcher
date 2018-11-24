@@ -1,25 +1,28 @@
 import React, { Component } from "react";
 import Form from "../components/";
 import connect from "react-redux/es/connect/connect";
-import {updateProfileImg, updateProfilePassword} from "../store/action";
-import {getProfile, updateUser} from "../../auth/store/action";
+import { updateProfileImg, updateProfilePassword } from "../store/action";
+import { getProfile, updateUser } from "../../auth/store/action";
 
 class PasswordContainer extends Component {
 	state = {
 		old_password: {
 			type: "password",
-			name: "old password",
+			placeholder: "old password",
+			label: "old password",
 			value: ""
 		},
 		new_password: {
 			type: "password",
-			name: "new password",
+			placeholder: "new password",
+			label: "new password",
 			value: ""
 		},
 		new_password2: {
 			id: "password2",
 			type: "password",
-			name: "confirm password",
+			placeholder: "confirm password",
+			label: "confirm password",
 			value: ""
 		}
 	};
@@ -29,18 +32,21 @@ class PasswordContainer extends Component {
 		updateState[e.target.name].value = e.target.value;
 		this.setState({ ...updateState });
 	};
-	onSubmit =(e) =>{
+	onSubmit = e => {
 		console.log("form password on submit func");
 		e.preventDefault();
 		console.log(this.state);
 		let url = this.props.is_seeker ? "seekers/" : "employers/";
 		url += this.props.currentUser.id + "/";
 		let data = this.state;
-		this.props.updateUser({
-							oldPassword: data.old_password.value,
-							newPassword: data.new_password.value,
-						}, url)
-	}
+		this.props.updateUser(
+			{
+				oldPassword: data.old_password.value,
+				newPassword: data.new_password.value
+			},
+			url
+		);
+	};
 
 	render() {
 		return (
@@ -60,7 +66,5 @@ const MapStateToProps = state => ({
 });
 export default connect(
 	MapStateToProps,
-	{  updateProfileImg, updateProfilePassword, getProfile, updateUser }
+	{ updateProfileImg, updateProfilePassword, getProfile, updateUser }
 )(PasswordContainer);
-
-

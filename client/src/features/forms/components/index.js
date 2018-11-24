@@ -5,11 +5,12 @@ import {
 	StyledInput,
 	FormDiv,
 	StyledLabel,
-	FormGroup,SaveButton,
+	FormGroup,
+	SaveButton,
 	Title
 } from "./indexCss";
-import './form.css'
-const Forms = ({ state, onChange,  title, onSubmit, btnName }) => {
+import "./form.css";
+const Forms = ({ state, onChange, title, onSubmit, btnName }) => {
 	//Form will display a set of group form,
 	//TODO represent the state of inputs using visual aid.
 
@@ -20,15 +21,15 @@ const Forms = ({ state, onChange,  title, onSubmit, btnName }) => {
 			<FormGroup key={item[1].id || item[0]} className="form group">
 				<StyledInput
 					type={item[1].type || "text"}
-					name={item[1].name || item[0]}
+					name={item[0]}
 					id={item[1].id || item[0]}
-					placeholder={item[1].placeholder ||item[1].name ||item[0]}
+					placeholder={item[1].placeholder || item[1].name || item[0]}
 					value={item[1].value}
 					onChange={onChange}
 					className={item[1].controlledClass || "form_input"}
 				/>
 				<StyledLabel htmlFor={item[1].id || item[0]}>
-					{item[1].name || item[0]}
+					{item[1].label || item[0]}
 				</StyledLabel>
 			</FormGroup>
 		) : (
@@ -45,7 +46,7 @@ const Forms = ({ state, onChange,  title, onSubmit, btnName }) => {
 		<FormDiv>
 			<Title>{title}</Title>
 			{inputs}
-			<SaveButton onClick={onSubmit}> { btnName ||  "Save"} </SaveButton>
+			<SaveButton onClick={onSubmit}> {btnName || "Save"} </SaveButton>
 		</FormDiv>
 	);
 };
@@ -54,6 +55,6 @@ export default Forms;
 Forms.propTypes = {
 	state: PropTypes.object.isRequired,
 	title: PropTypes.string.isRequired,
-	onSubmit:  PropTypes.func,
-	onChange:  PropTypes.func,
+	onSubmit: PropTypes.func,
+	onChange: PropTypes.func
 };

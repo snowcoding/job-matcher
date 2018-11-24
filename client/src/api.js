@@ -18,6 +18,9 @@ let api = axios.create({
 // This adds the access token saved to the browser's local storage
 if (localStorage.accessToken) {
   api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.accessToken}`
+    api.interceptors.response(data => {
+      console.log(data)
+    })
 }
 
 let authEndpoints = {

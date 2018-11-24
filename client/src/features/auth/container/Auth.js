@@ -257,6 +257,7 @@ class AuthContainer extends Component {
 	startAuth = async e => {
 		await this.openPop();
 	};
+
 	render() {
 		let actionType = this.props.location.pathname.includes("login")
 			? "Login"
