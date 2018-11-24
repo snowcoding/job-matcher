@@ -4,6 +4,8 @@ import connect from "react-redux/es/connect/connect";
 import {updateProfileImg, updateProfilePassword} from "../store/action";
 import {getProfile, updateUser} from "../../auth/store/action";
 
+import ImagePicker from "./FormImages";
+
 class PersonalContainer extends Component {
 	state = {
 		name: {
@@ -14,12 +16,12 @@ class PersonalContainer extends Component {
 			value: ""
 		},
 		img: {
-			name: "image",
-			type: "file",
-			value: "",
-			controlledClass: "image_input",
+			type: "checkbox",
+			value: false,
+			label: "change your photo"
 		}
 	};
+
 
     componentDidMount =  () => {
 		//TODO get current user info, to populate the form.
@@ -34,9 +36,16 @@ class PersonalContainer extends Component {
 	};
 
 
+
     onChange = e => {
 		let updateState = JSON.parse(JSON.stringify(this.state));
+		if(e.target.type === 'checkbox'){
+			updateState[e.target.name].value = e.target.checked;
+
+		}else{
+
 		updateState[e.target.name].value = e.target.value;
+		}
 		this.setState({ ...updateState });
 	};
 	onSubmit =(e) =>{
@@ -53,17 +62,26 @@ class PersonalContainer extends Component {
 			}, url)
 
 	}
+	closeUploadModal = e =>{
+		let updateState = JSON.parse(JSON.stringify(this.state));
+		updateState.img.value = false;
+		this.setState({...updateState})
+	};
 
 	render() {
 		return (
 			this.props.authenticatoin_succeed ?
-			<Form
-				onSubmit={this.onSubmit}
-				onChange={this.onChange}
-				btnName="Update Personal Info"
-				state={this.state}
-				title="Personal"
-			/>
+				<React.Fragment>
+					<Form
+						onSubmit={this.onSubmit}
+						onChange={this.onChange}
+						btnName="Update Personal Info"
+						state={this.state}
+						title="Personal"
+					/>
+
+					<ImagePicker openModal={this.openModal} open={this.state.img.value} closeUploadModal={this.closeUploadModal}/>
+				</React.Fragment>
 				: null
 		);
 	}
