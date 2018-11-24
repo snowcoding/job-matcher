@@ -53,7 +53,7 @@ class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.L
 
     @action(methods=['get'], detail=False)
     def random(self, request):
-        # TODO get rand users
+        # TODO filter out from match DB
         number_of_records = self.get_queryset().order_by("user_id").count();
         random_index = int(random.random() * number_of_records);
         queryset = self.get_queryset().all()[random_index];
@@ -67,12 +67,3 @@ class EmployerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins
     serializer_class = serializers.EmployerSerializer
     queryset = Employer.objects.all()
 
-    @action(methods=['get'], detail=False)
-    def random(self, request):
-
-        number_of_records = self.get_queryset().order_by("user_id").count();
-        random_index = int(random.random() * number_of_records);
-        queryset = self.get_queryset().all()[random_index];
-
-        serializer = self.get_serializer(queryset);
-        return Response(data=serializer.data)

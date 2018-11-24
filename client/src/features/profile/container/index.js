@@ -6,12 +6,16 @@ class BrowseContainer extends Component {
     constructor(props){
         super(props)
     }
-    componentDidMount() {
-        this.props.getRandomUser("employer")
-    }
+
+    getRandomUserS =( ) =>{
+        this.props.getRandomUser("seeker");
+    };
+     getRandomUserE =( ) =>{
+        this.props.getRandomUser("employer");
+    };
 
     render(){
-       return this.props.data ?<BrowseElement data={this.props.data} /> : <div>Waiting</div>;
+       return <BrowseElement data={this.props.data} onClick={[this.getRandomUserE, this.getRandomUserS]}/> ;
     }
 }
 const MapStateToProps = state => ({
