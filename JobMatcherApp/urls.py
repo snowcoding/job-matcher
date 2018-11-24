@@ -21,5 +21,4 @@ urlpatterns = [
 
     # view sets
     path('', include(router.urls)),
-
 ]

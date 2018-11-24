@@ -13,7 +13,7 @@ def charge(request):
         amount=500,
         currency='usd',
         description='A test charge from Django',
-        source=request.body
+        source=request.data['token']
     )
 
     return Response(data=status)

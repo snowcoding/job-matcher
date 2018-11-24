@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { Button, Form, FormGroup, Label, CustomInput } from "reactstrap";
+import Api from "../../../api";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -11,18 +12,19 @@ class CheckoutForm extends Component {
 
   async submit(ev) {
     let { token } = await this.props.stripe.createToken({ name: "Name" });
-    // send the token to server here.
-    let response = await fetch("http://127.0.0.1:8000/api/v1/charge/", {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: token.id
-    });
-
-    // Test response here.
     console.log(token);
-    console.log(response);
-    if (response.ok) console.log("Purchase Complete!");
-    if (response.ok) this.setState({ complete: true });
+
+    // send the token to server here.
+    await Api.endpoints
+      .charge(token.id)
+      .then(response => {
+        console.log(response);
+        console.log("Purchase Complete!");
+        this.setState({ complete: true });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
