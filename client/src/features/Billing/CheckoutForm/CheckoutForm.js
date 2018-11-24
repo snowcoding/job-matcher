@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
+import { Button, Form, FormGroup, Label, CustomInput } from "reactstrap";
+import Api from "../../../api";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -10,26 +12,54 @@ class CheckoutForm extends Component {
 
   async submit(ev) {
     let { token } = await this.props.stripe.createToken({ name: "Name" });
-    // send the token to server here.
-    let response = await fetch("/charge", {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: token.id
-    });
+    console.log(token);
 
-    // Test response here.
-    // if (response.ok) console.log("Purchase Complete!")
-    if (response.ok) this.setState({ complete: true });
+    // send the token to server here.
+    await Api.endpoints
+      .charge(token.id)
+      .then(response => {
+        console.log(response);
+        console.log("Purchase Complete!");
+        this.setState({ complete: true });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
+    if (this.state.complete) return <h1>Purchase Complete!</h1>;
     return (
-      <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button onClick={this.submit}>Send</button>
-      </div>
+      <Form>
+        <FormGroup>
+          <Label>Payment info</Label>
+          <CardElement />
+        </FormGroup>
+
+        <FormGroup>
+          <div>
+            <CustomInput
+              type="checkbox"
+              id="exampleCustomCheckbox"
+              label="100 Credits - $9.99"
+            />
+            <CustomInput
+              type="checkbox"
+              id="exampleCustomCheckbox2"
+              label="5 Credits - $0.99"
+            />
+            <CustomInput
+              type="checkbox"
+              id="exampleCustomCheckbox3"
+              label="Post Job - $9.99"
+              disabled
+            />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Button onClick={this.submit}>Buy Now</Button>{" "}
+        </FormGroup>
+      </Form>
     );
   }
 }

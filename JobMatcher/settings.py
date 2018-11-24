@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 SECRET_KEY = config('SECRET_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(',')])
 
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',  # This is the DRF library
     'rest_framework_simplejwt',  # JWT library
     'corsheaders',  # CORS library
-    'drf_yasg', # API Swagger docs
+    'drf_yasg',  # API Swagger docs
 ]
 
 MIDDLEWARE = [
