@@ -7,24 +7,27 @@ const CardContainer = styled(Card)`
 `;
 
 class JobCard extends Component {
-  constructor(props) {
-    super(props);
-
-    // this.jobCardClickHandler = this.jobCardClickHandler.bind(this);
-  }
-
   clickHandler = () => {
-    this.props.jobCardClickHandler(this.props.jobId);
+    console.log("clicked on the Job Card handler");
+    let jobId = this.props.jobId || false;
+    this.props.jobCardClickHandler(jobId);
   };
 
   render() {
+    const { companyName, title } = this.props || false;
     return (
       <CardContainer onClick={this.clickHandler}>
         <CardBody>
-          <CardTitle>{this.props.companyName}</CardTitle>
-          <CardSubtitle>{this.props.title}</CardSubtitle>
-          <Button>Archive</Button>
-          <Button>Edit</Button>
+          <CardTitle>{companyName ? companyName : "Add Job"}</CardTitle>
+          <CardSubtitle>{title ? title : ""}</CardSubtitle>
+          {this.props.companyName ? (
+            <div>
+              <Button>Archive</Button>
+              <Button>Edit</Button>
+            </div>
+          ) : (
+            <Button>+</Button>
+          )}
         </CardBody>
       </CardContainer>
     );

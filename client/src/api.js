@@ -37,6 +37,9 @@ let jobsEndpoints = {
   // Todo: Add jobs endpoints here
   jobs() {
     return api.get("/jobs/");
+  },
+  createJob(body) {
+    return api.post("/jobs/", body);
   }
 };
 
