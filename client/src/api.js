@@ -17,24 +17,21 @@ let api = axios.create({
 
 // This adds the access token saved to the browser's local storage
 if (localStorage.accessToken) {
-  api.defaults.headers.common["Authorization"] = `Bearer ${
-    localStorage.accessToken
-  }`;
+  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.accessToken}`;
 }
 
 let authEndpoints = {
   // Todo: Add auth endpoints here
 };
 
-
 let profilesEndpoints = {
+  // Todo: Add more profile endpoints
   random(userType){
     return api.get(`/${userType}s/random/`)
   },
   me () {
     return api.get('/me/')
   },
-  // Todo: Add more profile endpoints
   signIn (data) {
     data = {
       ...data,
@@ -50,10 +47,19 @@ let profilesEndpoints = {
   updateUser(userType,userId , data){
     return api.patch(`/${userType}s/${userId}/`, data)
   }
-}
+};
 
 let jobsEndpoints = {
   // Todo: Add jobs endpoints here
+  jobs() {
+    return api.get("/jobs/");
+  },
+  createJob(body) {
+    return api.post("/jobs/", body);
+  },
+  updateJob(body, id) {
+    return api.patch(`/jobs/${id}/`, body);
+  }
 };
 
 let billingEndpoints = {

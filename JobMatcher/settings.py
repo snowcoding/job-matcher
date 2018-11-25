@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'JobMatcherApp',  # This will be the API application
+    'jobs',
     'oauth2_provider',
     'rest_framework',  # This is the DRF library
     'rest_framework_simplejwt',  # JWT library

@@ -5,16 +5,16 @@ import * as actionType from "../../forms/store/actionType";
 import  Api from '../../../api'
 
 const signUpHandler = user => ({
-	type: action.SIGNUP__USER,
-	user
+  type: action.SIGNUP__USER,
+  user
 });
 const loginHandler = data => ({
 	type: action.LOGIN__USER,
 	data
 });
 const updateUserHandler = currentUser => ({
-	type: action.UPDATE__USER,
-	currentUser
+  type: action.UPDATE__USER,
+  currentUser
 });
 
 
