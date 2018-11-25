@@ -1,53 +1,50 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom'
+import { logOut } from "../../auth/store/action";
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+  DropdownItem } from 'reactstrap';
+
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+
     };
   }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-  handleSignOut = () => {
-    //Auth.logout();
+
+  handleSignOut = (e) => {
+    e.preventDefault();
+    this.props.onLogOut();
   };
   render() {
-    // const user = this.props.authentication.user;
-    console.log("User", this.props);
-    // const user = this.props.authentication && this.props.authentication.user;
+    console.log("User:", this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Job Matcher</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            {/* {user &&  */}
+          <NavLink to="/" activeStyle={{
+                            fontWeight: "bold",
+                            textDecoration: 'none',
+                            color: "#4D4D4D",
+                          }}>Job Matcher</NavLink>
+          { this.props.authenticatoin_succeed &&
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Free Apps: </NavLink>
+                <NavLink to="/components/" activeStyle={{
+                                            margin: "2px",
+                }}>Free Apps: </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="give a path">Balance credits: </NavLink>
+                <NavLink to="give a path" activeStyle={{
+                                        margin: "2px",
+                  }}>Balance credits: </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -55,53 +52,62 @@ class NavBar extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <a href="/">Home</a>
+                    <Link to ="/">
+                        Home
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/MyProfile">My Profile</a>
+                    <Link to="/profile">
+                        My Profile
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Matches">Matches</a>
+                    <Link to="/Matches">
+                        Matches
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Messages">Messages</a>
+                    <Link to="/Messages">
+                        Messages
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Billing">Billing</a>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <a href="/Job">Job</a>
+                    <Link to="/Billing">
+                        Billing
+                    </Link>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
-                    {/* {!this.props.authentication.user ?
-                    <a href="/login">Sign In</a> :
-                    <a href="/" onClick={this.handleSignOut}>Sign Out</a>
-                  } */}
-                    Sign Out
+                    <Link to ="/" onClick={this.handleSignOut}>Sign Out</Link>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
-            {/* } */}
-          </Collapse>
+          }
         </Navbar>
       </div>
     );
   }
 }
 
+
 function mapStateToProps(state) {
-  const { authentication } = state;
-  return {
-    authentication
-  };
+    return {
+        ...state.user
+    };
 }
 
-const ConnectedNavBar = connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = dispatch => ({
+  onLogOut: (user) => {
+    dispatch(logOut());
+  },
+});
+
+
+const ConnectedNavBar = connect(mapStateToProps, mapDispatchToProps)(NavBar);
 
 export default class Wrapper extends React.Component {
-  render() {
-    return <ConnectedNavBar />;
-  }
+    render(){
+       return (<ConnectedNavBar />);
+    }
 }

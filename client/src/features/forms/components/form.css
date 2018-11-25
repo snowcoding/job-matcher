@@ -1,0 +1,19 @@
+.image_input{
+    border: none;
+}
+.icalander{
+    border: 1px solid #007bff;
+    position: absolute;
+    left: -17%;
+}
+.react-daterange-picker__wrapper{
+    padding: 10px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+}
+.react-daterange-picker__inputGroup{
+    min-width: 0;
+    flex-grow: 0;
+
+}

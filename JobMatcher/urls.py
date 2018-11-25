@@ -26,6 +26,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='api/v1/', permanent=False)),
     path('admin/', admin.site.urls),
     path('api/v1/', include('JobMatcherApp.urls')),
+    path('api/v1/', include('billing.urls')),
     path('api/v1/', include('jobs.urls')),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

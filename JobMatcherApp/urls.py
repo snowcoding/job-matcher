@@ -11,6 +11,9 @@ router.register('employers', views.EmployerViewSet, base_name='employer')
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 
+    #This is oauth2 endpoint
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+
     # JWT: Signin using email and password
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
 

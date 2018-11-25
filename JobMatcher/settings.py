@@ -16,7 +16,7 @@ from datetime import timedelta
 
 import dj_database_url
 from decouple import config
-# import django_heroku
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 SECRET_KEY = config('SECRET_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(',')])
 
@@ -47,11 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'JobMatcherApp',  # This will be the API application
+    'jobs',
+    'oauth2_provider',
     'rest_framework',  # This is the DRF library
     'rest_framework_simplejwt',  # JWT library
     'corsheaders',  # CORS library
-    'drf_yasg', # API Swagger docs
-    'jobs'
+    'drf_yasg',  # API Swagger docs
 ]
 
 MIDDLEWARE = [
@@ -158,10 +160,16 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [] #No Persmissions
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     )
+}
+
+OAUTH2_PROVIDER = {
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24 * 30,
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
 }
 
 # JWT
@@ -181,4 +189,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 # )
 
 # Activate Django-Heroku.
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
