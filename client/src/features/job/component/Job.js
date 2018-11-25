@@ -43,9 +43,12 @@ class Job extends Component {
 
   //Toggle the Modal
   toggleJobModal = () => {
-    this.setState({
-      jobModal: !this.state.jobModal
-    });
+    this.setState(
+      {
+        jobModal: !this.state.jobModal
+      },
+      () => this.forceUpdate()
+    );
   };
 
   //Handler that will fire each time a job card is clicked
@@ -72,10 +75,11 @@ class Job extends Component {
     });
   };
 
-  //Handler for creating a new job posting
-  createJobHandler = () => {
-    //Turn all skills fields into Arrays:
+  //Method to translate all skills fields from a string to an array:
+  skillsToArray = () => {
     let jobFormData = { ...this.state.jobFormData };
+
+    //Use the space as the delimiter when converting strings to Arrays
     jobFormData.top_skills = jobFormData.top_skills
       ? jobFormData.top_skills.split(" ")
       : [];
@@ -86,19 +90,44 @@ class Job extends Component {
       ? jobFormData.familiar_with.split(" ")
       : [];
 
-    //Call the POST endpoint:
+    return jobFormData;
+  };
+
+  //Handler for creating a new job posting
+  createJobHandler = () => {
+    //Turn all skills fields into Arrays:
+    let jobFormData = this.skillsToArray();
+
+    //Call the createJob endpoint:
     API.endpoints.createJob(jobFormData).then(res => {
       const job = res.data;
       console.log(job);
     });
 
+    //Force a re-render / to load new state:
+    this.setState({ state: this.state });
+    this.forceUpdate();
+
     //Toggle the Modal
     this.toggleJobModal();
   };
 
-  editJobHandler = jobId => {
+  editJobHandler = () => {
     console.log("editJobHandler clicked!");
-    //Cal the PATCH endpoint:
+
+    let { id } = this.state.jobSelected;
+
+    console.log("jobId", id);
+    //Turn all skills fields into Arrays:
+    let jobFormData = this.skillsToArray();
+
+    console.log("jobFormData", jobFormData);
+
+    //Call the editJob endpoint:
+    API.endpoints.updateJob(jobFormData, id).then(res => {
+      const job = res.data;
+      console.log(job);
+    });
 
     //Toggle the Modal
     this.toggleJobModal();

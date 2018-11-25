@@ -40,6 +40,9 @@ let jobsEndpoints = {
   },
   createJob(body) {
     return api.post("/jobs/", body);
+  },
+  updateJob(body, id) {
+    return api.patch(`/jobs/${id}/`, body);
   }
 };
 

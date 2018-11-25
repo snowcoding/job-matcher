@@ -16,7 +16,10 @@ class JobModal extends Component {
 
         <ModalBody>
           {this.props.jobData ? (
-            <JobForm jobData={this.props.jobData} />
+            <JobForm
+              jobData={this.props.jobData}
+              onFormChange={this.props.onFormChange}
+            />
           ) : (
             <JobForm onFormChange={this.props.onFormChange} />
           )}

@@ -8,7 +8,6 @@ const CardContainer = styled(Card)`
 
 class JobCard extends Component {
   clickHandler = () => {
-    console.log("clicked on the Job Card handler");
     let jobId = this.props.jobId || false;
     this.props.jobCardClickHandler(jobId);
   };
