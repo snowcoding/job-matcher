@@ -9,7 +9,7 @@ class Testing extends Component {
 
 	getToken = code => {
 		let url = "https://www.linkedin.com/oauth/v2/accessToken/";
-		let url2 = `${url}grant_type=authorization_code&code=${code}&redirect_uri=http://localhost:3000/testing&client_id=86k7v2sks14nul&client_secret=ReTh3IF86BjNKUAZ`;
+		let url2 = `${url}grant_type=authorization_code&code=${code}&redirect_uri=https://jobmacher-dev.netlify.com/testing&client_id=86k7v2sks14nul&client_secret=ReTh3IF86BjNKUAZ`;
 		axios({
 			method: "post",
 			url: url2,
