@@ -242,7 +242,7 @@ class AuthContainer extends Component {
 			height = 600;
 		const left = window.innerWidth / 2 - width / 2;
 		const top = window.innerHeight / 2 - height / 2;
-		const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86k7v2sks14nul&redirect_uri=http://localhost:3000/testing&state=987654321&scope=r_basicprofile`;
+		const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86k7v2sks14nul&redirect_uri=https://jobmacher-dev.netlify.com/testting&state=987654321&scope=r_basicprofile`;
 		let w = window.open(
 			url,
 			"",
