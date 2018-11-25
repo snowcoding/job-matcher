@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import * as actionType from "../../forms/store/actionType";
+import Api from '../../../api';
 const initialState = {
 	fetching: false,
 	FETCHING_GET_PROFILE: true,
@@ -25,6 +26,8 @@ function userReduceer(state = initialState, action) {
 				token: action.data.access,
 			};
 		case actionTypes.LOGIN__USER:
+			localStorage.setItem("access_token", action.data.access_token);
+			Api.defaults.headers.common["Authorization"] = `Bearer ${action.data.access_token}`;
 			return {
 				...state,
 				error: null,
@@ -58,7 +61,7 @@ function userReduceer(state = initialState, action) {
 		case actionType.FETCHING_GET_PROFILE:
 			return {...state, FETCHING_GET_PROFILE: true}
 		case actionType.GET_PROFILE:
-			return {...state, FETCHING_GET_PROFILE: false, authenticatoin_succeed: true, currentUser: action.user, is_seeker: action.user.is_seeker }
+			return {...state, FETCHING_GET_PROFILE: false, authenticatoin_succeed: true, currentUser: {...action.user}, is_seeker: action.user.is_seeker }
 		case actionTypes.ADD__ERROR:
 			return {
 				...state,

@@ -36,7 +36,7 @@ export const getProfile = () => dispatch =>{
 		});
 }
 
-export const loginOut = () => ({
+export const logOut = () => ({
 	type: action.LOGOUT__USER
 });
 export const signUpUser = (userType, data) => {
@@ -62,7 +62,6 @@ export const login = (data) => {
 
 		Api.endpoints.signIn(data)
 			.then(result => {
-				localStorage.setItem("access_token", result.data.access_token);
 				dispatch(loginHandler(result.data));
 			})
 			.catch(error => {

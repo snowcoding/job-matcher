@@ -300,7 +300,7 @@ class AuthContainer extends Component {
 				<LinkedIn onclick={this.startAuth} actionType={actionType} />
 			</React.Fragment>
 		) : (
-			<Redirect to="/" />
+			<Redirect to="/billing" />
 		);
 	}
 }

@@ -1,6 +1,6 @@
 import * as actionType from "./actionType";
 const intialState = {
-	FETCHING_UPDATE_PROFILE: false
+	FETCHING_UPDATE_PROFILE: false,
 	FETCHING_GET_PROFILE: false,
 	user: null
 };
