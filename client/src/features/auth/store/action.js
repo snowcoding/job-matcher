@@ -8,9 +8,9 @@ const signUpHandler = user => ({
 	type: action.SIGNUP__USER,
 	user
 });
-const loginHandler = currentUser => ({
+const loginHandler = data => ({
 	type: action.LOGIN__USER,
-	currentUser
+	data
 });
 const updateUserHandler = currentUser => ({
 	type: action.UPDATE__USER,
@@ -62,7 +62,7 @@ export const login = (data) => {
 
 		Api.endpoints.signIn(data)
 			.then(result => {
-				localStorage.setItem("access", result.data.access);
+				localStorage.setItem("access_token", result.data.access_token);
 				dispatch(loginHandler(result.data));
 			})
 			.catch(error => {

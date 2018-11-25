@@ -192,7 +192,7 @@ class AuthContainer extends Component {
 			let isValid = this.state.email.valid && this.state.password.valid;
 			if (isValid) {
 				this.props.login({
-					email: email.value,
+					username: email.value,
 					password: password.value
 				});
 			}
@@ -300,7 +300,7 @@ class AuthContainer extends Component {
 				<LinkedIn onclick={this.startAuth} actionType={actionType} />
 			</React.Fragment>
 		) : (
-			<Redirect to="/home" />
+			<Redirect to="/" />
 		);
 	}
 }

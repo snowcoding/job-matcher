@@ -28,11 +28,12 @@ function userReduceer(state = initialState, action) {
 			return {
 				...state,
 				error: null,
+				authenticatoin_succeed: true,
 				fetching: false,
-				token: action.data.access,
+				token: action.data.access_token,
 			};
 		case actionTypes.LOGOUT__USER:
-			localStorage.removeItem("token");
+			localStorage.removeItem("access_token");
 			return {
 				...state,
 				error: null,
