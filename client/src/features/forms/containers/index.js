@@ -35,7 +35,7 @@ class ProfileContainer extends Component {
 		console.log("form container index rendering ", this.props.authenticatoin_succeed)
 		return (
 			this.props.authenticatoin_succeed ? <Profile  is_seeker={this.props.is_seeker} tabs={tabs}  />
-				: <Form title="geting profile " state={{}}/>
+				: <Form title="geting profile " state={{}} />
 		)
 	}
 }

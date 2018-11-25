@@ -36,7 +36,13 @@ let profilesEndpoints = {
   },
   // Todo: Add more profile endpoints
   signIn (data) {
-    return api.post(`/token/`, data)
+    data = {
+      ...data,
+      grant_type: "password",
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      client_secret: process.env.REACT_APP_CLIENT_SECRET,
+    }
+    return api.post(`/o/token/`, data)
   },
   signUp(userType,data) {
      return api.post(`/${userType}s/signup/`, data)

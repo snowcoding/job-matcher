@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom'
+import { logOut } from "../../auth/store/action";
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -17,37 +15,36 @@ import {
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+
     };
   }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-  handleSignOut = () => {
-    //Auth.logout();
+
+  handleSignOut = (e) => {
+    e.preventDefault();
+    this.props.onLogOut();
   };
   render() {
-    // const user = this.props.authentication.user;
-    console.log("User", this.props);
-   // const user = this.props.authentication && this.props.authentication.user;
+    console.log("User:", this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Job Matcher</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-          {/* {user &&  */}
+          <NavLink to="/" activeStyle={{
+                            fontWeight: "bold",
+                            textDecoration: 'none',
+                            color: "#4D4D4D",
+                          }}>Job Matcher</NavLink>
+          { this.props.authenticatoin_succeed &&
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Free Apps: </NavLink>
+                <NavLink to="/components/" activeStyle={{
+                                            margin: "2px",
+                }}>Free Apps: </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="give a path">Balance credits: </NavLink>
+                <NavLink to="give a path" activeStyle={{
+                                        margin: "2px",
+                  }}>Balance credits: </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -55,43 +52,38 @@ class NavBar extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <a href="/">
+                    <Link to ="/">
                         Home
-                    </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/MyProfile">
+                    <Link to="/profile">
                         My Profile
-                    </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Matches">
+                    <Link to="/Matches">
                         Matches
-                    </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Messages">
+                    <Link to="/Messages">
                         Messages
-                    </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <a href="/Billing">
+                    <Link to="/Billing">
                         Billing
-                    </a>
+                    </Link>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
-                    {/* {!this.props.authentication.user ?
-                    <a href="/login">Sign In</a> :
-                    <a href="/" onClick={this.handleSignOut}>Sign Out</a>
-                  } */}
-                  Sign Out
+                    <Link to ="/" onClick={this.handleSignOut}>Sign Out</Link>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
-          {/* } */}
-          </Collapse>
+          }
         </Navbar>
       </div>
     );
@@ -100,13 +92,19 @@ class NavBar extends React.Component {
 
 
 function mapStateToProps(state) {
-    const { authentication } = state;
     return {
-        authentication
+        ...state.user
     };
 }
-    
-const ConnectedNavBar = connect(mapStateToProps)(NavBar);
+
+const mapDispatchToProps = dispatch => ({
+  onLogOut: (user) => {
+    dispatch(logOut());
+  },
+});
+
+
+const ConnectedNavBar = connect(mapStateToProps, mapDispatchToProps)(NavBar);
 
 export default class Wrapper extends React.Component {
     render(){

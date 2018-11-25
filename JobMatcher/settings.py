@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'JobMatcherApp',  # This will be the API application
+    'oauth2_provider',
     'rest_framework',  # This is the DRF library
     'rest_framework_simplejwt',  # JWT library
     'corsheaders',  # CORS library
@@ -158,10 +159,16 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [] #No Persmissions
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     )
+}
+
+OAUTH2_PROVIDER = {
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24 * 30,
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
 }
 
 # JWT

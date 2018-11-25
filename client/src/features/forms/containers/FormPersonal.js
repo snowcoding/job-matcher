@@ -26,7 +26,7 @@ class PersonalContainer extends Component {
     componentDidMount =  () => {
 		//TODO get current user info, to populate the form.
 		let updateState = JSON.parse(JSON.stringify(this.state));
-		if(this.props.authenticatoin_succeed){
+		if(this.props.currentUser){
 				updateState.name.value = `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`;
 				updateState.email.value = this.props.currentUser.email;
 			this.setState({
@@ -68,8 +68,9 @@ class PersonalContainer extends Component {
 	};
 
 	render() {
+		console.log(this.props);
 		return (
-			this.props.authenticatoin_succeed ?
+			this.props.currentUser ?
 				<React.Fragment>
 					<Form
 						onSubmit={this.onSubmit}
