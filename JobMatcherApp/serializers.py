@@ -1,6 +1,9 @@
 from django.db import transaction
+from oauth2_provider.oauth2_backends import OAuthLibCore
+from oauth2_provider.oauth2_validators import OAuth2Validator
+from oauthlib.common import Request
+from oauthlib.oauth2 import BearerToken
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User, Seeker, Employer
 
@@ -64,15 +67,36 @@ class ProfileSerializer(serializers.Serializer):
         return super().update(instance, validated_data)
 
 
-class SignupMixin:
-    """Returns JWT access and refresh tokens instead of profile fields"""
+class SignupMixin(serializers.Serializer):
+    """Returns Oauth2 access and refresh tokens in addition to the profile fields under 'profile' key"""
+    client_id = serializers.CharField()
+    client_secret = serializers.CharField()
 
-    def to_representation(self, validated_data):
-        refresh = RefreshToken.for_user(self.instance.user)
-        return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
+    def to_representation(self, instance):
+        core = OAuthLibCore()
+        uri, http_method, body, headers = core._extract_params(self.context['request'])
+        headers = {
+            **headers,
+            'client_id': self.initial_data['client_id'],
+            'client_secret': self.initial_data['client_secret'],
         }
+        request = Request(uri=uri, http_method=http_method, body=body, headers=headers)
+        request.scopes = ['read', 'write']
+        request.user = instance.user
+        validator = OAuth2Validator()
+        validator.authenticate_client(request)
+        token = BearerToken(request_validator=validator).create_token(request, refresh_token=True, save_token=True)
+        return {
+            **token,
+            'profile': super().to_representation(instance)
+        }
+
+    def validate(self, attrs):
+        if 'client_id' not in self.initial_data:
+            raise serializers.ValidationError({'client_id': ['This field is required']})
+        if 'client_secret' not in self.initial_data:
+            raise serializers.ValidationError({'client_secret': ['This field is required']})
+        return attrs
 
 
 class SeekerSerializer(ProfileSerializer, serializers.ModelSerializer):

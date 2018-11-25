@@ -78,10 +78,11 @@ export const updateUser = (userType, userId, data) => {
 		dispatch({ type: action.FETCHING });
 		Api.endpoints.updateUser(userType, userId, data)
 			.then(result => {
-				localStorage.removeItem("jwt", "id");
-
-				localStorage.setItem("jwt", result.data.token);
-				localStorage.setItem("id", result.data.id);
+				// Todo (Sibhat): What are these for? updating profile doesn't change the token nor the profile id
+				// localStorage.removeItem("jwt",);
+				// localStorage.removeItem("id");
+				// localStorage.setItem("jwt", result.data.token);
+				// localStorage.setItem("id", result.data.id);
 				dispatch(updateUserHandler(result.data));
 				console.log({result})
 			})

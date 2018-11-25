@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'jobs',
     'oauth2_provider',
     'rest_framework',  # This is the DRF library
-    'rest_framework_simplejwt',  # JWT library
     'corsheaders',  # CORS library
     'drf_yasg',  # API Swagger docs
 ]
@@ -104,6 +103,7 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = "JobMatcherApp.User"
+LOGIN_URL = '/admin/login/'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -161,21 +161,14 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     )
 }
 
 OAUTH2_PROVIDER = {
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24 * 30,
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24 * 365,
     'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
-}
-
-# JWT
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
-    'AUTH_HEADER_TYPES': ('Bearer', 'JWT'),
 }
 
 # We will start with all for now and later add our netlify

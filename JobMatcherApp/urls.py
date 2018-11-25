@@ -1,6 +1,5 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 from . import views
 
@@ -11,11 +10,9 @@ router.register('employers', views.EmployerViewSet, base_name='employer')
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 
-    #This is oauth2 endpoint
+    # Oauth2 endpoints
+    path('o/token/', views.ProfileTokenView.as_view(), name="token"),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-
-    # JWT: Signin using email and password
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
 
     # Signup and profile info
     path('signup/seeker/', views.signup_seeker, name='signup_seeker'),
