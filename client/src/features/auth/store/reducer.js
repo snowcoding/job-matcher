@@ -31,7 +31,6 @@ function userReduceer(state = initialState, action) {
         authenticatoin_succeed: true,
         currentUser: { ...action.data.profile },
         fetching: false,
-        authenticatoin_succeed: true,
         token: action.data.access_token
       };
     case actionTypes.LOGIN__USER:
@@ -117,7 +116,6 @@ function userReduceer(state = initialState, action) {
       return {
         ...state,
         error: null,
-        authenticatoin_succeed: true,
         currentUser: { ...action.data.profile },
         fetching: false,
         authenticatoin_succeed: true,
@@ -132,7 +130,6 @@ function userReduceer(state = initialState, action) {
         authenticatoin_succeed: true,
         currentUser: { ...action.data.profile },
         fetching: false,
-        authenticatoin_succeed: true,
         token: action.data.access_token,
         LINKEDIN_REQUEST: false,
         LINKEDIN_SUCCESS: true

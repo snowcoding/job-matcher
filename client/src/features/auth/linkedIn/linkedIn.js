@@ -3,8 +3,6 @@ import React from "react";
 import Api from "../../../api";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { signInLinkedIn, signUpLinkedIn } from "../store/action";
-
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
