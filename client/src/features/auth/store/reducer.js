@@ -24,6 +24,8 @@ function userReduceer(state = initialState, action) {
 			return {
 				...state,
 				error: null,
+				authenticatoin_succeed: true,
+ 				currentUser: {...action.data.profile},
 				fetching: false,
 				authenticatoin_succeed: true,
 				token: action.data.access_token,
@@ -37,7 +39,8 @@ function userReduceer(state = initialState, action) {
 				...state,
 				error: null,
 				authenticatoin_succeed: true,
-				currentUser: action.data.profile,
+
+				currentUser: {...action.data.profile},
 				fetching: false,
 				token: action.data.access_token,
 			};
