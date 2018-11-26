@@ -10,7 +10,6 @@ import Billing from "../features/Billing/Billing";
 import ProfileContainer from "../features/forms/containers";
 import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
-import MyComponent from "../linkedIn";
 
 export default class Layout extends React.Component {
   render() {
@@ -20,7 +19,6 @@ export default class Layout extends React.Component {
         <Route path="/" exact component={Landing} />
         <Container>
           <Row>
-              <MyComponent />
             <Switch>
               <Route path="/auth" component={Auth} />
               <Route path="/billing" component={Billing} />
