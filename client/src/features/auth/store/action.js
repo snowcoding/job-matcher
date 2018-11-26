@@ -62,6 +62,7 @@ export const login = (data) => {
 
 		Api.endpoints.signIn(data)
 			.then(result => {
+				console.log("logn func", {result});
 				dispatch(loginHandler(result.data));
 			})
 			.catch(error => {

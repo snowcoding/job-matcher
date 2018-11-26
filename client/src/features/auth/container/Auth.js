@@ -59,7 +59,6 @@ class AuthContainer extends Component {
         minLength: 7
       }
     },
-
     password2: {
       type: "password",
       id: "password2",
@@ -113,7 +112,7 @@ class AuthContainer extends Component {
     if (stateName === "password" || stateName === "password2") {
       // check the strength of the input value, and update the validation
       let result = this.passwordValidetor(event.target.value);
-
+      
       if (result[1] >= 3) {
         updateState[stateName].valid = true;
         updateState[stateName].errors = [];
@@ -166,7 +165,6 @@ class AuthContainer extends Component {
       updateState[stateName].value = event.target.checked;
     }
     // if all input type are valid, we enable the button to register or login
-
     // check if passwords are the same during registration
     if (this.props.location.pathname.includes("login")) {
       updateState.formValid =
@@ -180,39 +178,37 @@ class AuthContainer extends Component {
         this.state.password2.touch;
     }
 
-    this.setState({
-      ...updateState
-    });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    let { name, email, password, is_seeker } = this.state;
-    if (this.props.location.pathname.includes("login")) {
-      let isValid = this.state.email.valid && this.state.password.valid;
-      if (isValid) {
-        this.props.login({
-          username: email.value,
-          password: password.value
-        });
-      }
-    } else {
-      let userType = this.state.is_seeker ? "seeker" : "employer";
-      let isValid =
-        this.state.email.valid &&
-        this.state.password.valid &&
-        this.state.name.valid;
-      if (isValid) {
-        this.props.signUpUser(userType, {
-          first_name: name.value.split(" ")[0],
-          last_name: name.value.split(" ")[1],
-          email: email.value,
-          password: password.value,
-          is_seeker: is_seeker.value ? false : true
-        });
-      }
-    }
-  };
-
+		this.setState({
+			...updateState
+		});
+	};
+	handleSubmit = e => {
+		e.preventDefault();
+		let { name, email, password, is_seeker } = this.state;
+		if (this.props.location.pathname.includes("login")) {
+			let isValid = this.state.email.valid && this.state.password.valid;
+			if (isValid) {
+				this.props.login({
+					username: email.value,
+					password: password.value
+				});
+			}
+		} else {
+			let userType = is_seeker.value ? "seeker" : "employer";
+			let isValid =
+				this.state.email.valid &&
+				this.state.password.valid &&
+				this.state.name.valid;
+			if (isValid) {
+				this.props.signUpUser(userType, {
+					first_name: name.value.split(" ")[0],
+					last_name: name.value.split(" ")[1],
+					email: email.value,
+					password: password.value,
+				});
+			}
+		}
+	};
   passwordValidetor = password => {
     const isEmpity = password.length > 0;
     let score = zxcvbn(password).score;
