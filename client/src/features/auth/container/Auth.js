@@ -82,7 +82,7 @@ class AuthContainer extends Component {
 			required: true,
 			placeholder: "checkbox",
 			name: "is_seeker",
-			label: "Are You Employer?",
+			label: "Are You Seeker?",
 			id: "ProtectedPages",
 			touch: false,
 			controlClass: "form-control",
@@ -165,6 +165,7 @@ class AuthContainer extends Component {
 		}
 		if (stateName === "is_seeker") {
 			updateState[stateName].value = event.target.checked;
+			console.log(updateState[stateName].value);
 		}
 		// if all input type are valid, we enable the button to register or login
 
@@ -197,7 +198,7 @@ class AuthContainer extends Component {
 				});
 			}
 		} else {
-			let userType = this.state.is_seeker ? "seeker" : "employer";
+			let userType = is_seeker.value ? "seeker" : "employer";
 			let isValid =
 				this.state.email.valid &&
 				this.state.password.valid &&
@@ -208,7 +209,6 @@ class AuthContainer extends Component {
 					last_name: name.value.split(" ")[1],
 					email: email.value,
 					password: password.value,
-					is_seeker: is_seeker.value ? false : true
 				});
 			}
 		}
