@@ -101,7 +101,6 @@ class SignupMixin(serializers.Serializer):
 
 class SeekerSerializer(ProfileSerializer, serializers.ModelSerializer):
     """Default representation for Seeker objects"""
-    # token = serializers.CharField(required=False);
 
     class Meta:
         model = Seeker
@@ -114,8 +113,6 @@ class SeekerSerializer(ProfileSerializer, serializers.ModelSerializer):
         """
         # Create auth user model first
         validated_user_data = validated_data.pop('user', {})
-        # try:
-        #     username= 'linked'
         user = User.objects.create_user(is_seeker=True, **validated_user_data)
         # Create Seeker profile
         return Seeker.objects.create(user=user, **validated_data)
