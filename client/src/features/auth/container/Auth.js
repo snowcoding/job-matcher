@@ -82,7 +82,7 @@ class AuthContainer extends Component {
       required: true,
       placeholder: "checkbox",
       name: "is_seeker",
-      label: "Are You Employer?",
+      label: "Are You seeker?",
       id: "ProtectedPages",
       touch: false,
       controlClass: "form-control",
@@ -112,7 +112,7 @@ class AuthContainer extends Component {
     if (stateName === "password" || stateName === "password2") {
       // check the strength of the input value, and update the validation
       let result = this.passwordValidetor(event.target.value);
-      
+
       if (result[1] >= 3) {
         updateState[stateName].valid = true;
         updateState[stateName].errors = [];
@@ -178,37 +178,37 @@ class AuthContainer extends Component {
         this.state.password2.touch;
     }
 
-		this.setState({
-			...updateState
-		});
-	};
-	handleSubmit = e => {
-		e.preventDefault();
-		let { name, email, password, is_seeker } = this.state;
-		if (this.props.location.pathname.includes("login")) {
-			let isValid = this.state.email.valid && this.state.password.valid;
-			if (isValid) {
-				this.props.login({
-					username: email.value,
-					password: password.value
-				});
-			}
-		} else {
-			let userType = is_seeker.value ? "seeker" : "employer";
-			let isValid =
-				this.state.email.valid &&
-				this.state.password.valid &&
-				this.state.name.valid;
-			if (isValid) {
-				this.props.signUpUser(userType, {
-					first_name: name.value.split(" ")[0],
-					last_name: name.value.split(" ")[1],
-					email: email.value,
-					password: password.value,
-				});
-			}
-		}
-	};
+    this.setState({
+      ...updateState
+    });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    let { name, email, password, is_seeker } = this.state;
+    if (this.props.location.pathname.includes("login")) {
+      let isValid = this.state.email.valid && this.state.password.valid;
+      if (isValid) {
+        this.props.login({
+          username: email.value,
+          password: password.value
+        });
+      }
+    } else {
+      let userType = is_seeker.value ? "seeker" : "employer";
+      let isValid =
+        this.state.email.valid &&
+        this.state.password.valid &&
+        this.state.name.valid;
+      if (isValid) {
+        this.props.signUpUser(userType, {
+          first_name: name.value.split(" ")[0],
+          last_name: name.value.split(" ")[1],
+          email: email.value,
+          password: password.value
+        });
+      }
+    }
+  };
   passwordValidetor = password => {
     const isEmpity = password.length > 0;
     let score = zxcvbn(password).score;
