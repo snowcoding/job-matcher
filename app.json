@@ -10,6 +10,9 @@
     },
     "SECRET_KEY": {
       "required": true
+    },
+    "STRIPE_SECRET_KEY": {
+      "required": true
     }
   },
   "formation": {
@@ -17,9 +20,7 @@
       "quantity": 1
     }
   },
-  "addons": [
-    "heroku-postgresql"
-  ],
+  "addons": ["heroku-postgresql"],
   "buildpacks": [
     {
       "url": "heroku/python"
