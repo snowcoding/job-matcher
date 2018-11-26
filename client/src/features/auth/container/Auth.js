@@ -8,10 +8,9 @@ import { connect } from "react-redux";
 import { signUpUser, login } from "../store/action";
 import { Route, Redirect } from "react-router-dom";
 import Auth from "../component/Auth";
-import LinkedIn from "./LinkedIn";
 // css
 import "../component/auth.css";
-import MyComponent from "../../../linkedIn";
+import MyComponent from "../linkedIn/linkedIn";
 class AuthContainer extends Component {
   state = {
     name: {
@@ -294,7 +293,6 @@ class AuthContainer extends Component {
         />
 
         <MyComponent />
-        {/*<LinkedIn onclick={this.startAuth} actionType={actionType} />*/}
       </React.Fragment>
     ) : (
       <Redirect to="/billing" />
@@ -305,7 +303,8 @@ const MapStateToProps = state => ({
   fetching: state.user.fetching,
   currentUser: state.user.currentUser,
   error: state.user.error,
-  authenticatoin_succeed: state.user.authenticatoin_succeed
+  authenticatoin_succeed: state.user.authenticatoin_succeed,
+  LINKEDIN_SUCCESS: state.user.LINKEDIN_SUCCESS
 });
 export default connect(
   MapStateToProps,

@@ -12,3 +12,8 @@ export const FETCHING_GET_PROFILE = "FETCHING_GET_PROFILE";
 // Export action type for Error handlers
 export const ADD__ERROR = "ADD__ERROR";
 export const DELETE__ERROR = "DELETE__ERROR";
+
+export const LINKEDIN_REQUEST = "LINKEDIN_REQUEST";
+export const LINKEDIN_LOGIN = "LINKEDIN_LOGIN";
+export const LINKEDIN_SIGNUP = "LINKEDIN_SIGNUP";
+export const LINKEDIN_FAILED = "LINKEDIN_FAILED";
