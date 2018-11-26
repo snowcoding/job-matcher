@@ -17,7 +17,9 @@ let api = axios.create({
 
 // This adds the access token saved to the browser's local storage
 if (localStorage.accessToken) {
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.accessToken}`;
+  api.defaults.headers.common["Authorization"] = `Bearer ${
+    localStorage.accessToken
+  }`;
 }
 
 let authEndpoints = {
@@ -26,26 +28,26 @@ let authEndpoints = {
 
 let profilesEndpoints = {
   // Todo: Add more profile endpoints
-  random(userType){
-    return api.get(`/${userType}s/random/`)
+  random(userType) {
+    return api.get(`/${userType}s/random/`);
   },
-  me () {
-    return api.get('/me/')
+  me() {
+    return api.get("/me/");
   },
-  signIn (data) {
+  signIn(data) {
     data = {
       ...data,
       grant_type: "password",
       client_id: process.env.REACT_APP_CLIENT_ID,
-      client_secret: process.env.REACT_APP_CLIENT_SECRET,
-    }
-    return api.post(`/o/token/`, data)
+      client_secret: process.env.REACT_APP_CLIENT_SECRET
+    };
+    return api.post(`/o/token/`, data);
   },
-  signUp(userType,data) {
-     return api.post(`/${userType}s/signup/`, data)
+  signUp(userType, data) {
+    return api.post(`/signup/${userType}/`, data);
   },
-  updateUser(userType,userId , data){
-    return api.patch(`/${userType}s/${userId}/`, data)
+  updateUser(userType, userId, data) {
+    return api.patch(`/${userType}s/${userId}/`, data);
   }
 };
 
@@ -59,6 +61,9 @@ let jobsEndpoints = {
   },
   updateJob(body, id) {
     return api.patch(`/jobs/${id}/`, body);
+  },
+  deleteJob(id) {
+    return api.delete(`/jobs/${id}/`);
   }
 };
 
