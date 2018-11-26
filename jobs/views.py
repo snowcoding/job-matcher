@@ -6,7 +6,7 @@ from . import serializers
 
 
 class JobViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin,
-                 viewsets.GenericViewSet):
+                 mixins.DestroyModelMixin, viewsets.GenericViewSet):
     serializer_class = serializers.JobSerializer
 
     permission_classes = [IsAuthenticated] #DRF custom perm class]

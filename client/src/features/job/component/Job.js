@@ -99,10 +99,16 @@ class Job extends Component {
     let jobFormData = this.skillsToArray();
 
     //Call the createJob endpoint:
-    API.endpoints.createJob(jobFormData).then(res => {
-      const job = res.data;
-      console.log(job);
-    });
+    API.endpoints
+      .createJob(jobFormData)
+      .then(res => {
+        //Update the local state and add the job
+        let jobs = [...this.state.jobs, res.data];
+        this.setState({ jobs });
+      })
+      .catch(error => {
+        console.log("Response Error: ", { error });
+      });
 
     //Force a re-render / to load new state:
     this.setState({ state: this.state });
@@ -113,31 +119,42 @@ class Job extends Component {
   };
 
   editJobHandler = () => {
-    console.log("editJobHandler clicked!");
-
     let { id } = this.state.jobSelected;
 
-    console.log("jobId", id);
     //Turn all skills fields into Arrays:
     let jobFormData = this.skillsToArray();
 
-    console.log("jobFormData", jobFormData);
-
     //Call the editJob endpoint:
     API.endpoints.updateJob(jobFormData, id).then(res => {
-      const job = res.data;
-      console.log(job);
+      //Remove job that was edited
+      let allJobsExceptEditedJob = [...this.state.jobs].filter(
+        cv => cv.id !== id
+      );
+
+      let jobs = [...allJobsExceptEditedJob, res.data];
+      this.setState({ jobs });
     });
 
     //Toggle the Modal
     this.toggleJobModal();
   };
 
-  deleteJobHandler = jobId => {
+  deleteJobHandler = () => {
     console.log("deleteJobHandler clicked!");
 
-    //Call the Delete endpoint
+    let { id } = this.state.jobSelected;
 
+    //Call the editJob endpoint:
+    API.endpoints.deleteJob(id).then(res => {
+      //Remove job
+      let jobs = [...this.state.jobs].filter(cv => cv.id !== id);
+
+      // Update the local state and add the job
+      if (jobs) this.setState({ jobs });
+      else console.log("no jobs to remove");
+    });
+
+    //Toggle the Modal
     this.toggleJobModal();
   };
 

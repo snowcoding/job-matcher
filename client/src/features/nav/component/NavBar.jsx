@@ -80,7 +80,7 @@ class NavBar extends React.Component {
                     <Link to="/Billing">Billing</Link>
                   </DropdownItem>
                   <DropdownItem>
-                     <Link to="/job">Job</Link>
+                    <Link to="/Job">Job</Link>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
