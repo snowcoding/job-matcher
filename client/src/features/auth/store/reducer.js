@@ -19,11 +19,18 @@ function userReduceer(state = initialState, action) {
 				fetching: true
 			};
 		case actionTypes.SIGNUP__USER:
+			localStorage.setItem("access_token", action.data.access_token);
+			Api.defaults.headers.common["Authorization"] = `Bearer ${action.data.access_token}`;
 			return {
 				...state,
 				error: null,
+				authenticatoin_succeed: true,
+ 				currentUser: {...action.data.profile},
 				fetching: false,
-				token: action.data.access,
+				authenticatoin_succeed: true,
+				token: action.data.access_token,
+				currentUser: action.data.profile,
+
 			};
 		case actionTypes.LOGIN__USER:
 			localStorage.setItem("access_token", action.data.access_token);
@@ -32,6 +39,8 @@ function userReduceer(state = initialState, action) {
 				...state,
 				error: null,
 				authenticatoin_succeed: true,
+
+				currentUser: {...action.data.profile},
 				fetching: false,
 				token: action.data.access_token,
 			};
