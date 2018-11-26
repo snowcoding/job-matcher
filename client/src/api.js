@@ -42,7 +42,12 @@ let profilesEndpoints = {
     return api.post(`/o/token/`, data)
   },
   signUp(userType,data) {
-     return api.post(`/${userType}s/signup/`, data)
+    data = {
+      ...data,
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      client_secret: process.env.REACT_APP_CLIENT_SECRET,
+    }
+     return api.post(`/signup/${userType}/`, data)
   },
   updateUser(userType,userId , data){
     return api.patch(`/${userType}s/${userId}/`, data)

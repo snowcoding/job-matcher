@@ -4,9 +4,9 @@ import { addErrorHandler } from "./error";
 import * as actionType from "../../forms/store/actionType";
 import  Api from '../../../api'
 
-const signUpHandler = user => ({
+const signUpHandler = data => ({
   type: action.SIGNUP__USER,
-  user
+  data
 });
 const loginHandler = data => ({
 	type: action.LOGIN__USER,
