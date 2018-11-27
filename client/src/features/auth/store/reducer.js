@@ -124,6 +124,10 @@ function userReduceer(state = initialState, action) {
         LINKEDIN_SUCCESS: true
       };
     case actionTypes.LINKEDIN_SIGNUP:
+      localStorage.setItem("access_token", action.data.access_token);
+      Api.defaults.headers.common["Authorization"] = `Bearer ${
+        action.data.access_token
+      }`;
       return {
         ...state,
         error: null,

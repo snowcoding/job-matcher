@@ -6,21 +6,28 @@ import { Redirect } from "react-router-dom";
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
+    //
     this.state = {
-      linked_success: false
+      linked_success: false,
+      is_seeker: false
     };
   }
+  handleInput = e => {
+    this.setState({ [e.target.name]: e.target.checked });
+  };
   responseLinkedin = response => {
     let user = {
       first_name: response.firstName,
       last_name: response.lastName,
+      is_seeker: this.state.is_seeker,
       email: response.emailAddress,
       password: "9712225622"
     };
+    let userType = this.state.is_seeker ? "seeker" : "employer";
     this.props.dispatch({ type: "LINKEDIN_REQUEST" });
 
     Api.endpoints
-      .signUp("seeker", user)
+      .signUp(userType, user)
       .then(result => {
         this.props.dispatch({
           type: "LINKEDIN_SIGNUP",
@@ -30,7 +37,6 @@ class MyComponent extends React.Component {
       .catch(error => {
         let testText = "This email has been taken by someone else";
         //check error message from signup handler, if email already exist, sign them in.
-
         if (
           error.response.data.email &&
           error.response.data.email[0].includes(testText)
@@ -60,16 +66,27 @@ class MyComponent extends React.Component {
 
   render() {
     return !this.props.LINKEDIN_SUCCESS ? (
-      <LinkedinSDK
-        clientId="86k7v2sks14nul"
-        callBack={this.responseLinkedin}
-        fields=":(id,firstName,lastName,email-address,num-connections,picture-urls::(original))"
-        className={"className"}
-        loginButtonText={"Login with Linkedin component"}
-        logoutButtonText={"Logout from Linkedin"}
-        buttonType={"button"}
-        getOAuthToken={true}
-      />
+      <div>
+        <div>
+          <label htmlFor="is_seeker"> Are you seeker? </label>
+          <input
+            type="checkbox"
+            onChange={this.handleInput}
+            name="is_seeker"
+            id="is_seeker"
+            value={this.state.is_seeker}
+          />
+        </div>
+        <LinkedinSDK
+          clientId="86k7v2sks14nul"
+          callBack={this.responseLinkedin}
+          fields=":(id,firstName,lastName,email-address,num-connections,picture-urls::(original))"
+          className={"btn"}
+          loginButtonText={`${this.props.actionType} with Linkedin`}
+          buttonType={"button"}
+          getOAuthToken={true}
+        />
+      </div>
     ) : (
       <Redirect to="/jobs" />
     );
