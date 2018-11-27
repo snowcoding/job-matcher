@@ -39,7 +39,8 @@ class ProfileSerializer(serializers.Serializer):
     is_employer = serializers.ReadOnlyField(source='user.is_employer')
 
     class Meta:
-        fields = ['email', 'password', 'first_name', 'last_name', 'is_seeker', 'is_employer', 'photo', 'summary']
+        fields = ['email', 'password', 'first_name', 'last_name', 'is_seeker', 'is_employer', 'photo', 'summary',
+                  'credits']
 
     def validate_email(self, email):
         """Make sure the given email is not taken by someone else"""
@@ -104,7 +105,8 @@ class SeekerSerializer(ProfileSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = Seeker
-        fields = ['id', *ProfileSerializer.Meta.fields, 'desired_title', 'top_skills', 'extra_skills', 'other_skills']
+        fields = ['id', *ProfileSerializer.Meta.fields, 'desired_title', 'top_skills', 'extra_skills', 'other_skills',
+                  'free_apps']
 
     @transaction.atomic  # Ensure creation of both models is done in a single transaction not to create inconsistencies
     def create(self, validated_data):
@@ -128,7 +130,7 @@ class EmployerSerializer(ProfileSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = Employer
-        fields = ['id', *ProfileSerializer.Meta.fields, 'company_name']
+        fields = ['id', *ProfileSerializer.Meta.fields, 'company_name', 'free_calls', 'postings']
 
     @transaction.atomic
     def create(self, validated_data):
