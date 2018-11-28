@@ -78,11 +78,12 @@ class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.L
     queryset = Seeker.objects.all()
 
     @action(methods=['get'], detail=False)
-    def random(self, request):
+    def random(self):
         # TODO filter out from match DB
         seeker = self.get_queryset().order_by("?").first()
         serializer = self.get_serializer(instance=seeker)
         return Response(data=serializer.data)
+
 
 
 class EmployerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin,
