@@ -8,7 +8,7 @@ import NavBar from "../features/nav/component/NavBar";
 import Landing from "../layouts/landingPage/Landing";
 import Billing from "../features/Billing/Billing";
 import ProfileContainer from "../features/forms/containers";
-import View from "../features/view/CardView";
+import View from "../features/view/container";
 import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
 
