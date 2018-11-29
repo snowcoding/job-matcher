@@ -19,7 +19,8 @@ class PersonalContainer extends Component {
       type: "checkbox",
       value: false,
       label: "confirm spending",
-      controlledLabelClass: "form-label-checkbox"
+      controlledLabelClass: "form-label-checkbox",
+      controlledClass: "form-input-checkbox"
     },
     photo: {
       type: "img",
@@ -31,7 +32,8 @@ class PersonalContainer extends Component {
       type: "checkbox",
       value: false,
       label: "change your photo",
-      controlledLabelClass: "form-label-checkbox"
+      controlledLabelClass: "form-label-checkbox",
+      controlledClass: "form-input-checkbox"
     }
   };
 

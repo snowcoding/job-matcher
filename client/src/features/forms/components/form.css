@@ -1,19 +1,31 @@
-.image_input{
-    border: none;
+.image_input {
+  border: none;
 }
-.icalander{
-    border: 1px solid #007bff;
-    position: absolute;
-    left: -17%;
+.icalander {
+  border: 1px solid #007bff;
+  position: absolute;
+  left: -17%;
 }
-.react-daterange-picker__wrapper{
-    padding: 10px;
-    border: none;
-    justify-content: center;
-    align-items: center;
+.react-daterange-picker__wrapper {
+  padding: 10px;
+  border: none;
+  justify-content: center;
+  align-items: center;
 }
-.react-daterange-picker__inputGroup{
-    min-width: 0;
-    flex-grow: 0;
-
+.react-daterange-picker__inputGroup {
+  min-width: 0;
+  flex-grow: 0;
+}
+.form-label-checkbox,
+.form-label-checkbox:focus {
+  opacity: 1;
+  top: 21px !important;
+  left: 30px;
+  transition: none;
+  outline: none;
+  border: none;
+}
+.form-input-checkbox:focus {
+  border: none;
+  box-shadow: none;
 }
