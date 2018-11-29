@@ -31,10 +31,7 @@ const ViewElement = props => {
                 <CardTitle top width="100%">
                   {props.success && <h1>{props.data.first_name}</h1>}
                 </CardTitle>
-                <CardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </CardText>
+                <CardText />
               </CardBody>
             </Card>
           </CardColumns>
@@ -42,8 +39,8 @@ const ViewElement = props => {
             <CardBody>
               <CardTitle>Software Engineer</CardTitle>
               <Button onClick={props.skip}>Skip</Button>
-              <Button>Super</Button>
-              <Button>Call</Button>
+              <Button onClick={props.super}>Super</Button>
+              <Button onClick={props.call}>Call</Button>
             </CardBody>
           </Card>
         </Card>
