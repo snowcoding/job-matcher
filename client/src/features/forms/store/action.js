@@ -1,9 +1,9 @@
 import * as actionType from "./actionType";
 import Api from "../../../api";
 
-const userImgUpdateHandler = img => ({
-  type: actionType.UPDATE_PROFILE_IMG,
-  img
+const userImgUpdateHandler = currentUser => ({
+  type: "UPDATE__USER",
+  currentUser
 });
 
 const profileErrorHandler = error => ({
@@ -11,10 +11,10 @@ const profileErrorHandler = error => ({
   error
 });
 
-export const updateProfileImg = () => dispatch => {
-  dispatch({ type: actionType.FETCHING_UPDATE_PROFILE });
+export const updateProfileImg = (userType, userId, data) => dispatch => {
+  dispatch({ type: actionType.UPDATE_PROFILE_IMG });
   Api.endpoints
-    .me()
+    .updateUser(userType, userId, data)
     .then(result => {
       dispatch(userImgUpdateHandler(result.data));
     })
