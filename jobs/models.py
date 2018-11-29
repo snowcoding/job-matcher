@@ -1,7 +1,8 @@
 from django.db import models
-
-from JobMatcherApp.models import BaseModel, Employer, SkillsField
 from django.utils.translation import gettext_lazy as _
+
+from JobMatcherApp.models import BaseModel, Employer, SkillsField, Seeker
+
 
 class Job(BaseModel):
     employer = models.ForeignKey(Employer, related_name='jobs', on_delete=models.CASCADE)
@@ -15,3 +16,30 @@ class Job(BaseModel):
     requirements = models.CharField(max_length=500, blank=True)
     is_active = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f'{self.id}: {self.title}'
+
+
+class Match(BaseModel):
+    employer = models.ForeignKey(Employer, related_name='matches', on_delete=models.CASCADE)
+    seeker = models.ForeignKey(Seeker, related_name='matches', on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, related_name='matches', on_delete=models.CASCADE)
+
+    # TODO Choices integer fields
+    # skip, super, call
+    seeker_action = models.CharField(max_length=20, blank=True)
+
+    # skip, super, apply
+    employer_action = models.CharField(max_length=20, blank=True)
+
+    is_archived_seeker = models.BooleanField(default=False)
+    is_archived_employer = models.BooleanField(default=False)
+
+    class Meta:
+        # List of fields that will prevent duplicate instances and guarantee unique match instances
+        # Multiple Field Uniqueness
+        # Minimum fields for uniqueness
+        unique_together = ['employer', 'seeker', 'job']
+
+    def __str__(self):
+        return f'{self.job_id}: {self.seeker_id} : {self.employer_id}'
