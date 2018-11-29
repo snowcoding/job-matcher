@@ -295,7 +295,7 @@ class AuthContainer extends Component {
         <MyComponent />
       </React.Fragment>
     ) : (
-      <Redirect to="/billing" />
+      <Redirect to="/view" />
     );
   }
 }

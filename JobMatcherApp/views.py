@@ -90,3 +90,10 @@ class EmployerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins
                       viewsets.GenericViewSet):
     serializer_class = serializers.EmployerSerializer
     queryset = Employer.objects.all()
+
+    @action(methods=['get'], detail=False)
+    def random(self, request):
+        # TODO filter out from match DB
+        employer = self.get_queryset().order_by("?").first()
+        serializer = self.get_serializer(instance=employer)
+        return Response(data=serializer.data)

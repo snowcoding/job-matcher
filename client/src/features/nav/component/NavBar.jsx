@@ -23,7 +23,6 @@ class NavBar extends React.Component {
     this.props.onLogOut();
   };
   render() {
-    console.log("User:", this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -39,6 +38,7 @@ class NavBar extends React.Component {
           </NavLink>
           {this.props.authenticatoin_succeed && (
             <Nav className="ml-auto" navbar>
+              <NavItem>Hi {this.props.currentUser.first_name}</NavItem>
               <NavItem>
                 <NavLink
                   to="/components/"
