@@ -15,6 +15,12 @@ class PersonalContainer extends Component {
     email: {
       value: ""
     },
+    confirm: {
+      type: "checkbox",
+      value: false,
+      label: "confirm spending",
+      controlledLabelClass: "form-label-checkbox"
+    },
     photo: {
       type: "img",
       value: "",
@@ -65,7 +71,8 @@ class PersonalContainer extends Component {
       email: data.email.value,
       first_name: data.name.value.split(" ")[0],
       last_name: data.name.value.split(" ")[1],
-      photo: data.photo.value
+      photo: data.photo.value,
+      confirm: data.confirm.value
     });
   };
   closeUploadModal = e => {
@@ -85,7 +92,6 @@ class PersonalContainer extends Component {
           title="Personal"
         />
         <ImagePicker
-          openModal={this.openModal}
           open={this.state.imgChange.value}
           closeUploadModal={this.closeUploadModal}
         />

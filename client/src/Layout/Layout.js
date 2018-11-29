@@ -10,7 +10,7 @@ import Billing from "../features/Billing/Billing";
 import ProfileContainer from "../features/forms/containers";
 import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
-
+import MatchContainer from "../features/matches/container";
 export default class Layout extends React.Component {
   render() {
     return (
@@ -23,11 +23,16 @@ export default class Layout extends React.Component {
               <Route path="/auth" component={Auth} />
               <Route path="/billing" component={Billing} />
               <Route path="/rand" component={BrowseContainer} />
+              <Route path="/matches" component={MatchContainer} />
+
               {/* <Route
 								path="/forms"
 								component={ProtectedPages(ProfileContainer)}
 							/> */}
-              <Route path="/profile" component={ProtectedPages(ProfileContainer)} />
+              <Route
+                path="/profile"
+                component={ProtectedPages(ProfileContainer)}
+              />
               <Route path="/job" component={Job} />
 
               <Route path="/testing" exact component={Testing} />
