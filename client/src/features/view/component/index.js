@@ -7,9 +7,10 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
+  Tooltip,
   CardColumns
 } from "reactstrap";
-
+import { ActionButton } from "./indexCSS";
 const ViewElement = props => {
   console.log("ViewElement data : ", props);
 
@@ -41,6 +42,15 @@ const ViewElement = props => {
               <Button onClick={props.skip}>Skip</Button>
               <Button onClick={props.super}>Super</Button>
               <Button onClick={props.call}>Call</Button>
+              <Tooltip
+                placement="right"
+                isOpen={this.state.tooltipOpen}
+                target="TooltipExample"
+                toggle={this.toggle}
+              >
+                {" "}
+                Hello world!{" "}
+              </Tooltip>
             </CardBody>
           </Card>
         </Card>
