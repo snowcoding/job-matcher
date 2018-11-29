@@ -23,7 +23,6 @@ class NavBar extends React.Component {
     this.props.onLogOut();
   };
   render() {
-    console.log("User:", this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -80,7 +79,17 @@ class NavBar extends React.Component {
                   </NavItem>
                 </>
               ) : null}
-
+              <NavItem>Hi {this.props.currentUser.first_name}</NavItem>
+              <NavItem>
+                <NavLink
+                  to="/components/"
+                  activeStyle={{
+                    margin: "2px"
+                  }}
+                >
+                  Free Apps:{" "}
+                </NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink
                   to="give a path"

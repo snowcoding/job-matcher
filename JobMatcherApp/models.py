@@ -62,7 +62,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser, BaseModel):
     username = None
-    email = models.EmailField(_('email address'), max_length=255, unique=True)
+    email = models.EmailField(_('email address'), max_length=255, unique=True)  # Singular Field Uniqueness
     is_seeker = models.BooleanField(_('seeker'), default=False)
     is_employer = models.BooleanField(_('employer'), default=False)
 
@@ -89,6 +89,10 @@ class Profile(BaseModel):
 
     class Meta:
         abstract = True
+
+    # Magic Method for a nicer representation for the profile
+    def __str__(self):
+        return f'{self.id}: {self.__class__.__name__}: {self.user.email}'
 
 
 class SkillsField(ArrayField):

@@ -8,9 +8,10 @@ import NavBar from "../features/nav/component/NavBar";
 import Landing from "../layouts/landingPage/Landing";
 import Billing from "../features/billing/component";
 import ProfileContainer from "../features/forms/containers";
+import View from "../features/view/container";
 import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
-
+import MatchContainer from "../features/matches/container";
 export default class Layout extends React.Component {
   render() {
     return (
@@ -23,6 +24,8 @@ export default class Layout extends React.Component {
               <Route path="/auth" component={Auth} />
               <Route path="/billing" component={ProtectedPages(Billing)} />
               <Route path="/rand" component={BrowseContainer} />
+              <Route path="/matches" component={MatchContainer} />
+
               {/* <Route
 								path="/forms"
 								component={ProtectedPages(ProfileContainer)}
@@ -32,7 +35,7 @@ export default class Layout extends React.Component {
                 component={ProtectedPages(ProfileContainer)}
               />
               <Route path="/job" component={ProtectedPages(Job)} />
-
+              <Route path="/view" component={ProtectedPages(View)} />
               <Route path="/testing" exact component={Testing} />
             </Switch>
           </Row>
