@@ -93,8 +93,7 @@ class AuthContainer extends Component {
       }
     },
     formValid: false,
-    signIn: false,
-    window_open: false
+    signIn: false
   };
 
   inputHandler = event => {
@@ -231,26 +230,6 @@ class AuthContainer extends Component {
     let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(value);
   };
-  openPop = e => {
-    const width = 600,
-      height = 600;
-    const left = window.innerWidth / 2 - width / 2;
-    const top = window.innerHeight / 2 - height / 2;
-    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86k7v2sks14nul&redirect_uri=http://localhost:3000/testing&state=987654321&scope=r_basicprofile`;
-    let w = window.open(
-      url,
-      "",
-      `toolbar=no, location=no, directories=no, status=no, menubar=no,
-	scrollbars=no, resizable=no, copyhistory=no, width=${width},
-	height=${height}, top=${top}, left=${left}`
-    );
-    this.setState({
-      window_open: w
-    });
-  };
-  startAuth = async e => {
-    await this.openPop();
-  };
 
   render() {
     let actionType = this.props.location.pathname.includes("login")
@@ -271,7 +250,6 @@ class AuthContainer extends Component {
               password={this.state.password}
               fetching={this.props.fetching}
               login
-              window_open={this.state.window_open}
             />
           )}
         />
@@ -287,12 +265,11 @@ class AuthContainer extends Component {
               error={this.props.error}
               password={this.state.password}
               fetching={this.props.fetching}
-              window_open={this.state.window_open}
             />
           )}
         />
 
-        <MyComponent />
+        <MyComponent actionType={actionType} />
       </React.Fragment>
     ) : (
       <Redirect to="/view" />
@@ -303,8 +280,7 @@ const MapStateToProps = state => ({
   fetching: state.user.fetching,
   currentUser: state.user.currentUser,
   error: state.user.error,
-  authenticatoin_succeed: state.user.authenticatoin_succeed,
-  LINKEDIN_SUCCESS: state.user.LINKEDIN_SUCCESS
+  authenticatoin_succeed: state.user.authenticatoin_succeed
 });
 export default connect(
   MapStateToProps,

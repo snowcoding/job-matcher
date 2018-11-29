@@ -66,7 +66,11 @@ let jobsEndpoints = {
     return api.delete(`/jobs/${id}/`);
   }
 };
-
+let matchesEndpoints = {
+  getMatches() {
+    return api.get(`/matches/`);
+  }
+};
 let billingEndpoints = {
   // Todo: Add billing endpoints here
   async charge(token) {
@@ -83,11 +87,13 @@ api.endpoints = {
   ...profilesEndpoints,
   ...jobsEndpoints,
   ...billingEndpoints,
-  ...messagesEndpoints
+  ...messagesEndpoints,
+  ...matchesEndpoints
 };
 
 // This adds the access token saved to the browser's local storage
 if (localStorage.access_token) {
+  console.log("ready to make a call ", localStorage.access_token);
   api.defaults.headers.common["Authorization"] = `Bearer ${
     localStorage.access_token
   }`;
