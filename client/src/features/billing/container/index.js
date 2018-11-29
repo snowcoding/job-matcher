@@ -31,7 +31,13 @@ class CheckoutForm extends Component {
 
   async submit(ev) {
     // find a way to send token to action
-    let { token } = await this.props.stripe.createToken({ name: "Name" });
+    let { token } = await this.props.stripe.createToken({
+      user_id: this.props.currentUser.id,
+      name:
+        this.props.currentUser.first_name +
+        " " +
+        this.props.currentUser.last_name
+    });
     console.log(token);
     this.props.billUser(token);
     // send the token to server here.
