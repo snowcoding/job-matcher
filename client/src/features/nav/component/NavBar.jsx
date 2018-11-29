@@ -39,7 +39,8 @@ class NavBar extends React.Component {
           </NavLink>
           {this.props.authenticatoin_succeed && (
             <Nav className="ml-auto" navbar>
-              {this.props.currentUser.is_seeker &&
+              {this.props.currentUser &&
+              this.props.currentUser.is_seeker &&
               !this.props.currentUser.is_employer ? (
                 <NavItem>
                   <NavLink
@@ -53,7 +54,8 @@ class NavBar extends React.Component {
                 </NavItem>
               ) : null}
 
-              {this.props.currentUser.is_employer &&
+              {this.props.currentUser &&
+              this.props.currentUser.is_employer &&
               !this.props.currentUser.is_seeker ? (
                 <>
                   <NavItem>
@@ -109,9 +111,13 @@ class NavBar extends React.Component {
                   <DropdownItem>
                     <Link to="/Billing">Billing</Link>
                   </DropdownItem>
-                  <DropdownItem>
-                    <Link to="/Job">Job</Link>
-                  </DropdownItem>
+                  {this.props.currentUser &&
+                  this.props.currentUser.is_employer &&
+                  !this.props.currentUser.is_seeker ? (
+                    <DropdownItem>
+                      <Link to="/Job">Job</Link>
+                    </DropdownItem>
+                  ) : null}
                   <DropdownItem divider />
                   <DropdownItem>
                     <Link to="/" onClick={this.handleSignOut}>
