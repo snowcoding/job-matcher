@@ -61,8 +61,8 @@ class MatchSerializer(serializers.ModelSerializer):
 
             # Check if the employer has enough credits and if the action
             # if call then does he have free calls, cool, have credits, cool, otherwise raise Error
-            if not (employer.free_calls > 0 or employer.credits > 0):
-                pass
+            # if not (employer.free_calls > 0 or employer.credits > 0):
+            #     pass
                 # raise serializers.ValidationError({'employer_id': ['You either do not have credits or free calls']})
 
         elif request.user.is_seeker:
