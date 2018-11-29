@@ -1,30 +1,46 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+
+// redux
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
+import { createStore, applyMiddleware, compose } from "redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore, persistReducer } from "redux-persist";
+import rootReducer from "./store/reducers";
+import { Provider } from "react-redux";
+import reduxThunk from "redux-thunk";
+
 import "./index.css";
 import App from "./App";
-import reduxThunk from "redux-thunk";
 
 import * as serviceWorker from "./serviceWorker";
 
-import rootReducer from "./store/reducers";
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["user"]
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
-	rootReducer,
-	composeEnhancers(applyMiddleware(reduxThunk))
+  persistedReducer,
+  composeEnhancers(applyMiddleware(reduxThunk))
 );
+// let store = createStore(persistedReducer)
+let persistor = persistStore(store);
 
 ReactDOM.render(
-	<Router>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</Router>,
-	document.getElementById("root")
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router>
+        <App />
+      </Router>
+      ,
+    </PersistGate>
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

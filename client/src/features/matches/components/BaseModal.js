@@ -3,9 +3,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import PropTypes from "prop-types";
 
 class BaseModal extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let { userData } = this.props.matchData;
     let userElement;
