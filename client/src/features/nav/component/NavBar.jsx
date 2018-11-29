@@ -39,16 +39,46 @@ class NavBar extends React.Component {
           </NavLink>
           {this.props.authenticatoin_succeed && (
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink
-                  to="/components/"
-                  activeStyle={{
-                    margin: "2px"
-                  }}
-                >
-                  Free Apps:{" "}
-                </NavLink>
-              </NavItem>
+              {this.props.currentUser.is_seeker &&
+              !this.props.currentUser.is_employer ? (
+                <NavItem>
+                  <NavLink
+                    to="/components/"
+                    activeStyle={{
+                      margin: "2px"
+                    }}
+                  >
+                    Free Apps:{this.props.currentUser.free_apps}
+                  </NavLink>
+                </NavItem>
+              ) : null}
+
+              {this.props.currentUser.is_employer &&
+              !this.props.currentUser.is_seeker ? (
+                <>
+                  <NavItem>
+                    <NavLink
+                      to="/components/"
+                      activeStyle={{
+                        margin: "2px"
+                      }}
+                    >
+                      Postings Availible:{this.props.currentUser.postings}
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="/components/"
+                      activeStyle={{
+                        margin: "2px"
+                      }}
+                    >
+                      Free Calls:{this.props.currentUser.free_calls}
+                    </NavLink>
+                  </NavItem>
+                </>
+              ) : null}
+
               <NavItem>
                 <NavLink
                   to="give a path"
@@ -56,7 +86,7 @@ class NavBar extends React.Component {
                     margin: "2px"
                   }}
                 >
-                  Balance credits:{" "}
+                  Balance credits:{this.props.currentUser.credits}
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
