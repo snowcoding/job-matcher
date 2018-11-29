@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'JobMatcherApp',  # This will be the API application
     'jobs',
+    'billing',  # transaction model
     'oauth2_provider',
     'rest_framework',  # This is the DRF library
     'corsheaders',  # CORS library
