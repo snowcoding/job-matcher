@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Card, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 
 const CardContainer = styled(Card)`
-  width: 200px;
+  min-width: 200px;
 `;
 
 class JobCard extends Component {

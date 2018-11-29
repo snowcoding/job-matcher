@@ -27,7 +27,6 @@ export const getProfile = () => dispatch => {
   Api.endpoints
     .me()
     .then(result => {
-      console.log({ result });
       dispatch(getProfileHandler(result.data));
     })
     .catch(error => {
