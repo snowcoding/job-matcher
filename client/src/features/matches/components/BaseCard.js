@@ -22,7 +22,10 @@ const BaseCard = props => {
     clickHandler4
   } = props || false;
   return (
-    <CardContainer onClick={() => modalToggler(matchId)}>
+    <CardContainer
+      onClick={() => modalToggler(matchId)}
+      className="card-container"
+    >
       <CardBody>
         <div>
           <img src={img} alt={img_alt} width="50px" />

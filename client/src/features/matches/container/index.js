@@ -80,7 +80,7 @@ class MatchContainer extends Component {
           }));
     return (
       <React.Fragment>
-        <JobCardDeck>
+        <JobCardDeck className="card-decks">
           {!this.props.matchesRequestSuccess && <h4>fetching data</h4>}
 
           {this.props.matchesRequestSuccess &&
