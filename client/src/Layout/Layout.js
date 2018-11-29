@@ -6,7 +6,7 @@ import ProtectedPages from "../features/auth/container/ProtectedPages";
 import Testing from "../features/testing/container";
 import NavBar from "../features/nav/component/NavBar";
 import Landing from "../layouts/landingPage/Landing";
-import Billing from "../features/Billing/Billing";
+import Billing from "../features/billing/component";
 import ProfileContainer from "../features/forms/containers";
 import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
@@ -21,14 +21,17 @@ export default class Layout extends React.Component {
           <Row>
             <Switch>
               <Route path="/auth" component={Auth} />
-              <Route path="/billing" component={Billing} />
+              <Route path="/billing" component={ProtectedPages(Billing)} />
               <Route path="/rand" component={BrowseContainer} />
               {/* <Route
 								path="/forms"
 								component={ProtectedPages(ProfileContainer)}
 							/> */}
-              <Route path="/profile" component={ProtectedPages(ProfileContainer)} />
-              <Route path="/job" component={Job} />
+              <Route
+                path="/profile"
+                component={ProtectedPages(ProfileContainer)}
+              />
+              <Route path="/job" component={ProtectedPages(Job)} />
 
               <Route path="/testing" exact component={Testing} />
             </Switch>
