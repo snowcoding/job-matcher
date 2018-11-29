@@ -27,7 +27,6 @@ export const getProfile = () => dispatch => {
   Api.endpoints
     .me()
     .then(result => {
-      console.log({ result });
       dispatch(getProfileHandler(result.data));
     })
     .catch(error => {
@@ -50,7 +49,6 @@ export const signUpUser = (userType, data) => {
         dispatch(signUpHandler(result.data));
       })
       .catch(error => {
-        console.log("errorr", { error });
         error.response
           ? dispatch(addErrorHandler(error.response.data))
           : dispatch(addErrorHandler(error.message));
@@ -65,11 +63,9 @@ export const login = data => {
     Api.endpoints
       .signIn(data)
       .then(result => {
-        console.log("logn func", { result });
         dispatch(loginHandler(result.data));
       })
       .catch(error => {
-        console.log("errorr", { error });
         error.response
           ? dispatch(addErrorHandler(error.response.data))
           : dispatch(addErrorHandler(error.message));
@@ -84,11 +80,11 @@ export const updateUser = (userType, userId, data) => {
       .updateUser(userType, userId, data)
       .then(result => {
         dispatch(updateUserHandler(result.data));
-        console.log("", { result });
       })
       .catch(error => {
-        console.log("errorr", error.response.data);
-        dispatch(addErrorHandler(error.response.data));
+        error.response
+          ? dispatch(addErrorHandler(error.response.data))
+          : dispatch(addErrorHandler(error.message));
       });
   };
 };
