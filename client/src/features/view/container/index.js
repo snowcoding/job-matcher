@@ -4,8 +4,17 @@ import { connect } from "react-redux";
 import { getRandomUser } from "../store/action";
 
 class ViewContainer extends Component {
+  componentDidMount = () => {
+    this.getRandomUserS();
+  };
+
   getRandomUserS = () => {
-    this.props.getRandomUser("seeker");
+    const userType = this.props.user.currentUser.is_seeker;
+    if (userType) {
+      this.props.getRandomUser("employer");
+    } else {
+      this.props.getRandomUser("seeker");
+    }
   };
 
   //  getRandomUserE =( ) =>{
@@ -14,13 +23,21 @@ class ViewContainer extends Component {
   // };
 
   render() {
-    return <ViewElement data={this.props.data} onClick={this.getRandomUserS} />;
+    console.log("view container:", this.props.data);
+    return (
+      <ViewElement
+        data={this.props.data}
+        success={this.props.success}
+        skip={this.getRandomUserS}
+      />
+    );
   }
 }
 const MapStateToProps = state => {
-  console.log("view container:", state);
   return {
+    user: state.user,
     data: state.randomUser.data,
+    success: state.randomUser.VIEW_SUCCESS,
     FETCHING_GET_VIEW: state.randomUser.FETCHING_GET_VIEW
   };
 };

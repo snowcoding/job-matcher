@@ -11,7 +11,8 @@ import {
 } from "reactstrap";
 
 const ViewElement = props => {
-  console.log("ViewElement data : ", props.data);
+  console.log("ViewElement data : ", props);
+
   return (
     <React.Fragment>
       <div>
@@ -28,7 +29,7 @@ const ViewElement = props => {
             <Card>
               <CardBody>
                 <CardTitle top width="100%">
-                  Shobana
+                  {props.success && <h1>{props.data.first_name}</h1>}
                 </CardTitle>
                 <CardText>
                   Some quick example text to build on the card title and make up
@@ -40,7 +41,7 @@ const ViewElement = props => {
           <Card>
             <CardBody>
               <CardTitle>Software Engineer</CardTitle>
-              <Button>Skip</Button>
+              <Button onClick={props.skip}>Skip</Button>
               <Button>Super</Button>
               <Button>Call</Button>
             </CardBody>

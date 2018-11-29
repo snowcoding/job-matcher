@@ -37,15 +37,14 @@ let profilesEndpoints = {
     return api.post(`/o/token/`, data);
   },
 
- signUp(userType,data) {
+  signUp(userType, data) {
     data = {
       ...data,
       client_id: process.env.REACT_APP_CLIENT_ID,
-      client_secret: process.env.REACT_APP_CLIENT_SECRET,
+      client_secret: process.env.REACT_APP_CLIENT_SECRET
     };
-    
-      return api.post(`/signup/${userType}/`, data)
 
+    return api.post(`/signup/${userType}/`, data);
   },
   updateUser(userType, userId, data) {
     return api.patch(`/${userType}s/${userId}/`, data);
@@ -89,11 +88,12 @@ api.endpoints = {
 
 // This adds the access token saved to the browser's local storage
 if (localStorage.access_token) {
-    console.log("ready to make a call ",localStorage.access_token)
-  api.defaults.headers.common["Authorization"] = `Bearer ${localStorage.access_token}`;
+  api.defaults.headers.common["Authorization"] = `Bearer ${
+    localStorage.access_token
+  }`;
   api.endpoints.me().then(result => {
-    console.log("profile end point ",{result})
-  })
+    console.log("profile end point ", { result });
+  });
 }
 
 export default api;

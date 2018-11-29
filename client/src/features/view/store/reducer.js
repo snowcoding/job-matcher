@@ -1,15 +1,28 @@
 const intialState = {
-  FETCHING_GET_VIEW: false,
+  VIEW_REQUEST: false,
+  VIEW_SUCCESS: false,
+  VIEW_ERROR: null,
+  error: null,
   data: null
 };
 export default (state = intialState, action) => {
   switch (action.type) {
     case "GET_RANDOM_USER":
-      return { ...state, FETCHING_GET_VIEW: true };
+      return { ...state, VIEW_REQUEST: true };
     case "GET_RANDOM_USER_SUCCESS":
-      return { ...state, FETCHING_GET_VIEW: true, data: action.user };
+      return {
+        ...state,
+        VIEW_SUCCESS: true,
+        VIEW_REQUEST: false,
+        data: action.user
+      };
     case "GET_RANDOM_USER_FAIL":
-      return { ...state, FETCHING_GET_VIEW: false, data: action.user };
+      return {
+        ...state,
+        VIEW_ERROR: true,
+        VIEW_REQUEST: false,
+        error: action.error
+      };
     default:
       return { ...state };
   }

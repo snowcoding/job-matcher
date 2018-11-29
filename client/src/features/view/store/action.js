@@ -1,9 +1,16 @@
 import Api from "../../../api";
 export const GET_RANDOM = "GET_RANDOM";
+export const VIEW_SUCCESS = "VIEW_SUCCESS";
+export const VIEW_ERROR = "VIEW_ERROR";
 
 const getRandomHandler = user => ({
-  type: GET_RANDOM,
+  type: "GET_RANDOM_USER_SUCCESS",
   user
+});
+
+const geterrorHandler = error => ({
+  type: "GET_RANDOM_USER_FAIL",
+  error
 });
 export const getRandomUser = userType => dispatch => {
   console.log("usertype:", userType);
@@ -16,6 +23,6 @@ export const getRandomUser = userType => dispatch => {
       dispatch(getRandomHandler(result.data));
     })
     .catch(error => {
-      console.log({ error });
+      dispatch(geterrorHandler({ error }));
     });
 };
