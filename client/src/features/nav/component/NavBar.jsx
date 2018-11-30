@@ -11,7 +11,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-
+import { ProfilePhotoContainer, ProfileImg } from "./indexCss";
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +23,9 @@ class NavBar extends React.Component {
     this.props.onLogOut();
   };
   render() {
+    let photoSrc =
+      this.props.currentUser.photo ||
+      "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -100,6 +103,9 @@ class NavBar extends React.Component {
                   Balance credits:{this.props.currentUser.credits}
                 </NavLink>
               </NavItem>
+              <ProfilePhotoContainer>
+                <ProfileImg src={photoSrc} alt="" />
+              </ProfilePhotoContainer>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   My Account
