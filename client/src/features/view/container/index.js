@@ -58,11 +58,15 @@ class ViewContainer extends Component {
   };
   render() {
     console.log("view container:", this.props.data);
+    let credit = this.props.user.currentUser
+      ? this.props.user.currentUser.free_calls
+      : this.props.user.currentUser.free_apps;
     return (
       <ViewElement
         data={this.props.data}
         success={this.props.success}
         skip={this.getRandomUserS}
+        credit={credit}
         super={this.postMatchAction}
         call={this.postInterest}
       />

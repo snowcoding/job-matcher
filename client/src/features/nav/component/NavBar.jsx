@@ -120,6 +120,9 @@ class NavBar extends React.Component {
                   <DropdownItem>
                     <Link to="/Billing">Billing</Link>
                   </DropdownItem>
+                  <DropdownItem>
+                    <Link to="/view">View</Link>
+                  </DropdownItem>
                   {this.props.currentUser &&
                   this.props.currentUser.is_employer &&
                   !this.props.currentUser.is_seeker ? (
