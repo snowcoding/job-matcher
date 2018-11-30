@@ -82,7 +82,14 @@ class PersonalContainer extends Component {
     updateState.imgChange.value = false;
     this.setState({ ...updateState });
   };
-
+  updateProfilePhoto = e => {
+    // console.log("photo finish", e.successful[0].uploadURL.length);
+    let userType = this.props.currentUser.is_seeker ? "seeker" : "employer";
+    let userId = this.props.currentUser.id;
+    this.props.updateProfileImg(userType, userId, {
+      photo: e.successful[0].uploadURL
+    });
+  };
   render() {
     return this.props.currentUser ? (
       <React.Fragment>
@@ -96,6 +103,7 @@ class PersonalContainer extends Component {
         <ImagePicker
           open={this.state.imgChange.value}
           closeUploadModal={this.closeUploadModal}
+          onComplete={this.updateProfilePhoto}
         />
       </React.Fragment>
     ) : null;

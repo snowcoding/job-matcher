@@ -54,7 +54,7 @@ class MyComponent extends React.Component {
             .catch(error => {
               this.props.dispatch({
                 type: "LINKEDIN_FAILED",
-                data: error.response.data ? error.response.data : error.message
+                data: error.response ? error.response.data : error.message
               });
             });
         } else {

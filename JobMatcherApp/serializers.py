@@ -23,6 +23,13 @@ class UserSerializer(serializers.ModelSerializer):
         """Creates new auth user object using UserManager."""
         return User.objects.create_user(**validated_data)
 
+    def update(self, instance, validated_data):
+        # Pop out the password and give it a default value of none if it doesnt exist
+        password = validated_data.pop('password', None)
+        if password is not None:
+            instance.set_password(password)  # Sets the hash
+        return super().update(instance, validated_data)
+
 
 class ProfileSerializer(serializers.Serializer):
     """
@@ -33,13 +40,15 @@ class ProfileSerializer(serializers.Serializer):
 
     email = serializers.EmailField(source='user.email', max_length=255)
     password = serializers.CharField(source='user.password', max_length=128, write_only=True)
+    old_password = serializers.CharField(max_length=128, write_only=True, required=False)
     first_name = serializers.CharField(source='user.first_name', allow_blank=True, max_length=30, required=False)
     last_name = serializers.CharField(source='user.last_name', allow_blank=True, max_length=150, required=False)
     is_seeker = serializers.ReadOnlyField(source='user.is_seeker')
     is_employer = serializers.ReadOnlyField(source='user.is_employer')
 
     class Meta:
-        fields = ['email', 'password', 'first_name', 'last_name', 'is_seeker', 'is_employer', 'photo', 'summary']
+        fields = ['email', 'password', 'old_password', 'first_name', 'last_name', 'is_seeker', 'is_employer', 'photo',
+                  'summary', 'credits']
 
     def validate_email(self, email):
         """Make sure the given email is not taken by someone else"""
@@ -65,6 +74,11 @@ class ProfileSerializer(serializers.Serializer):
         UserSerializer().update(instance=instance.user, validated_data=validated_user_data)
         # Update profile by calling super as ModelSerializer handles updating its instance (Seeker or Employer)
         return super().update(instance, validated_data)
+
+    def validate_old_password(self, old_password):
+        if not self.context['request'].user.check_password(old_password):
+            raise serializers.ValidationError('Your old password is not correct')
+        return old_password
 
 
 class SignupMixin(serializers.Serializer):
@@ -104,7 +118,8 @@ class SeekerSerializer(ProfileSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = Seeker
-        fields = ['id', *ProfileSerializer.Meta.fields, 'desired_title', 'top_skills', 'extra_skills', 'other_skills']
+        fields = ['id', *ProfileSerializer.Meta.fields, 'desired_title', 'top_skills', 'extra_skills', 'other_skills',
+                  'free_apps']
 
     @transaction.atomic  # Ensure creation of both models is done in a single transaction not to create inconsistencies
     def create(self, validated_data):
@@ -128,7 +143,7 @@ class EmployerSerializer(ProfileSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = Employer
-        fields = ['id', *ProfileSerializer.Meta.fields, 'company_name']
+        fields = ['id', *ProfileSerializer.Meta.fields, 'company_name', 'free_calls', 'postings']
 
     @transaction.atomic
     def create(self, validated_data):

@@ -23,7 +23,6 @@ class NavBar extends React.Component {
     this.props.onLogOut();
   };
   render() {
-    console.log("User:", this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -39,6 +38,48 @@ class NavBar extends React.Component {
           </NavLink>
           {this.props.authenticatoin_succeed && (
             <Nav className="ml-auto" navbar>
+              {this.props.currentUser &&
+              this.props.currentUser.is_seeker &&
+              !this.props.currentUser.is_employer ? (
+                <NavItem>
+                  <NavLink
+                    to="/components/"
+                    activeStyle={{
+                      margin: "2px"
+                    }}
+                  >
+                    Free Apps:{this.props.currentUser.free_apps}
+                  </NavLink>
+                </NavItem>
+              ) : null}
+
+              {this.props.currentUser &&
+              this.props.currentUser.is_employer &&
+              !this.props.currentUser.is_seeker ? (
+                <>
+                  <NavItem>
+                    <NavLink
+                      to="/components/"
+                      activeStyle={{
+                        margin: "2px"
+                      }}
+                    >
+                      Postings Availible:{this.props.currentUser.postings}
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="/components/"
+                      activeStyle={{
+                        margin: "2px"
+                      }}
+                    >
+                      Free Calls:{this.props.currentUser.free_calls}
+                    </NavLink>
+                  </NavItem>
+                </>
+              ) : null}
+              <NavItem>Hi {this.props.currentUser.first_name}</NavItem>
               <NavItem>
                 <NavLink
                   to="/components/"
@@ -56,7 +97,7 @@ class NavBar extends React.Component {
                     margin: "2px"
                   }}
                 >
-                  Balance credits:{" "}
+                  Balance credits:{this.props.currentUser.credits}
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
@@ -80,8 +121,15 @@ class NavBar extends React.Component {
                     <Link to="/Billing">Billing</Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <Link to="/Job">Job</Link>
+                    <Link to="/view">View</Link>
                   </DropdownItem>
+                  {this.props.currentUser &&
+                  this.props.currentUser.is_employer &&
+                  !this.props.currentUser.is_seeker ? (
+                    <DropdownItem>
+                      <Link to="/Job">Job</Link>
+                    </DropdownItem>
+                  ) : null}
                   <DropdownItem divider />
                   <DropdownItem>
                     <Link to="/" onClick={this.handleSignOut}>
