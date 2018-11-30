@@ -23,9 +23,16 @@ class NavBar extends React.Component {
     this.props.onLogOut();
   };
   render() {
-    let photoSrc =
-      this.props.currentUser.photo ||
-      "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+    let photoSrc;
+    if (this.props.currentUser) {
+      photoSrc =
+        this.props.currentUser.photo.length > 1
+          ? this.props.currentUser.photo
+          : "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+    } else {
+      photoSrc =
+        "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+    }
     return (
       <div>
         <Navbar color="light" light expand="md">
