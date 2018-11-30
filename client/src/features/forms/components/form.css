@@ -18,7 +18,7 @@
 }
 .form-label-checkbox,
 .form-label-checkbox:focus {
-  opacity: 1;
+  opacity: 1 !important;
   top: 21px !important;
   left: 30px;
   transition: none;
