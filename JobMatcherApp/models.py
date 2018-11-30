@@ -81,7 +81,7 @@ class User(AbstractUser, BaseModel):
 
 class Profile(BaseModel):
     user = models.OneToOneField(verbose_name=_('user'), to='User', related_name='%(class)s', on_delete=models.CASCADE)
-    photo = models.URLField(blank=True)
+    photo = models.URLField(max_length=500, blank=True)
     summary = models.CharField(_('summary'), max_length=500, blank=True)
     confirm_spending = models.BooleanField(default=False)
     # User balance
