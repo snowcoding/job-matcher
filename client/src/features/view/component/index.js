@@ -7,7 +7,7 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
-  Tooltip,
+  UncontrolledTooltip,
   CardColumns
 } from "reactstrap";
 import { ActionButton } from "./indexCSS";
@@ -41,16 +41,12 @@ const ViewElement = props => {
               <CardTitle>Software Engineer</CardTitle>
               <Button onClick={props.skip}>Skip</Button>
               <Button onClick={props.super}>Super</Button>
-              <Button onClick={props.call}>Call</Button>
-              <Tooltip
-                placement="right"
-                isOpen={this.state.tooltipOpen}
-                target="TooltipExample"
-                toggle={this.toggle}
-              >
-                {" "}
-                Hello world!{" "}
-              </Tooltip>
+              <Button onClick={props.call} id="TooltipExample">
+                Call
+              </Button>
+              <UncontrolledTooltip placement="right" target="TooltipExample">
+                you have {props.credit} free credit
+              </UncontrolledTooltip>
             </CardBody>
           </Card>
         </Card>
