@@ -13,7 +13,7 @@ import {
 const ViewElement = props => {
   console.log("ViewElement data : ", props);
   let photoSrc =
-    props.data && props.data.employer.photo.length > 1
+    props.data && props.data.employer && props.data.employer.photo.length > 1
       ? props.data.employer.photo
       : "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
 
