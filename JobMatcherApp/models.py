@@ -81,9 +81,11 @@ class User(AbstractUser, BaseModel):
 
 class Profile(BaseModel):
     user = models.OneToOneField(verbose_name=_('user'), to='User', related_name='%(class)s', on_delete=models.CASCADE)
-    photo = models.URLField(blank=True)
+    photo = models.URLField(max_length=500, blank=True)
     summary = models.CharField(_('summary'), max_length=500, blank=True)
     confirm_spending = models.BooleanField(default=False)
+    # User balance
+    credits = models.IntegerField(default=0)
 
     class Meta:
         abstract = True
@@ -95,6 +97,7 @@ class Profile(BaseModel):
 
 class SkillsField(ArrayField):
     """ArrayField subclass to be used for saving skills under Seeker. Requires Postgres database."""
+
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('base_field', models.CharField(max_length=30, blank=False))
         kwargs.setdefault('blank', True)
@@ -109,7 +112,16 @@ class Seeker(Profile):
     other_skills = SkillsField()
     experience = models.CharField(max_length=500, blank=True)
     education = models.CharField(max_length=500, blank=True)
+    # Start with 5 free apps (applications) [done]
+    # Get plus 1 free app per day [pending]
+    # Max 10 free Apps stored [pending]
+    # free_apps = models.IntegerRangeField(default=5, min_value=0, max_value=10)
+    free_apps = models.IntegerField(default=5)
 
 
 class Employer(Profile):
     company_name = models.CharField(_('company name'), max_length=30, blank=True)
+    # Get one free call per day(employer version of app / match) [pending]
+    free_calls = models.IntegerField(default=0)
+    postings = models.IntegerField(default=1)
+
