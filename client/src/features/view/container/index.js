@@ -17,13 +17,25 @@ class ViewContainer extends Component {
     }
   };
   postMatchAction = () => {
-    let data = {
-      job_id: "apfk3k2zr0",
-      seeker_action: "SUPER",
-      employer_action: "",
-      seeker_id: "35f7fn16rt",
-      employer_id: "26vlxe3nhb"
-    };
+    const userType = this.props.user.currentUser.is_seeker;
+    let data;
+    if (userType) {
+      data = {
+        job_id: this.props.data.id,
+        seeker_action: "SUPER",
+        employer_action: "",
+        seeker_id: this.props.user.currentUser.id,
+        employer_id: this.props.data.employer.id
+      };
+    } else {
+      data = {
+        job_id: this.props.data.id,
+        seeker_action: "",
+        employer_action: "SUPER",
+        seeker_id: "35f7fn16rt",
+        employer_id: this.props.user.currentUser.id
+      };
+    }
     this.props.postSuperAction(data);
     this.getRandomUserS();
   };
