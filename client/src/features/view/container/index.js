@@ -71,10 +71,10 @@ class ViewContainer extends Component {
   render() {
     console.log("view container:", this.props.data);
     let credit;
-    if (this.props.user.currentUser["free_calls"]) {
-      credit = this.props.user.currentUser.free_calls;
-    } else {
+    if (this.props.user.currentUser.is_seeker) {
       credit = this.props.user.currentUser.free_apps;
+    } else {
+      credit = this.props.user.currentUser.free_calls;
     }
     return (
       <ViewElement

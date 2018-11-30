@@ -33,6 +33,13 @@ class NavBar extends React.Component {
       photoSrc =
         "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
     }
+    // let credit;
+    // if (this.props.currentUser && this.props.currentUser.is_seeker) {
+    //   credit = `Free Apps: ${this.props.currentUser.free_apps}`;
+    // } else {
+    //   credit = `Free Calls: ${this.props.currentUser.free_calls}`;
+    // }
+
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -84,22 +91,12 @@ class NavBar extends React.Component {
                         margin: "2px"
                       }}
                     >
-                      Free Calls:{this.props.currentUser.free_calls}
+                      Free Calls: {this.props.free_calls}
                     </NavLink>
                   </NavItem>
                 </>
               ) : null}
               <NavItem>Hi {this.props.currentUser.first_name}</NavItem>
-              <NavItem>
-                <NavLink
-                  to="/components/"
-                  activeStyle={{
-                    margin: "2px"
-                  }}
-                >
-                  Free Apps:{" "}
-                </NavLink>
-              </NavItem>
               <NavItem>
                 <NavLink
                   to="give a path"
