@@ -39,8 +39,8 @@ class PasswordContainer extends Component {
     let userId = this.props.currentUser.id;
     let data = this.state;
     this.props.updateUser(userType, userId, {
-      oldPassword: data.old_password.value,
-      newPassword: data.new_password.value
+      old_password: data.old_password.value,
+      password: data.new_password.value
     });
   };
 

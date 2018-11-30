@@ -12,6 +12,10 @@ import {
 
 const ViewElement = props => {
   console.log("ViewElement data : ", props);
+  let photoSrc =
+    props.data && props.data.employer.photo.length > 1
+      ? props.data.employer.photo
+      : "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
 
   return (
     <React.Fragment>
@@ -19,12 +23,7 @@ const ViewElement = props => {
         <Card>
           <CardColumns>
             <Card>
-              <CardImg
-                top
-                width="50%"
-                src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
-                alt="Card image cap"
-              />
+              <CardImg top width="50%" src={photoSrc} alt="Card image cap" />
             </Card>
             <Card>
               <CardBody>
@@ -37,7 +36,7 @@ const ViewElement = props => {
           </CardColumns>
           <Card>
             <CardBody>
-              <CardTitle>Software Engineer</CardTitle>
+              {props.data && <CardTitle> {props.data.title} </CardTitle>}
               <Button onClick={props.skip}>Skip</Button>
               <Button onClick={props.super}>Super</Button>
               <Button onClick={props.call}>Call</Button>

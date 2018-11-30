@@ -69,6 +69,9 @@ let jobsEndpoints = {
 let matchesEndpoints = {
   getMatches() {
     return api.get(`/matches/`);
+  },
+  postMatches(data) {
+    return api.post(`/matches/`, data);
   }
 };
 let billingEndpoints = {
