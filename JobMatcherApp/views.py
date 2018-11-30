@@ -7,6 +7,8 @@ from oauth2_provider.views import TokenView
 from rest_framework import viewsets, mixins
 from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.response import Response
+from django.contrib.auth.models import update_last_login
+from django.utils import timezone
 
 from JobMatcherApp.models import Employer, Seeker
 from . import serializers
@@ -63,6 +65,8 @@ class ProfileTokenView(TokenView):
         # Decode json body to add profile based on user type
         data = json.loads(response.content)
         user = AccessToken.objects.get(token=data['access_token']).user
+        user.last_login = timezone.now()
+        user.save(update_fields=['last_login'])
         if user.is_seeker:
             data['profile'] = serializers.SeekerSerializer(instance=user.seeker).data
         else:

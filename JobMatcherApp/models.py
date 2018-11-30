@@ -1,5 +1,4 @@
 import uuid
-
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, BaseUserManager, AbstractUser
 from django.contrib.postgres.fields import ArrayField
@@ -65,7 +64,7 @@ class User(AbstractUser, BaseModel):
     email = models.EmailField(_('email address'), max_length=255, unique=True)  # Singular Field Uniqueness
     is_seeker = models.BooleanField(_('seeker'), default=False)
     is_employer = models.BooleanField(_('employer'), default=False)
-
+    last_login = models.DateTimeField(verbose_name=_('last_login'), auto_now=True, db_index=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

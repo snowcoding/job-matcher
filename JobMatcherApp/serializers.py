@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'first_name', 'last_name', 'is_staff', 'is_seeker', 'is_employer']
+        fields = ['email', 'password', 'first_name', 'last_name', 'is_staff', 'is_seeker', 'is_employer', 'last_login']
         extra_kwargs = {
             'password': {'write_only': True},
             'is_staff': {'read_only': True},
@@ -48,7 +48,7 @@ class ProfileSerializer(serializers.Serializer):
 
     class Meta:
         fields = ['email', 'password', 'old_password', 'first_name', 'last_name', 'is_seeker', 'is_employer', 'photo',
-                  'summary', 'credits']
+                  'summary', 'credits', 'updated_at']
 
     def validate_email(self, email):
         """Make sure the given email is not taken by someone else"""
