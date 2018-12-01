@@ -7,7 +7,7 @@ from JobMatcherApp.models import BaseModel, Employer, SkillsField, Seeker
 class Job(BaseModel):
     employer = models.ForeignKey(Employer, related_name='jobs', on_delete=models.CASCADE)
     title = models.CharField(_('desired title'), max_length=150, blank=True)
-    salary_min = models.IntegerField(blank=True, null=True) # Can be blank
+    salary_min = models.IntegerField(blank=True, null=True)  # Can be blank
     salary_max = models.IntegerField(blank=True, null=True)
     top_skills = SkillsField(size=5)
     extra_skills = SkillsField()

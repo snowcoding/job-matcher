@@ -38,6 +38,7 @@ class MatchViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.Create
     def get_queryset(self):
         if self.request.user.is_employer:
             profile = self.request.user.employer
+
         else:
             profile = self.request.user.seeker
 
@@ -47,7 +48,16 @@ class MatchViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.Create
         # employer_action = CALL and seeker_action = APPLY
 
         # filter takes two kinds of arg, kwargs or combination of Q (query) objects, the Q allow for & | !
-        return profile.matches.filter(
+        qs = profile.matches.filter(
             Q(employer_action=Match.SUPER)
             | Q(seeker_action=Match.SUPER)
             | Q(employer_action=Match.CALL, seeker_action=Match.APPLY))
+
+        # Further filter out  the is archived:
+        if self.request.user.is_employer:
+            # return qs.filter(is_archived_employer=False)
+            return qs.exclude(is_archived_employer=True)
+
+        else:
+            # return qs.filter(is_archived_seeker=False)
+            return qs.exclude(is_archived_seeker=True)
