@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 const MatchContainer = styled.div`
-  width: 500px;
+  width: 100%;
   max-width: 900px;
   display: flex;
   flex-wrap: wrap;
@@ -42,31 +42,29 @@ class BrowseSeekerContainer extends React.Component {
     console.log("btn 3 clicked");
   };
   render() {
-    let cards = new Array(8)
-      .fill()
-      .map((i, index) => (
-        <ExplicitBaseCard
-          key={index}
-          fullCardArrow={this.showFullCard}
-          toggle={this.toggleJobModal}
-          is_seeker={false}
-          is_open={this.state.is_open}
-          is_expandable={true}
-          education={"education"}
-          experience={"experience"}
-          title={"seeker desire title"}
-          summary={"seeker summary"}
-          skills={"seeker skills"}
-          name={"seeker name"}
-          btn1Text={"skip"}
-          btn2Text={"super"}
-          btn3Text={"app"}
-          btn1={this.btn1}
-          btn2={this.btn2}
-          btn3={this.btn3}
-          height="200px"
-        />
-      ));
+    let cards = new Array(8).fill().map((i, index) => (
+      <ExplicitBaseCard
+        key={index}
+        // fullCardArrow={this.showFullCard}
+        toggle={this.toggleJobModal}
+        is_seeker={false}
+        is_open={this.state.is_open}
+        // is_expandable={true}
+        education={"education"}
+        experience={"experience"}
+        title={"seeker desire title"}
+        // summary={"seeker summary"}
+        // skills={"seeker skills"}
+        name={"seeker name"}
+        btn1Text={"skip"}
+        btn2Text={"super"}
+        // btn3Text={"app"}
+        btn1={this.btn1}
+        btn2={this.btn2}
+        // btn3={this.btn3}
+        // width="300px"
+      />
+    ));
 
     return (
       <MatchContainer>
