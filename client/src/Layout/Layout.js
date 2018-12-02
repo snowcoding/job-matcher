@@ -6,6 +6,7 @@ import ProtectedPages from "../features/auth/container/ProtectedPages";
 import Testing from "../features/testing/container";
 import NavBar from "../features/nav/component/NavBar";
 import Landing from "../layouts/landingPage/Landing";
+import Landing2 from "../layouts/landingPage/Landing2";
 import Billing from "../features/billing/component";
 import ProfileContainer from "../features/forms/containers";
 import View from "../features/view/container";
@@ -18,6 +19,7 @@ export default class Layout extends React.Component {
       <div>
         <NavBar />
         <Route path="/" exact component={Landing} />
+        <Route path="/landing2" exact component={Landing2} />
         <Container>
           <Row>
             <Switch>
