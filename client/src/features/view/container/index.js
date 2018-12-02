@@ -5,10 +5,10 @@ import { getRandomUser, postSuperAction } from "../store/action";
 
 class ViewContainer extends Component {
   componentDidMount = () => {
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
 
-  getRandomUserS = () => {
+  getRandomUserHandler = () => {
     const userType = this.props.user.currentUser.is_seeker;
     if (userType) {
       this.props.getRandomUser("job");
@@ -16,7 +16,7 @@ class ViewContainer extends Component {
       this.props.getRandomUser("seeker");
     }
   };
-  postMatchAction = () => {
+  postMatchActionHandler = () => {
     const userType = this.props.user.currentUser.is_seeker;
     let data;
     if (userType) {
@@ -37,7 +37,7 @@ class ViewContainer extends Component {
       };
     }
     this.props.postSuperAction(data);
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
 
   postInterest = () => {
@@ -61,12 +61,12 @@ class ViewContainer extends Component {
       };
     }
     this.postCallAction(data);
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
 
   postCallAction = data => {
     this.props.postSuperAction(data);
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
   render() {
     console.log("view container:", this.props.data);
@@ -80,9 +80,9 @@ class ViewContainer extends Component {
       <ViewElement
         data={this.props.data}
         success={this.props.success}
-        skip={this.getRandomUserS}
         credit={credit}
-        super={this.postMatchAction}
+        skip={this.getRandomUserHandler}
+        super={this.postMatchActionHandler}
         call={this.postInterest}
       />
     );
