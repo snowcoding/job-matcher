@@ -28,7 +28,7 @@ export const FormDiv = styled.div`
   width: 100%;
   min-height: 60vh;
   margin: 60px auto;
-  font-size: 12px;
+  font-size: 14px;
   padding: 50px;
   border: 1px solid #80808047;
   background-color: #ffffff;
@@ -98,3 +98,9 @@ export const StyledLabel = styled.label`
     top: 0px;
   }
 `;
+
+// justify-content: space-between;
+//     margin-top: 0;
+//     margin-bottom: 1rem;
+//     display: flex;
+//     width: 100%;
