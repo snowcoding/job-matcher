@@ -6,7 +6,7 @@ const initialState = {
   FETCHING_GET_PROFILE: true,
   authenticatoin_succeed: false,
   is_seeker: null,
-  currentUser: null,
+  free_calls: 1,
   token: null,
   error: null,
   LINKEDIN_REQUEST: false,
