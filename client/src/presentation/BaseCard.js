@@ -7,6 +7,7 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
+  UncontrolledCollapse,
   Button
 } from "reactstrap";
 
@@ -91,8 +92,18 @@ const ExplicitBaseCard = props => {
       <CardFooter className="card-footer">
         {props.btn1 && <Button onClick={props.btn1}>{props.btn1Text}</Button>}
         {props.btn2 && <Button onClick={props.btn2}>{props.btn2Text}</Button>}
-        {props.btn3 && <Button onClick={props.btn3}>{props.btn3Text}</Button>}
+        {props.btn3 && (
+          <Button onClick={props.btn3} id="toggler">
+            {props.btn3Text}
+          </Button>
+        )}
       </CardFooter>
+      {props.btn3Hover && (
+        <UncontrolledCollapse toggler="#toggler">
+          {" "}
+          {props.btn3Hover}
+        </UncontrolledCollapse>
+      )}
     </StyledCard>
   );
 };
