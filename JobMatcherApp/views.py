@@ -79,7 +79,8 @@ class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.L
 
     @action(methods=['get'], detail=False)
     def random(self, request):
-        # TODO filter out from match DB
+        # TODO filter out if SKIPPED/ SUPER or CALL for any available jobs
+        # Return a list of jobs that are allowed an action, if no jobs, empty
         seeker = self.get_queryset().order_by("?").first()
         serializer = self.get_serializer(instance=seeker)
         return Response(data=serializer.data)

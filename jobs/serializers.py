@@ -7,6 +7,7 @@ from jobs.models import Job, Match
 class JobSerializer(serializers.ModelSerializer):
     """Serializer used for representing Job after signup."""
 
+    # Employer Field Definition
     employer = EmployerSerializer(read_only=True)
 
     class Meta:
@@ -15,8 +16,16 @@ class JobSerializer(serializers.ModelSerializer):
                   'familiar_with', 'description', 'requirements', 'is_active')
 
     def create(self, validated_data):
-        employer_id = self.context['request'].user.employer.id
-        return Job.objects.create(employer_id=employer_id, **validated_data)
+        employer = self.context['request'].user.employer
+
+        employer.postings -= 1
+        employer.credits += 100
+        employer.save()
+
+        # Create a job
+        # return Job.objects.create(employer=employer, **validated_data)
+        # Since we already have an instance of the employer, we can create the job directly
+        return employer.jobs.create(**validated_data)
 
 
 class MatchSerializer(serializers.ModelSerializer):
@@ -61,7 +70,6 @@ class MatchSerializer(serializers.ModelSerializer):
     #
     #     return attrs
 
-    # TODO decrease credits/free_apps/free_calls based on the request and same for seeker
     # SKIP first, CALL, then Super and same for seeker.
     def create(self, validated_data):
         request = self.context['request']
@@ -77,31 +85,55 @@ class MatchSerializer(serializers.ModelSerializer):
             # All fields are here from the request
             # Validated data has seeker_id, job_id
             # Employer_id from the request
+            profile = request.user.employer
 
             if validated_data['employer_action'] == Match.SKIP:
                 match.employer_action = match.SKIP
             elif validated_data['employer_action'] == Match.SUPER:
                 match.employer_action = match.SUPER
+
+                # Decrement 10 credits per SUPER
+                # We will validate this in the validation prior to creation
+                profile.credits -= 10
+
             elif validated_data['employer_action'] == Match.CALL:
                 match.employer_action = match.CALL
+
+                # This check is part of the logic not to check if the free_calls is available
+                if profile.free_calls > 0:
+                    profile.free_calls -= 1
+                else:
+                    profile.credits -= 1
 
             # Update credits()
             # check action and update the credits appropriately
             # employer.credits -= 1
             # employer.save()
 
-        elif request.user.is_seeker:
+        else:
             # Get the employer_id from the Job Model
             # employer_id = Job.objects.get(id=validated_data['job_id']).employer_id
             # seeker_id = request.user.seeker.id
             # return Match.objects.create(seeker_id=seeker_id, employer_id=employer_id, **validated_data)
 
+            profile = request.user.seeker
+
             if validated_data['seeker_action'] == Match.SKIP:
                 match.seeker_action = match.SKIP
             elif validated_data['seeker_action'] == Match.SUPER:
                 match.seeker_action = match.SUPER
+
+                profile.credits -= 10
+
             elif validated_data['seeker_action'] == Match.APPLY:
                 match.seeker_action = match.APPLY
 
+                # If free is greater than 0
+                if profile.free_apps > 0:
+                    profile.free_apps -= 1
+                else:
+                    profile.credits -= 1
+
+        profile.save()
         match.save()
         return match

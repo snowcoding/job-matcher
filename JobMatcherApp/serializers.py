@@ -119,7 +119,7 @@ class SeekerSerializer(ProfileSerializer, serializers.ModelSerializer):
     class Meta:
         model = Seeker
         fields = ['id', *ProfileSerializer.Meta.fields, 'desired_title', 'top_skills', 'extra_skills', 'other_skills',
-                  'free_apps']
+                  'free_apps', 'education', 'experience']
 
     @transaction.atomic  # Ensure creation of both models is done in a single transaction not to create inconsistencies
     def create(self, validated_data):
