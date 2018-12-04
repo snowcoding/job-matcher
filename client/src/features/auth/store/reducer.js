@@ -10,7 +10,8 @@ const initialState = {
   token: null,
   error: null,
   LINKEDIN_REQUEST: false,
-  LINKEDIN_SUCCESS: false
+  LINKEDIN_SUCCESS: false,
+  currentUser: null
 };
 
 function userReduceer(state = initialState, action) {

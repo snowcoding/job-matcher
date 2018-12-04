@@ -154,6 +154,8 @@ class ViewContainer extends Component {
           is_expandable={true}
           requirements={this.props.data.requirements}
           description={this.props.data.description}
+          skills={this.props.data.top_skills}
+          extra_skills={this.props.data.extra_skills}
           is_valid={this.state.hasEnoughCredit}
           btn3Hover={this.state.hoverText}
           outOfCreditAlert={this.state.outOfCreditAlert}
@@ -184,6 +186,8 @@ class ViewContainer extends Component {
           is_expandable={true}
           education={this.props.data.education}
           experience={this.props.data.experience || "experience"}
+          skills={this.props.data.top_skills}
+          extra_skills={this.props.data.extra_skills}
           btn3Hover={this.state.hoverText}
         />
       );
@@ -195,6 +199,7 @@ class ViewContainer extends Component {
     return <MatchContainer>{card}</MatchContainer>;
   }
 }
+
 const MapStateToProps = state => {
   return {
     currentUser: state.user.currentUser,
