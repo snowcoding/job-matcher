@@ -41,7 +41,13 @@ class ConfirmSpending extends React.Component {
           </ModalHeader>
           <ModalBody>Are you sure you want to spend credits on this?</ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
+            <Button
+              color="primary"
+              onClick={() => {
+                this.props.confirmAction();
+                this.toggle();
+              }}
+            >
               Confirm
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
