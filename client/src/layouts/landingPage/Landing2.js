@@ -1,5 +1,5 @@
 import React from "react";
-//import "./assets/css/main.css";
+// import "./assets/css/main.css";
 import "./assets/css/noscript.css";
 import pic01 from "../../assets/images/pic01.jpg";
 import pic02 from "../../assets/images/pic02.jpg";
@@ -27,19 +27,19 @@ const Landing2 = props => {
           <h2>Menu</h2>
           <ul className="links">
             <li>
-              <a href="#">Home</a>
+              <a href="/">Home</a>
             </li>
             <li>
-              <a href="#">Generic</a>
+              <a href="/">Generic</a>
             </li>
             <li>
-              <a href="#">Elements</a>
+              <a href="/">Elements</a>
             </li>
             <li>
-              <a href="#">Log In</a>
+              <a href="/">Log In</a>
             </li>
             <li>
-              <a href="#">Sign Up</a>
+              <a href="/">Sign Up</a>
             </li>
           </ul>
           <a href="#" className="close">
