@@ -62,7 +62,7 @@ class BrowseSeekerContainer extends React.Component {
         btn1={this.btn1}
         btn2={this.btn2}
         // btn3={this.btn3}
-        // width="300px"
+        width="300px"
       />
     ));
 

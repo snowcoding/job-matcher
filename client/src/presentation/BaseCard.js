@@ -7,6 +7,11 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
+  UncontrolledTooltip,
+  UncontrolledButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   Button
 } from "reactstrap";
 
@@ -22,6 +27,7 @@ const StyledCard = styled(Card)`
     margin: 10px 0;
     border: none;
     text-align: start;
+    border-radius: 10px;
 `;
 const CardHeader = styled.div`
   width: "100%";
@@ -29,6 +35,7 @@ const CardHeader = styled.div`
   display: flex;
   border: 1px solid #8c8989ab;
   border-bottom: none;
+  border-radius: 10px;
   img {
     width: 100px;
   }
@@ -40,6 +47,7 @@ const CardHeader = styled.div`
 `;
 const StyledCardBody = styled(CardBody)`
   border: 1px solid #8c8989ab;
+  border-radius: 10px;
   text-align: start;
   div {
     text-align: center;
@@ -51,12 +59,14 @@ const CardFooter = styled.div`
   display: flex;
   justify-content: space-evenly;
   border: 1px solid #8c8989ab;
+  border-radius: 10px;
   margin-top: 10px;
 `;
 
 const StyledCardTitle = styled(CardTitle)`
   font-size: 18px;
   border-bottom: 1px solid #8c8989ab;
+  border-radius: 10px;
   text-transform: capitalize;
 `;
 
@@ -88,13 +98,45 @@ const ExplicitBaseCard = props => {
           )}
         </div>
       </StyledCardBody>
+      <UncontrolledButtonDropdown>
+        <DropdownToggle caret>{props.dropDownToggleText}</DropdownToggle>
+        <DropdownMenu>
+          {props.dropDown.map((job, index) => (
+            <DropdownItem
+              key={job.id}
+              onClick={() => props.jobSelected(job.id)}
+            >
+              {job.title}
+            </DropdownItem>
+          ))}
+        </DropdownMenu>
+      </UncontrolledButtonDropdown>
       <CardFooter className="card-footer">
-        {props.btn1 && <Button onClick={props.btn1}>{props.btn1Text}</Button>}
-        {props.btn2 && <Button onClick={props.btn2}>{props.btn2Text}</Button>}
-        {props.btn3 && <Button onClick={props.btn3}>{props.btn3Text}</Button>}
+        {props.btn1 && (
+          <Button onClick={props.btn1} disabled={props.is_valid}>
+            {props.btn1Text}
+          </Button>
+        )}
+        {props.btn2 && (
+          <Button onClick={props.btn2} disabled={props.is_valid}>
+            {props.btn2Text}
+          </Button>
+        )}
+        {props.btn3 && (
+          <Button onClick={props.btn3} id="toggler" disabled={props.is_valid}>
+            {props.btn3Text}
+          </Button>
+        )}
       </CardFooter>
+      {props.btn3Hover && (
+        <UncontrolledTooltip placement="right" target="#toggler">
+          {props.btn3Hover}
+        </UncontrolledTooltip>
+      )}
     </StyledCard>
   );
 };
 
 export default ExplicitBaseCard;
+
+// is_valid
