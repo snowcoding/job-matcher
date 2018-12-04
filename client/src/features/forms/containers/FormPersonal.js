@@ -47,7 +47,7 @@ class PersonalContainer extends Component {
       }`;
       updateState.photo.src = `${this.props.currentUser.photo}`;
       updateState.email.value = this.props.currentUser.email;
-      updateState.confirm.value = this.props.currentUser.confirm_spending;
+      updateState.confirm.checked = this.props.currentUser.confirm_spending;
       this.setState({
         ...updateState
       });
@@ -58,6 +58,7 @@ class PersonalContainer extends Component {
     let updateState = JSON.parse(JSON.stringify(this.state));
     if (e.target.type === "checkbox") {
       updateState[e.target.name].value = e.target.checked;
+      updateState[e.target.name].checked = e.target.checked;
     } else if (e.target.type === "img") {
       updateState[e.target.name].src = e.target.value;
     } else {
