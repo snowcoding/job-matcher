@@ -10,11 +10,17 @@ export default (state = intialState, action) => {
     case "GET_RANDOM_USER":
       return { ...state, VIEW_REQUEST: true };
     case "GET_RANDOM_USER_SUCCESS":
+      let data;
+      if (action.user.employer) {
+        data = { ...action.user.employer, ...action.user };
+      } else {
+        data = { ...action.user };
+      }
       return {
         ...state,
         VIEW_SUCCESS: true,
         VIEW_REQUEST: false,
-        data: action.user
+        data
       };
     case "GET_RANDOM_USER_FAIL":
       return {
