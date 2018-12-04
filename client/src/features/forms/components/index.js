@@ -28,6 +28,7 @@ const Forms = ({ state, onChange, title, onSubmit, btnName }) => {
           src={item[1].src || undefined}
           onChange={onChange}
           className={item[1].controlledClass || "form_input"}
+          checked={item[1].type === "checkbox" ? item[1].checked : undefined}
         />
         <StyledLabel
           htmlFor={item[1].id || item[0]}
