@@ -154,7 +154,9 @@ class ViewContainer extends Component {
           is_expandable={true}
           requirements={this.props.data.requirements}
           description={this.props.data.description}
+          is_valid={this.state.hasEnoughCredit}
           btn3Hover={this.state.hoverText}
+          outOfCreditAlert={this.state.outOfCreditAlert}
         />
       );
     } else if (this.props.success && !this.props.currentUser.is_seeker) {
@@ -168,7 +170,9 @@ class ViewContainer extends Component {
           btn3={this.postInterest}
           name={`${this.props.data.first_name} ${this.props.data.last_name}`}
           dropDown={this.props.jobs}
-          dropDownToggleText={dropDownToggleText || "Select Job"}
+          dropDownToggleText={
+            dropDownToggleText || "Select Job to Create a Match"
+          }
           jobSelected={this.jobSelected}
           is_valid={this.state.jobIdSelected && this.state.hasEnoughCredit}
           title={this.props.data.desired_title}

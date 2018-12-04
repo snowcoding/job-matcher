@@ -100,19 +100,21 @@ const ExplicitBaseCard = props => {
           )}
         </div>
       </StyledCardBody>
-      <UncontrolledButtonDropdown>
-        <DropdownToggle caret>{props.dropDownToggleText}</DropdownToggle>
-        <DropdownMenu>
-          {props.dropDown.map((job, index) => (
-            <DropdownItem
-              key={job.id}
-              onClick={() => props.jobSelected(job.id)}
-            >
-              {job.title}
-            </DropdownItem>
-          ))}
-        </DropdownMenu>
-      </UncontrolledButtonDropdown>
+      {props.dropDown && (
+        <UncontrolledButtonDropdown>
+          <DropdownToggle caret>{props.dropDownToggleText}</DropdownToggle>
+          <DropdownMenu>
+            {props.dropDown.map((job, index) => (
+              <DropdownItem
+                key={job.id}
+                onClick={() => props.jobSelected(job.id)}
+              >
+                {job.title}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </UncontrolledButtonDropdown>
+      )}
       <CardFooter className="card-footer">
         {props.btn1 && (
           <Button onClick={props.btn1} disabled={!props.is_valid}>
