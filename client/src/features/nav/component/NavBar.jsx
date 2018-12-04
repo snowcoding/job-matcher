@@ -11,7 +11,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-
+import { ProfilePhotoContainer, ProfileImg } from "./indexCss";
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,23 @@ class NavBar extends React.Component {
     this.props.onLogOut();
   };
   render() {
-    console.log("User:", this.props);
+    let photoSrc;
+    if (this.props.currentUser) {
+      photoSrc =
+        this.props.currentUser.photo.length > 1
+          ? this.props.currentUser.photo
+          : "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+    } else {
+      photoSrc =
+        "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+    }
+    // let credit;
+    // if (this.props.currentUser && this.props.currentUser.is_seeker) {
+    //   credit = `Free Apps: ${this.props.currentUser.free_apps}`;
+    // } else {
+    //   credit = `Free Calls: ${this.props.currentUser.free_calls}`;
+    // }
+
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -39,16 +55,48 @@ class NavBar extends React.Component {
           </NavLink>
           {this.props.authenticatoin_succeed && (
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink
-                  to="/components/"
-                  activeStyle={{
-                    margin: "2px"
-                  }}
-                >
-                  Free Apps:{" "}
-                </NavLink>
-              </NavItem>
+              {this.props.currentUser &&
+              this.props.currentUser.is_seeker &&
+              !this.props.currentUser.is_employer ? (
+                <NavItem>
+                  <NavLink
+                    to="/components/"
+                    activeStyle={{
+                      margin: "2px"
+                    }}
+                  >
+                    Free Apps:{this.props.currentUser.free_apps}
+                  </NavLink>
+                </NavItem>
+              ) : null}
+
+              {this.props.currentUser &&
+              this.props.currentUser.is_employer &&
+              !this.props.currentUser.is_seeker ? (
+                <>
+                  <NavItem>
+                    <NavLink
+                      to="/components/"
+                      activeStyle={{
+                        margin: "2px"
+                      }}
+                    >
+                      Postings Availible:{this.props.currentUser.postings}
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="/components/"
+                      activeStyle={{
+                        margin: "2px"
+                      }}
+                    >
+                      Free Calls: {this.props.free_calls}
+                    </NavLink>
+                  </NavItem>
+                </>
+              ) : null}
+              <NavItem>Hi {this.props.currentUser.first_name}</NavItem>
               <NavItem>
                 <NavLink
                   to="give a path"
@@ -56,9 +104,12 @@ class NavBar extends React.Component {
                     margin: "2px"
                   }}
                 >
-                  Balance credits:{" "}
+                  Balance credits:{this.props.currentUser.credits}
                 </NavLink>
               </NavItem>
+              <ProfilePhotoContainer>
+                <ProfileImg src={photoSrc} alt="" />
+              </ProfilePhotoContainer>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   My Account
@@ -80,8 +131,15 @@ class NavBar extends React.Component {
                     <Link to="/Billing">Billing</Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <Link to="/Job">Job</Link>
+                    <Link to="/view">View</Link>
                   </DropdownItem>
+                  {this.props.currentUser &&
+                  this.props.currentUser.is_employer &&
+                  !this.props.currentUser.is_seeker ? (
+                    <DropdownItem>
+                      <Link to="/Job">Job</Link>
+                    </DropdownItem>
+                  ) : null}
                   <DropdownItem divider />
                   <DropdownItem>
                     <Link to="/" onClick={this.handleSignOut}>

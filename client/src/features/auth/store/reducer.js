@@ -6,7 +6,7 @@ const initialState = {
   FETCHING_GET_PROFILE: true,
   authenticatoin_succeed: false,
   is_seeker: null,
-  currentUser: null,
+  free_calls: 1,
   token: null,
   error: null,
   LINKEDIN_REQUEST: false,
@@ -31,7 +31,6 @@ function userReduceer(state = initialState, action) {
         authenticatoin_succeed: true,
         currentUser: { ...action.data.profile },
         fetching: false,
-        authenticatoin_succeed: true,
         token: action.data.access_token
       };
     case actionTypes.LOGIN__USER:
@@ -117,7 +116,6 @@ function userReduceer(state = initialState, action) {
       return {
         ...state,
         error: null,
-        authenticatoin_succeed: true,
         currentUser: { ...action.data.profile },
         fetching: false,
         authenticatoin_succeed: true,
@@ -126,13 +124,16 @@ function userReduceer(state = initialState, action) {
         LINKEDIN_SUCCESS: true
       };
     case actionTypes.LINKEDIN_SIGNUP:
+      localStorage.setItem("access_token", action.data.access_token);
+      Api.defaults.headers.common["Authorization"] = `Bearer ${
+        action.data.access_token
+      }`;
       return {
         ...state,
         error: null,
         authenticatoin_succeed: true,
         currentUser: { ...action.data.profile },
         fetching: false,
-        authenticatoin_succeed: true,
         token: action.data.access_token,
         LINKEDIN_REQUEST: false,
         LINKEDIN_SUCCESS: true
