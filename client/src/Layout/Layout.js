@@ -12,7 +12,7 @@ import ProfileContainer from "../features/forms/containers";
 import View from "../features/view/container";
 import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
-import MatchContainer from "../features/Matches/container/";
+import MatchContainer from "../features/matches/container/";
 
 export default class Layout extends React.Component {
   render() {
