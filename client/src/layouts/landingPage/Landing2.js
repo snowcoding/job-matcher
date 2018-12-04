@@ -1,5 +1,5 @@
 import React from "react";
-import "./assets/css/main.css";
+//import "./assets/css/main.css";
 import "./assets/css/noscript.css";
 import pic01 from "../../assets/images/pic01.jpg";
 import pic02 from "../../assets/images/pic02.jpg";

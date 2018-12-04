@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { CardDeck } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, CardDeck } from "reactstrap";
 import styled from "styled-components";
-import BaseCard from "../components/BaseCard";
+//import BaseCard from "../components/BaseCard";
 import BaseModal from "../components/BaseModal";
+import NewBaseCard from "../../../presentation/BaseCard";
 import { getMatches } from "../store/action";
 import { connect } from "react-redux";
 
@@ -32,52 +33,44 @@ class MatchContainer extends Component {
     });
   };
 
+  btn1 = () => {
+    console.log("btn 1 clicked");
+  };
+  btn2 = () => {
+    console.log("btn 2 clicked");
+  };
+
   //Handler that will fire each time a job card is clicked
-  matchCardClickHandler = jobId => {
-    let { matchesRequestSuccess, currentUser, matches } = this.props;
-    matches =
-      matchesRequestSuccess && currentUser.is_seeker
-        ? matches.map(match => ({
-            ...match,
-            userData: match.job,
-            seeker: null,
-            employer: null,
-            job: null
-          }))
-        : matches.map(match => ({
-            ...match,
-            userData: match.seeker,
-            employer: null,
-            seeker: null
-          }));
-
-    let matchSelected = matches.filter(cv => cv.id === jobId)[0];
-
-    // Set the Selected Job state:
-    this.setState({ matchSelected: { ...matchSelected } });
-    this.toggleJobModal();
+  matchCardClickHandler = match => {
+    return wrapper => {
+      // Set the Selected Job state:
+      this.setState({ matchSelected: { ...match } });
+      this.toggleJobModal();
+    };
   };
 
   render() {
     //Destructure the state:
+    //console.log("state: ", this.state);
     const { matchesModal, matchSelected } = this.state;
+    const job = matchSelected.job ? matchSelected.job : {};
+    console.log("state: ", job);
+
     let { matchesRequestSuccess, currentUser, matches } = this.props;
 
     matches =
       matchesRequestSuccess && currentUser.is_seeker
         ? matches.map(match => ({
             ...match,
-            userData: match.job,
-            seeker: null,
-            employer: null,
-            job: null
+            userData: match.job.title,
+            name: match.employer.company_name
           }))
         : matches.map(match => ({
             ...match,
-            userData: match.seeker,
-            employer: null,
-            seeker: null
+            userData: match.job.title,
+            name: match.seeker.first_name
           }));
+
     return (
       <React.Fragment>
         <JobCardDeck className="card-decks">
@@ -85,24 +78,50 @@ class MatchContainer extends Component {
 
           {this.props.matchesRequestSuccess &&
             matches.map(match => (
-              <BaseCard
-                key={match.id}
-                matchId={match.id}
-                title={match.userData.summary}
-                name={`${match.userData.first_name} ${
-                  match.userData.last_name
-                }`}
-                userData={match.userData}
-                modalToggler={this.matchCardClickHandler}
+              <NewBaseCard
+                //key={this.props.match.id}
+                id={match.id}
+                title={match.userData}
+                name={`${match.name}`}
+                //${match.userData.last_name
+                //userData={this.props.match.userData}
+
+                toggle={this.matchCardClickHandler(match)}
+                btn1Text={"Archive"}
+                btn2Text={"Email"}
+                btn1={this.btn1}
+                btn2={this.btn2}
               />
             ))}
         </JobCardDeck>
-
-        <BaseModal
-          toggleJobModal={this.toggleJobModal}
-          isOpen={matchesModal}
-          matchData={matchSelected}
-        />
+        {
+          <Modal
+            toggleJobModal={this.toggleJobModal}
+            isOpen={matchesModal}
+            matchData={matchSelected}
+          >
+            <ModalHeader toggle={this.toggleJobModal}>Details </ModalHeader>
+            <ModalBody>
+              {
+                <NewBaseCard
+                  id={this.id}
+                  //title={`${this.state.matchData.seeker.title}`}
+                  name={job.title}
+                  skills={job.top_skills}
+                  summary={job.requirements}
+                  salary_min={job.salary_min}
+                  salary_max={job.salary_max}
+                  description={job.description}
+                  is_active={job.is_active}
+                  btn1Text={"Cancel"}
+                  btn2Text={"Apply"}
+                  btn1={this.btn1}
+                  btn2={this.btn2}
+                />
+              }
+            </ModalBody>
+          </Modal>
+        }
       </React.Fragment>
     );
   }

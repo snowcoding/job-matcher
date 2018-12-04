@@ -69,7 +69,7 @@ class ViewContainer extends Component {
     this.getRandomUserHandler();
   };
   render() {
-    console.log("view container:", this.props.data);
+    //console.log("view container:", this.props.data);
     let credit;
     if (this.props.user.currentUser.is_seeker) {
       credit = this.props.user.currentUser.free_apps;

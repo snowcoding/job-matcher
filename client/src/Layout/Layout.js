@@ -27,7 +27,10 @@ export default class Layout extends React.Component {
               <Route path="/auth" component={Auth} />
               <Route path="/billing" component={ProtectedPages(Billing)} />
               <Route path="/rand" component={BrowseContainer} />
-              <Route path="/matches" component={MatchContainer} />
+              <Route
+                path="/matches"
+                component={ProtectedPages(MatchContainer)}
+              />
 
               {/* <Route
 								path="/forms"

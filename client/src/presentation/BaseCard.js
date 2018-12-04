@@ -78,6 +78,8 @@ const ExplicitBaseCard = props => {
         <CardText>{props.skills}</CardText>
         <ShowFullCard is_open={props.is_open} className="showfullcard">
           <CardText>{props.experience}</CardText>
+          <CardText>{props.salary_min}</CardText>
+          <CardText>{props.salary_max}</CardText>
           <CardText>{props.education}</CardText>
           <CardText>{props.description}</CardText>
           <CardText>{props.requirements}</CardText>
