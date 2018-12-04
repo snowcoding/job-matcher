@@ -26,8 +26,8 @@ class JobViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.List
 
     @action(methods=['get'], detail=False)
     def random(self, request):
-        # TODO filter out from match DB
-        employer = self.get_queryset().order_by("?").first()
+        # TODO filter out if SKIPPED/ SUPER or APPLY
+        employer = self.get_queryset().filter(is_active=True).order_by("?").first()
         serializer = self.get_serializer(instance=employer)
         return Response(data=serializer.data)
 
