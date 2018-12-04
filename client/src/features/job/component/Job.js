@@ -28,7 +28,8 @@ class Job extends Component {
         extra_skills: "",
         familiar_with: "",
         description: "",
-        requirements: ""
+        requirements: "",
+        is_active: ""
       }
     };
   }
@@ -69,7 +70,15 @@ class Job extends Component {
 
   //Anytime a form element changes,handle the updating of state here:
   onFormChange = e => {
+    // If the form element is checkbox, then set the checked to value:
+    if (e.target.name === "is_active") {
+      e.target.value = e.target.checked;
+    }
+
+    //Destructure each name/value
     const { name, value } = e.target;
+
+    //Set the state
     this.setState({
       jobFormData: { ...this.state.jobFormData, [name]: value }
     });
@@ -97,6 +106,9 @@ class Job extends Component {
   createJobHandler = () => {
     //Turn all skills fields into Arrays:
     let jobFormData = this.skillsToArray();
+
+    //Make sure the is_active is set to something
+    if (!jobFormData.is_active) jobFormData.is_active = false;
 
     //Call the createJob endpoint:
     API.endpoints

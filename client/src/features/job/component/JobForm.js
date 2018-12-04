@@ -12,7 +12,8 @@ class JobForm extends Component {
       extra_skills,
       familiar_with,
       description,
-      requirements
+      requirements,
+      is_active
     } = this.props.jobData ? this.props.jobData : "";
 
     return (
@@ -147,6 +148,20 @@ class JobForm extends Component {
               defaultValue={requirements || ""}
             />
           </Col>
+        </FormGroup>
+
+        {/* Set if Job is active */}
+        <FormGroup check>
+          <Label for="is_active">
+            <Input
+              onChange={this.props.onFormChange}
+              type="checkbox"
+              name="is_active"
+              id="is_active"
+              defaultChecked={is_active}
+            />
+            This job is active
+          </Label>
         </FormGroup>
       </Form>
     );
