@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardImg,
@@ -12,7 +13,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button
+  Button,
+  Alert
 } from "reactstrap";
 
 const ShowFullCard = styled.div`
@@ -113,17 +115,17 @@ const ExplicitBaseCard = props => {
       </UncontrolledButtonDropdown>
       <CardFooter className="card-footer">
         {props.btn1 && (
-          <Button onClick={props.btn1} disabled={props.is_valid}>
+          <Button onClick={props.btn1} disabled={!props.is_valid}>
             {props.btn1Text}
           </Button>
         )}
         {props.btn2 && (
-          <Button onClick={props.btn2} disabled={props.is_valid}>
+          <Button onClick={props.btn2} disabled={!props.is_valid}>
             {props.btn2Text}
           </Button>
         )}
         {props.btn3 && (
-          <Button onClick={props.btn3} id="toggler" disabled={props.is_valid}>
+          <Button onClick={props.btn3} id="toggler" disabled={!props.is_valid}>
             {props.btn3Text}
           </Button>
         )}
@@ -132,6 +134,11 @@ const ExplicitBaseCard = props => {
         <UncontrolledTooltip placement="right" target="#toggler">
           {props.btn3Hover}
         </UncontrolledTooltip>
+      )}
+      {props.outOfCreditAlert && (
+        <Link to="/billing">
+          <Alert color="danger">{props.outOfCreditAlert}</Alert>
+        </Link>
       )}
     </StyledCard>
   );
