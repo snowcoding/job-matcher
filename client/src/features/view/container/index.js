@@ -5,10 +5,10 @@ import { getRandomUser, postSuperAction } from "../store/action";
 
 class ViewContainer extends Component {
   componentDidMount = () => {
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
 
-  getRandomUserS = () => {
+  getRandomUserHandler = () => {
     const userType = this.props.user.currentUser.is_seeker;
     if (userType) {
       this.props.getRandomUser("job");
@@ -16,16 +16,28 @@ class ViewContainer extends Component {
       this.props.getRandomUser("seeker");
     }
   };
-  postMatchAction = () => {
-    let data = {
-      job_id: "apfk3k2zr0",
-      seeker_action: "SUPER",
-      employer_action: "",
-      seeker_id: "35f7fn16rt",
-      employer_id: "26vlxe3nhb"
-    };
+  postMatchActionHandler = () => {
+    const userType = this.props.user.currentUser.is_seeker;
+    let data;
+    if (userType) {
+      data = {
+        job_id: this.props.data.id,
+        seeker_action: "SUPER",
+        employer_action: "",
+        seeker_id: this.props.user.currentUser.id,
+        employer_id: this.props.data.employer.id
+      };
+    } else {
+      data = {
+        job_id: this.props.data.id,
+        seeker_action: "",
+        employer_action: "SUPER",
+        seeker_id: "35f7fn16rt",
+        employer_id: this.props.user.currentUser.id
+      };
+    }
     this.props.postSuperAction(data);
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
 
   postInterest = () => {
@@ -49,21 +61,28 @@ class ViewContainer extends Component {
       };
     }
     this.postCallAction(data);
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
 
   postCallAction = data => {
     this.props.postSuperAction(data);
-    this.getRandomUserS();
+    this.getRandomUserHandler();
   };
   render() {
     console.log("view container:", this.props.data);
+    let credit;
+    if (this.props.user.currentUser.is_seeker) {
+      credit = this.props.user.currentUser.free_apps;
+    } else {
+      credit = this.props.user.currentUser.free_calls;
+    }
     return (
       <ViewElement
         data={this.props.data}
         success={this.props.success}
-        skip={this.getRandomUserS}
-        super={this.postMatchAction}
+        credit={credit}
+        skip={this.getRandomUserHandler}
+        super={this.postMatchActionHandler}
         call={this.postInterest}
       />
     );

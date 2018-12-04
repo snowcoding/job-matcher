@@ -38,6 +38,8 @@ class MyComponent extends React.Component {
         let testText = "This email has been taken by someone else";
         //check error message from signup handler, if email already exist, sign them in.
         if (
+          error.response &&
+          error.response.data &&
           error.response.data.email &&
           error.response.data.email[0].includes(testText)
         ) {
