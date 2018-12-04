@@ -79,7 +79,7 @@ class MatchContainer extends Component {
           {this.props.matchesRequestSuccess &&
             matches.map(match => (
               <NewBaseCard
-                //key={this.props.match.id}
+                key={match.id}
                 id={match.id}
                 title={match.userData}
                 name={`${match.name}`}
@@ -113,10 +113,10 @@ class MatchContainer extends Component {
                   salary_max={job.salary_max}
                   description={job.description}
                   is_active={job.is_active}
-                  btn1Text={"Cancel"}
-                  btn2Text={"Apply"}
-                  btn1={this.btn1}
-                  btn2={this.btn2}
+                  // btn1Text={"Cancel"}
+                  // btn2Text={"Apply"}
+                  // btn1={this.btn1}
+                  // btn2={this.btn2}
                 />
               }
             </ModalBody>
