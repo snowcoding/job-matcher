@@ -76,8 +76,8 @@ let matchesEndpoints = {
 };
 let billingEndpoints = {
   // Todo: Add billing endpoints here
-  async charge(token) {
-    return await api.post("/charge/", { token });
+  async charge(token, item) {
+    return await api.post("/charge/", { token, item });
   }
 };
 
