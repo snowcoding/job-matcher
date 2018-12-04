@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import { ActionButton } from "./indexCSS";
 const ViewElement = props => {
-  console.log("ViewElement data : ", props);
+  //console.log("ViewElement data : ", props);
   let photoSrc =
     props.data && props.data.employer && props.data.employer.photo.length > 1
       ? props.data.employer.photo
