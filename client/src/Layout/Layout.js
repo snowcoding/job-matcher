@@ -12,7 +12,7 @@ import ProfileContainer from "../features/forms/containers";
 import View from "../features/view/container";
 import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
-import MatchContainer from "../features/matches/container";
+import MatchContainer from "../features/matches/container/";
 
 export default class Layout extends React.Component {
   render() {
@@ -27,7 +27,10 @@ export default class Layout extends React.Component {
               <Route path="/auth" component={Auth} />
               <Route path="/billing" component={ProtectedPages(Billing)} />
               <Route path="/rand" component={BrowseContainer} />
-              <Route path="/matches" component={MatchContainer} />
+              <Route
+                path="/matches"
+                component={ProtectedPages(MatchContainer)}
+              />
 
               {/* <Route
 								path="/forms"

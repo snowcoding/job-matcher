@@ -14,13 +14,13 @@ const geterrorHandler = error => ({
 });
 
 export const getRandomUser = userType => dispatch => {
-  console.log("usertype:", userType);
+  // console.log("current user:",this );
   dispatch({ type: "GET_RANDOM_USER" });
 
   Api.endpoints
     .random(userType)
     .then(result => {
-      console.log({ result });
+      // console.log({ result });
       dispatch(getRandomHandler(result.data));
     })
     .catch(error => {
@@ -28,16 +28,17 @@ export const getRandomUser = userType => dispatch => {
     });
 };
 export const postSuperAction = data => dispatch => {
-  dispatch({ type: "POST_SUPER_ACTION" });
+  console.log("DATA READY TO BE POST ", { data });
+  //dispatch({ type: "POST_SUPER_ACTION" });
 
   Api.endpoints
     .postMatches(data)
     .then(result => {
-      console.log("post super action ", { result });
-      // dispatch(getRandomHandler(result));
+      console.log("WHAT I GET BACK FROM SERVER ", { result });
+      //dispatch(getRandomHandler(result));
     })
     .catch(error => {
-      console.log({ error });
-      // dispatch(geterrorHandler({ error }));
+      console.log("WHAT I GET BACK FROM SERVER", { error });
+      //dispatch(geterrorHandler({ error }));
     });
 };
