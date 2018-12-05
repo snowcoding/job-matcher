@@ -32,6 +32,13 @@ class ViewContainer extends Component {
       this.getRandomUserHandler();
     }, 500);
   }
+
+  componentDidUpdate(prevProps, prevState, nextContext) {
+    if (prevProps !== this.props) {
+      this.props.getProfile();
+    }
+  }
+
   showFullCard = e => {
     this.setState({
       is_open: !this.state.is_open
