@@ -24,21 +24,26 @@ const ShowFullCard = styled.div`
 const StyledH5 = styled.h5`
   color: ${props => (props.is_seeker ? "red" : "green")};
   text-transform: capitalize;
+  cursor: pointer;
 `;
 const StyledCard = styled(Card)`
     width: ${props => (props.width ? props.width : "100%")}
-    margin: 10px 0;
-    border: none;
+    margin: 10px auto;
+    border: 1px solid;
     text-align: start;
     border-radius: 10px;
+    padding: 15px 10px;
+    @media (min-width: 900px) {
+    margin: 10px 5px;
+  }
 `;
 const CardHeader = styled.div`
   width: "100%";
   height: 100px;
   display: flex;
-  border: 1px solid #8c8989ab;
-  border-bottom: none;
-  border-radius: 10px;
+  border-radius: 1px;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
   img {
     width: 100px;
   }
@@ -47,10 +52,12 @@ const CardHeader = styled.div`
     margin: auto;
     margin-left: 20px;
   }
+  h6 {
+    height: 59px;
+    overflow: scroll;
+  }
 `;
 const StyledCardBody = styled(CardBody)`
-  border: 1px solid #8c8989ab;
-  border-radius: 10px;
   text-align: start;
   div {
     text-align: center;
@@ -61,15 +68,11 @@ const CardFooter = styled.div`
   height: 100px;
   display: flex;
   justify-content: space-evenly;
-  border: 1px solid #8c8989ab;
-  border-radius: 10px;
   margin-top: 10px;
 `;
 
 const StyledCardTitle = styled(CardTitle)`
   font-size: 18px;
-  border-bottom: 1px solid #8c8989ab;
-  border-radius: 10px;
   text-transform: capitalize;
 `;
 
@@ -78,7 +81,9 @@ const ExplicitBaseCard = props => {
     <StyledCard width={props.width} onClick={props.toggle}>
       <CardHeader className="styled-card-header">
         <CardImg
-          src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
+          src={
+            props.photo || "https://image.flaticon.com/icons/svg/52/52762.svg"
+          }
           alt="Card image cap"
         />
         <div>
@@ -88,7 +93,12 @@ const ExplicitBaseCard = props => {
       </CardHeader>
       <StyledCardBody className="card-body">
         <StyledCardTitle className="card-title">{props.title}</StyledCardTitle>
-        <CardText>{props.skills}</CardText>
+        {props.skills &&
+          props.skills.map((skill, i) => <CardText key={i}>{skill}</CardText>)}
+        {props.extra_skills &&
+          props.extra_skills.map((skill, i) => (
+            <CardText key={i}>{skill}</CardText>
+          ))}
         <ShowFullCard is_open={props.is_open} className="showfullcard">
           <CardText>{props.experience}</CardText>
           <CardText>{props.salary_min}</CardText>
@@ -105,7 +115,9 @@ const ExplicitBaseCard = props => {
       </StyledCardBody>
       {props.dropDown && (
         <UncontrolledButtonDropdown>
-          <DropdownToggle caret>{props.dropDownToggleText}</DropdownToggle>
+          <DropdownToggle caret size="lg" style={{ margin: "auto" }}>
+            {props.dropDownToggleText}
+          </DropdownToggle>
           <DropdownMenu>
             {props.dropDown.map((job, index) => (
               <DropdownItem
@@ -118,7 +130,7 @@ const ExplicitBaseCard = props => {
           </DropdownMenu>
         </UncontrolledButtonDropdown>
       )}
-      <CardFooter className="card-footer">
+      <CardFooter className="icard-footer">
         {props.btn1 && (
           <Button onClick={props.btn1} disabled={!props.is_valid}>
             {props.btn1Text}
@@ -129,6 +141,7 @@ const ExplicitBaseCard = props => {
             <ConfirmSpending
               buttonLabel={props.btn2Text}
               confirmAction={props.btn2}
+              disabled={!props.is_valid}
             />
           ) : (
             <Button onClick={props.btn2} disabled={!props.is_valid}>
@@ -138,8 +151,9 @@ const ExplicitBaseCard = props => {
         {props.btn3 &&
           (props.confirmAction === true ? (
             <ConfirmSpending
-              buttonLabel={<span id="toggler">{props.btn3Text}</span>}
+              buttonLabel={props.btn3Text}
               confirmAction={props.btn3}
+              disabled={!props.is_valid}
               id="toggler"
             />
           ) : (
@@ -151,6 +165,7 @@ const ExplicitBaseCard = props => {
           <Button onClick={() => props.btn4(props.id)}>{props.btn4Text}</Button>
         )}
       </CardFooter>
+
       {props.btn3Hover && (
         <UncontrolledTooltip placement="right" target="toggler">
           {props.btn3Hover}
