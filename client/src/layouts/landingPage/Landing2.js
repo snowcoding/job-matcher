@@ -1,5 +1,5 @@
 import React from "react";
-import "./assets/css/main.css";
+// import "./assets/css/main.css";
 import "./assets/css/noscript.css";
 import pic01 from "../../assets/images/pic01.jpg";
 import pic02 from "../../assets/images/pic02.jpg";
@@ -27,19 +27,19 @@ const Landing2 = props => {
           <h2>Menu</h2>
           <ul className="links">
             <li>
-              <a href="#">Home</a>
+              <a href="/">Home</a>
             </li>
             <li>
-              <a href="#">Generic</a>
+              <a href="/">Generic</a>
             </li>
             <li>
-              <a href="#">Elements</a>
+              <a href="/">Elements</a>
             </li>
             <li>
-              <a href="#">Log In</a>
+              <a href="/">Log In</a>
             </li>
             <li>
-              <a href="#">Sign Up</a>
+              <a href="/">Sign Up</a>
             </li>
           </ul>
           <a href="#" className="close">
@@ -68,13 +68,12 @@ const Landing2 = props => {
               <img src={pic01} alt="" />
             </a>
             <div className="content">
-              <h2 className="major">Magna arcu feugiat</h2>
+              <h2 className="major">
+                SeekGeek is the Tinder for job seekers and employers!
+              </h2>
               <p>
-                Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras
-                turpis ante, nullam sit amet turpis non, sollicitudin posuere
-                urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim
-                dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla
-                cursus.
+                Like Tinder for finding jobs. If seeker matches with employer, a
+                connection is made and they can message one another.
               </p>
               <a href="#" className="special">
                 Learn more
@@ -89,13 +88,11 @@ const Landing2 = props => {
               <img src={pic02} alt="" />
             </a>
             <div className="content">
-              <h2 className="major">Tempus adipiscing</h2>
+              <h2 className="major">For seekers and employers!</h2>
               <p>
-                Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras
-                turpis ante, nullam sit amet turpis non, sollicitudin posuere
-                urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim
-                dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla
-                cursus.
+                Seekers and employers can spend credits to do a super app, which
+                appears as though they had matched with only one party taking
+                action.
               </p>
               <a href="#" className="special">
                 Learn more
@@ -110,13 +107,12 @@ const Landing2 = props => {
               <img src={pic03} alt="" />
             </a>
             <div className="content">
-              <h2 className="major">Nullam dignissim</h2>
+              <h2 className="major">Free swipes everyday!</h2>
               <p>
-                Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras
-                turpis ante, nullam sit amet turpis non, sollicitudin posuere
-                urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim
-                dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla
-                cursus.
+                Job seekers start with 5 free apps (applications) and get plus 1
+                free app per day. Employers start with one free posting, get 100
+                credits per job posted and get one free call per day (employer
+                version of app/match).
               </p>
               <a href="#" className="special">
                 Learn more
@@ -127,7 +123,7 @@ const Landing2 = props => {
 
         <section id="four" className="wrapper alt style1">
           <div className="inner">
-            <h2 className="major">Vitae phasellus</h2>
+            <h2 className="major">Testimonials</h2>
             <p>
               Cras mattis ante fermentum, malesuada neque vitae, eleifend erat.
               Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis
@@ -191,7 +187,7 @@ const Landing2 = props => {
             <ul className="actions">
               <li>
                 <a href="#" className="button">
-                  Browse All
+                  Sign up now!
                 </a>
               </li>
             </ul>

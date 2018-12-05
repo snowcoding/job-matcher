@@ -7,11 +7,12 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
+  UncontrolledTooltip,
   CardColumns
 } from "reactstrap";
-
+import { ActionButton } from "./indexCSS";
 const ViewElement = props => {
-  console.log("ViewElement data : ", props);
+  //console.log("ViewElement data : ", props);
   let photoSrc =
     props.data && props.data.employer && props.data.employer.photo.length > 1
       ? props.data.employer.photo
@@ -39,7 +40,12 @@ const ViewElement = props => {
               {props.data && <CardTitle> {props.data.title} </CardTitle>}
               <Button onClick={props.skip}>Skip</Button>
               <Button onClick={props.super}>Super</Button>
-              <Button onClick={props.call}>Call</Button>
+              <Button onClick={props.call} id="TooltipExample">
+                Call
+              </Button>
+              <UncontrolledTooltip placement="right" target="TooltipExample">
+                you have {props.credit} free credit
+              </UncontrolledTooltip>
             </CardBody>
           </Card>
         </Card>
