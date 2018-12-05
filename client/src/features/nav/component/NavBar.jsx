@@ -66,9 +66,6 @@ class NavBar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           {this.props.authenticatoin_succeed && (
             <Collapse isOpen={this.state.navbarTogglerOpen} navbar>
-              {/* <Nav navbar>
-              <NavItem  style={{color: '#4D4D4D', padding: '12px'}} activeStyle={{color: 'red'}}> Hi {this.props.currentUser.first_name}</NavItem>
-            </Nav> */}
               <Nav className="ml-auto" navbar>
                 {this.props.currentUser &&
                 this.props.currentUser.is_seeker &&
