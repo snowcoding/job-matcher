@@ -4,6 +4,7 @@ import API from "../../../api";
 import styled from "styled-components";
 import JobCard from "./JobCard";
 import JobModal from "./JobModal";
+import { toast } from "react-toastify";
 
 const JobCardDeck = styled(CardDeck)`
   max-width: 800px;
@@ -116,9 +117,11 @@ class Job extends Component {
       .then(res => {
         //Update the local state and add the job
         let jobs = [...this.state.jobs, res.data];
+        toast.success("You created a job! Geeks are on the way");
         this.setState({ jobs });
       })
       .catch(error => {
+        toast.error("ohh, adding job failed. Please try again!");
         console.log("Response Error: ", { error });
       });
 
@@ -137,34 +140,46 @@ class Job extends Component {
     let jobFormData = this.skillsToArray();
 
     //Call the editJob endpoint:
-    API.endpoints.updateJob(jobFormData, id).then(res => {
-      //Remove job that was edited
-      let allJobsExceptEditedJob = [...this.state.jobs].filter(
-        cv => cv.id !== id
-      );
+    API.endpoints
+      .updateJob(jobFormData, id)
+      .then(res => {
+        //Remove job that was edited
+        toast.success("Job updated");
+        let allJobsExceptEditedJob = [...this.state.jobs].filter(
+          cv => cv.id !== id
+        );
 
-      let jobs = [...allJobsExceptEditedJob, res.data];
-      this.setState({ jobs });
-    });
+        let jobs = [...allJobsExceptEditedJob, res.data];
+        this.setState({ jobs });
+      })
+      .catch(error => {
+        toast.error("Job update failed");
+        console.log("Job update failed", { error });
+      });
 
     //Toggle the Modal
     this.toggleJobModal();
   };
 
   deleteJobHandler = () => {
-    console.log("deleteJobHandler clicked!");
-
     let { id } = this.state.jobSelected;
 
     //Call the editJob endpoint:
-    API.endpoints.deleteJob(id).then(res => {
-      //Remove job
-      let jobs = [...this.state.jobs].filter(cv => cv.id !== id);
+    API.endpoints
+      .deleteJob(id)
+      .then(res => {
+        //Remove job
+        toast.success("Job Deleted");
+        let jobs = [...this.state.jobs].filter(cv => cv.id !== id);
 
-      // Update the local state and add the job
-      if (jobs) this.setState({ jobs });
-      else console.log("no jobs to remove");
-    });
+        // Update the local state and add the job
+        if (jobs) this.setState({ jobs });
+        else console.log("no jobs to remove");
+      })
+      .catch(error => {
+        toast.error("Job delete failed");
+        console.log("Job delete failed", { error });
+      });
 
     //Toggle the Modal
     this.toggleJobModal();

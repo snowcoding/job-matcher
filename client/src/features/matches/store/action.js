@@ -1,5 +1,6 @@
 import * as actionType from "./actionType";
 import Api from "../../../api";
+import { toast } from "react-toastify";
 
 const getMatchesHandler = data => ({
   type: actionType.FETCHING_MATCHES_JOBS,
@@ -20,6 +21,7 @@ export const getMatches = (userType, id) => dispatch => {
       dispatch(getMatchesHandler(result.data));
     })
     .catch(error => {
+      toast.error("Couldn't get your matches");
       error.response
         ? dispatch(errorHandler(error.response.data))
         : dispatch(errorHandler(error.message));

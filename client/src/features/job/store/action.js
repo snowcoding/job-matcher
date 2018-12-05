@@ -1,5 +1,6 @@
 import * as actionType from "./actionType";
 import Api from "../../../api";
+import { toast } from "react-toastify";
 
 const errorHandler = error => ({
   type: actionType.JOB_REQUEST_ERROR,
@@ -19,6 +20,7 @@ export const getMyJobs = () => dispatch => {
       dispatch(getJobHandler(result.data));
     })
     .catch(error => {
+      toast.error("get jobs failed");
       error.response
         ? dispatch(errorHandler(error.response.data))
         : dispatch(errorHandler(error.message));

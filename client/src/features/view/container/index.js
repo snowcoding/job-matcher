@@ -5,6 +5,7 @@ import { getMyJobs } from "../../job/store/action";
 import { getProfile } from "../../auth/store/action";
 import ExplicitBaseCard from "../../../presentation/BaseCard";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 const MatchContainer = styled.div`
   width: 400px;
@@ -77,8 +78,10 @@ class ViewContainer extends Component {
     let data;
     if (userType) {
       data = this.populateSeekerDataInfo("SUPER");
+      toast.success("This job was Supered!!");
     } else {
       data = this.populateEmployerDataInfo("SUPER");
+      toast.success("This geek was Supered!");
     }
     this.postCallAction(data);
     this.getRandomUserHandler();

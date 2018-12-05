@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import zxcvbn from "zxcvbn";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import anime from "animejs";
 
