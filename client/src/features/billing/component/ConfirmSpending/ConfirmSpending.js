@@ -27,8 +27,12 @@ class ConfirmSpending extends React.Component {
     );
 
     return (
-      <div>
-        <Button color="danger" onClick={this.toggle}>
+      <React.Fragment>
+        <Button
+          onClick={this.toggle}
+          id={this.props.id}
+          disabled={this.props.disabled}
+        >
           {this.props.buttonLabel}
         </Button>
         <Modal
@@ -55,7 +59,7 @@ class ConfirmSpending extends React.Component {
             </Button>
           </ModalFooter>
         </Modal>
-      </div>
+      </React.Fragment>
     );
   }
 }

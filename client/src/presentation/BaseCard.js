@@ -141,6 +141,7 @@ const ExplicitBaseCard = props => {
             <ConfirmSpending
               buttonLabel={props.btn2Text}
               confirmAction={props.btn2}
+              disabled={!props.is_valid}
             />
           ) : (
             <Button onClick={props.btn2} disabled={!props.is_valid}>
@@ -150,8 +151,9 @@ const ExplicitBaseCard = props => {
         {props.btn3 &&
           (props.confirmAction === true ? (
             <ConfirmSpending
-              buttonLabel={<span id="toggler">{props.btn3Text}</span>}
+              buttonLabel={props.btn3Text}
               confirmAction={props.btn3}
+              disabled={!props.is_valid}
               id="toggler"
             />
           ) : (
@@ -163,6 +165,7 @@ const ExplicitBaseCard = props => {
           <Button onClick={() => props.btn4(props.id)}>{props.btn4Text}</Button>
         )}
       </CardFooter>
+
       {props.btn3Hover && (
         <UncontrolledTooltip placement="right" target="toggler">
           {props.btn3Hover}
