@@ -16,6 +16,7 @@ import {
   Button,
   Alert
 } from "reactstrap";
+import ConfirmSpending from "../features/billing/component/ConfirmSpending/ConfirmSpending";
 
 const ShowFullCard = styled.div`
   display: ${props => (props.is_open ? "block" : "none")};
@@ -90,6 +91,8 @@ const ExplicitBaseCard = props => {
         <CardText>{props.skills}</CardText>
         <ShowFullCard is_open={props.is_open} className="showfullcard">
           <CardText>{props.experience}</CardText>
+          <CardText>{props.salary_min}</CardText>
+          <CardText>{props.salary_max}</CardText>
           <CardText>{props.education}</CardText>
           <CardText>{props.description}</CardText>
           <CardText>{props.requirements}</CardText>
@@ -121,19 +124,35 @@ const ExplicitBaseCard = props => {
             {props.btn1Text}
           </Button>
         )}
-        {props.btn2 && (
-          <Button onClick={props.btn2} disabled={!props.is_valid}>
-            {props.btn2Text}
-          </Button>
-        )}
-        {props.btn3 && (
-          <Button onClick={props.btn3} id="toggler" disabled={!props.is_valid}>
-            {props.btn3Text}
-          </Button>
+        {props.btn2 &&
+          (props.confirmAction === true ? (
+            <ConfirmSpending
+              buttonLabel={props.btn2Text}
+              confirmAction={props.btn2}
+            />
+          ) : (
+            <Button onClick={props.btn2} disabled={!props.is_valid}>
+              {props.btn2Text}
+            </Button>
+          ))}
+        {props.btn3 &&
+          (props.confirmAction === true ? (
+            <ConfirmSpending
+              buttonLabel={<span id="toggler">{props.btn3Text}</span>}
+              confirmAction={props.btn3}
+              id="toggler"
+            />
+          ) : (
+            <Button onClick={props.btn3} disabled={!props.is_valid}>
+              <span id="toggler">{props.btn3Text}</span>
+            </Button>
+          ))}
+        {props.btn4 && (
+          <Button onClick={() => props.btn4(props.id)}>{props.btn4Text}</Button>
         )}
       </CardFooter>
       {props.btn3Hover && (
-        <UncontrolledTooltip placement="right" target="#toggler">
+        <UncontrolledTooltip placement="right" target="toggler">
           {props.btn3Hover}
         </UncontrolledTooltip>
       )}
