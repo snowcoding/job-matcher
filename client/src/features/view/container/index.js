@@ -82,9 +82,6 @@ class ViewContainer extends Component {
     let balance = this.props.currentUser.credits;
     let data;
     if (balance < 10) {
-      this.setState({
-        hasEnoughCredit: false
-      });
       toast.error(
         "Please make sure you have at least 10 or more credit, to match a super"
       );
