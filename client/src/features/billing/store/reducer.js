@@ -23,8 +23,8 @@ const intialState = {
 // 	}
 // };
 export default (state = intialState, action) => {
-  console.log(state);
-  console.log(action);
+  // console.log(state);
+  // console.log(action);
 
   switch (action.type) {
     case actionType.BILLING_REQUEST:

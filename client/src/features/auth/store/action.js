@@ -65,7 +65,7 @@ export const login = data => {
     Api.endpoints
       .signIn(data)
       .then(result => {
-        toast.success("Welcome  back");
+        toast.success(`Welcome  back ${result.data.profile.first_name}`);
         dispatch(loginHandler(result.data));
       })
       .catch(error => {

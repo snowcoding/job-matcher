@@ -157,7 +157,6 @@ class ViewContainer extends Component {
     this.validate();
   };
   render() {
-    console.log("view container:", this.props.data);
     let dropDownToggleText;
     if (this.state.jobIdSelected) {
       dropDownToggleText = this.props.jobs.filter(
