@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "assets/scss/black-dashboard-react.scss";
+import "assets/css/nucleo-icons.css";
 import Layout from "./Layout/Layout";
 
 class App extends Component {
