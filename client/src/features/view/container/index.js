@@ -21,7 +21,8 @@ class ViewContainer extends Component {
     jobIdSelected: null,
     hasEnoughCredit: false,
     hoverText: "",
-    outOfCreditAlert: false
+    outOfCreditAlert: false,
+    confirmAction: false
   };
   componentDidMount() {
     this.props.getProfile();
@@ -51,6 +52,11 @@ class ViewContainer extends Component {
         hoverText: `you have ${freeCredit || balance} credit left`,
         outOfCreditAlert: false
       });
+      if (this.props.currentUser.confirm_spending && freeCredit === 0) {
+        this.setState({
+          confirmAction: true
+        });
+      }
     } else {
       console.log("user needs credit", freeCredit, balance);
       this.setState({
@@ -142,6 +148,7 @@ class ViewContainer extends Component {
     if (this.props.success && this.props.currentUser.is_seeker) {
       card = (
         <ExplicitBaseCard
+          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
           btn1Text={"Skip"}
           btn2Text={"Super"}
           btn3Text={"App"}
@@ -167,6 +174,7 @@ class ViewContainer extends Component {
     } else if (this.props.success && !this.props.currentUser.is_seeker) {
       card = (
         <ExplicitBaseCard
+          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
           btn1Text={"Skip"}
           btn2Text={"Super"}
           btn3Text={"Call"}

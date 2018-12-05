@@ -13,12 +13,12 @@ export const STRIPE_TOKEN = "STRIPE_TOKEN";
 // export const getRandomUser = userType => dispatch => {
 //   dispatch({ type: "GET_RANDOM_USER" });
 
-export const billUser = passedToken => dispatch => {
+export const billUser = payload => dispatch => {
   dispatch({ type: BILLING_REQUEST });
+
   // send to server
-  //deleted await
   Api.endpoints
-    .charge(passedToken.id)
+    .charge(payload.token.id, payload.item)
     .then(response => {
       toast.success("Purchase Complete");
       console.log(response);
