@@ -4,13 +4,29 @@ import API from "../../../api";
 import styled from "styled-components";
 import JobCard from "./JobCard";
 import JobModal from "./JobModal";
+import ExplicitBaseCard from "../../../presentation/BaseCard";
+import { toast } from "react-toastify";
 
-const JobCardDeck = styled(CardDeck)`
-  max-width: 800px;
-  /* border: 1px solid red; */
+const JobCardDeck = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px auto;
+  .card:first-child {
+    min-width: 0 !important;
+    // height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 70px;
+    left: 20px;
+    z-index: 100;
+    border-radius: 50%;
+    background-color: #ffffffd6;
+  }
 `;
 
 class Job extends Component {
@@ -116,9 +132,17 @@ class Job extends Component {
       .then(res => {
         //Update the local state and add the job
         let jobs = [...this.state.jobs, res.data];
+        toast.success("You created a job! Geeks are on the way");
         this.setState({ jobs });
       })
       .catch(error => {
+        let errorMessageKeys = Object.keys(error.response.data);
+        let errorMessageValue = Object.values(error.response.data);
+        toast.error("ohh, adding job failed, Please try again!");
+        let errorMessage = errorMessageKeys.map(
+          (error, index) => `[${error}]: ${errorMessageValue[index][1]}`
+        );
+        toast.error(errorMessage.join(" "));
         console.log("Response Error: ", { error });
       });
 
@@ -137,34 +161,46 @@ class Job extends Component {
     let jobFormData = this.skillsToArray();
 
     //Call the editJob endpoint:
-    API.endpoints.updateJob(jobFormData, id).then(res => {
-      //Remove job that was edited
-      let allJobsExceptEditedJob = [...this.state.jobs].filter(
-        cv => cv.id !== id
-      );
+    API.endpoints
+      .updateJob(jobFormData, id)
+      .then(res => {
+        //Remove job that was edited
+        toast.success("Job updated");
+        let allJobsExceptEditedJob = [...this.state.jobs].filter(
+          cv => cv.id !== id
+        );
 
-      let jobs = [...allJobsExceptEditedJob, res.data];
-      this.setState({ jobs });
-    });
+        let jobs = [...allJobsExceptEditedJob, res.data];
+        this.setState({ jobs });
+      })
+      .catch(error => {
+        toast.error("Job update failed");
+        console.log("Job update failed", { error });
+      });
 
     //Toggle the Modal
     this.toggleJobModal();
   };
 
   deleteJobHandler = () => {
-    console.log("deleteJobHandler clicked!");
-
     let { id } = this.state.jobSelected;
 
     //Call the editJob endpoint:
-    API.endpoints.deleteJob(id).then(res => {
-      //Remove job
-      let jobs = [...this.state.jobs].filter(cv => cv.id !== id);
+    API.endpoints
+      .deleteJob(id)
+      .then(res => {
+        //Remove job
+        toast.success("Job Deleted");
+        let jobs = [...this.state.jobs].filter(cv => cv.id !== id);
 
-      // Update the local state and add the job
-      if (jobs) this.setState({ jobs });
-      else console.log("no jobs to remove");
-    });
+        // Update the local state and add the job
+        if (jobs) this.setState({ jobs });
+        else console.log("no jobs to remove");
+      })
+      .catch(error => {
+        toast.error("Job delete failed");
+        console.log("Job delete failed", { error });
+      });
 
     //Toggle the Modal
     this.toggleJobModal();
@@ -177,15 +213,20 @@ class Job extends Component {
     return (
       <div>
         <JobCardDeck>
-          {/* <NewJobCard newJobCardClickHandler={this.newJobCardClickHandler}/> */}
           <JobCard jobCardClickHandler={e => this.jobCardClickHandler(e)} />
           {jobs.map(job => (
-            <JobCard
+            <ExplicitBaseCard
               key={job.id}
-              jobId={job.id}
+              id={job.id}
               title={job.title}
-              companyName={job.employer.company_name}
-              jobCardClickHandler={e => this.jobCardClickHandler(e)}
+              name={job.employer.company_name}
+              btn1={() => console.log("Archive Button clicked")}
+              btn1Text="Archive"
+              btn4={e => this.jobCardClickHandler(e)}
+              btn4Text="Edit"
+              is_valid={true}
+              summary={job.description}
+              width="300px"
             />
           ))}
         </JobCardDeck>

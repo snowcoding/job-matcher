@@ -6,7 +6,6 @@ import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 const MatchContainer = styled.div`
   width: 100%;
-  max-width: 900px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -63,6 +62,7 @@ class BrowseSeekerContainer extends React.Component {
         btn2={this.btn2}
         // btn3={this.btn3}
         width="300px"
+        photo={"https://image.flaticon.com/icons/svg/52/52762.svg"}
       />
     ));
 
@@ -81,6 +81,9 @@ class BrowseSeekerContainer extends React.Component {
               btn1={this.btn1}
               btn2={this.btn2}
               height="200px"
+              photo={
+                "https://www.djangoproject.com/s/img/logos/django-logo-positive.png"
+              }
             />
           </ModalBody>
         </Modal>

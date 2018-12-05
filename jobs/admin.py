@@ -12,5 +12,6 @@ class JobAdmin(admin.ModelAdmin):
 
 @admin.register(Match)
 class MatchAdmin(admin.ModelAdmin):
-    list_display = ['id', 'employer', 'job', 'seeker', 'seeker_action', 'employer_action', 'created_at', 'updated_at']
+    list_display = ['id', 'employer', 'job', 'seeker', 'seeker_action', 'employer_action', 'is_archived_seeker',
+                    'is_archived_employer', 'created_at', 'updated_at']
     ordering = ['-created_at']  # ORDER BY DESC
