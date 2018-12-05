@@ -147,6 +147,9 @@ const ExplicitBaseCard = props => {
               <span id="toggler">{props.btn3Text}</span>
             </Button>
           ))}
+        {props.btn4 && (
+          <Button onClick={() => props.btn4(props.id)}>{props.btn4Text}</Button>
+        )}
       </CardFooter>
       {props.btn3Hover && (
         <UncontrolledTooltip placement="right" target="toggler">

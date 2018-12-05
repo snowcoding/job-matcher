@@ -4,6 +4,7 @@ import API from "../../../api";
 import styled from "styled-components";
 import JobCard from "./JobCard";
 import JobModal from "./JobModal";
+import ExplicitBaseCard from "../../../presentation/BaseCard";
 
 const JobCardDeck = styled(CardDeck)`
   max-width: 800px;
@@ -177,15 +178,19 @@ class Job extends Component {
     return (
       <div>
         <JobCardDeck>
-          {/* <NewJobCard newJobCardClickHandler={this.newJobCardClickHandler}/> */}
           <JobCard jobCardClickHandler={e => this.jobCardClickHandler(e)} />
           {jobs.map(job => (
-            <JobCard
+            <ExplicitBaseCard
               key={job.id}
-              jobId={job.id}
+              id={job.id}
               title={job.title}
-              companyName={job.employer.company_name}
-              jobCardClickHandler={e => this.jobCardClickHandler(e)}
+              name={job.employer.company_name}
+              btn1={() => console.log("Archive Button clicked")}
+              btn1Text="Archive"
+              btn4={e => this.jobCardClickHandler(e)}
+              btn4Text="Edit"
+              is_valid={true}
+              summary={job.description}
             />
           ))}
         </JobCardDeck>
