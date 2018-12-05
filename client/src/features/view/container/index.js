@@ -127,8 +127,10 @@ class ViewContainer extends Component {
     let data;
     if (userType) {
       data = this.populateSeekerDataInfo("APPLY");
+      toast.success("Your application has been sent!");
     } else {
       data = this.populateEmployerDataInfo("CALL");
+      toast.success(`Your call to ${this.props.data.first_name} has been sent`);
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
