@@ -7,12 +7,26 @@ import JobModal from "./JobModal";
 import ExplicitBaseCard from "../../../presentation/BaseCard";
 import { toast } from "react-toastify";
 
-const JobCardDeck = styled(CardDeck)`
-  max-width: 800px;
-  /* border: 1px solid red; */
+const JobCardDeck = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px auto;
+  .card:first-child {
+    min-width: 0 !important;
+    // height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 70px;
+    left: 20px;
+    z-index: 100;
+    border-radius: 50%;
+    background-color: #ffffffd6;
+  }
 `;
 
 class Job extends Component {
@@ -206,6 +220,7 @@ class Job extends Component {
               btn4Text="Edit"
               is_valid={true}
               summary={job.description}
+              width="300px"
             />
           ))}
         </JobCardDeck>
