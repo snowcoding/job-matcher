@@ -34,6 +34,7 @@ class NavBar extends React.Component {
   render() {
     let photoSrc;
     if (this.props.currentUser) {
+      console.log("surrentUser", this.props.currentUser);
       photoSrc =
         this.props.currentUser.photo.length > 1
           ? this.props.currentUser.photo
@@ -114,7 +115,8 @@ class NavBar extends React.Component {
                       textTransform: "uppercase"
                     }}
                   >
-                    {this.props.currentUser.first_name}
+                    {this.props.currentUser.first_name}{" "}
+                    {this.props.currentUser.last_name}
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
