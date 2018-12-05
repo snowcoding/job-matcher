@@ -22,7 +22,7 @@ class NavBar extends React.Component {
 
   handleSignOut = e => {
     e.preventDefault();
-    this.props.onLogOut();
+    this.props.logOut();
   };
   toggle = () => {
     this.setState({ navbarTogglerOpen: !this.state.navbarTogglerOpen });
@@ -174,7 +174,7 @@ const mapDispatchToProps = dispatch => ({
 
 const ConnectedNavBar = connect(
   mapStateToProps,
-  mapDispatchToProps
+  { logOut }
 )(NavBar);
 
 export default class Wrapper extends React.Component {

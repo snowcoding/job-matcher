@@ -26,17 +26,10 @@ class ViewContainer extends Component {
     confirmAction: false
   };
   componentDidMount() {
-    this.props.getProfile();
     // TODO handle the setime out in cleaner way.
     setTimeout(() => {
       this.getRandomUserHandler();
     }, 500);
-  }
-
-  componentDidUpdate(prevProps, prevState, nextContext) {
-    if (prevProps !== this.props) {
-      this.props.getProfile();
-    }
   }
 
   showFullCard = e => {
@@ -44,7 +37,7 @@ class ViewContainer extends Component {
       is_open: !this.state.is_open
     });
   };
-  validateSuper = (freeCredit, balance) => {
+  validateSuperAction = (freeCredit, balance) => {
     if (freeCredit > 0 || balance > 0) {
       if (balance < 10 && freeCredit < 10) {
         this.setState({
@@ -68,7 +61,7 @@ class ViewContainer extends Component {
       freeCredit = this.props.currentUser.free_calls;
     }
     if (freeCredit > 0 || balance > 0) {
-      this.validateSuper(freeCredit, balance);
+      this.validateSuperAction(freeCredit, balance);
       this.setState({
         hasEnoughCreditForRegularAction: true,
         hoverText: `you have ${freeCredit || balance} credit left`,
@@ -99,6 +92,7 @@ class ViewContainer extends Component {
     }
     this.setState({ jobIdSelected: null });
     this.validate();
+    this.props.getProfile();
   };
 
   postMatchActionHandler = () => {
@@ -116,7 +110,7 @@ class ViewContainer extends Component {
       toast.success("This job was Supered!!");
     } else {
       data = this.populateEmployerDataInfo("SUPER");
-      toast.success("This geek was Supered!");
+      toast.success(`You Supered ${this.props.data.first_name}`);
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
