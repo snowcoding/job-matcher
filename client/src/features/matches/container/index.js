@@ -7,11 +7,13 @@ import NewBaseCard from "../../../presentation/BaseCard";
 import { getMatches } from "../store/action";
 import { connect } from "react-redux";
 
-const JobCardDeck = styled(CardDeck)`
+const JobCardDeck = styled.div`
   width: 100%;
-  max-width: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px auto;
 `;
-
 class MatchContainer extends Component {
   constructor(props) {
     super(props);
@@ -91,6 +93,7 @@ class MatchContainer extends Component {
                 btn2Text={"Email"}
                 btn1={this.btn1}
                 btn2={this.btn2}
+                width={"300px"}
               />
             ))}
         </JobCardDeck>
