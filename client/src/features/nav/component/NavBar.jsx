@@ -6,6 +6,8 @@ import {
   Navbar,
   Nav,
   NavItem,
+  Collapse,
+  NavbarToggler,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -21,6 +23,13 @@ class NavBar extends React.Component {
   handleSignOut = e => {
     e.preventDefault();
     this.props.onLogOut();
+  };
+  toggle = () => {
+    this.setState({ navbarTogglerOpen: !this.state.navbarTogglerOpen });
+  };
+
+  dropDownToggle = () => {
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
   render() {
     let photoSrc;
@@ -41,117 +50,114 @@ class NavBar extends React.Component {
     // }
 
     return (
-      <div>
-        <Navbar color="light" light expand="md">
+      <Navbar color="light" light expand="sm">
+        <div className="container">
           <NavLink
             to="/"
             activeStyle={{
               fontWeight: "bold",
               textDecoration: "none",
-              color: "#4D4D4D"
+              color: "#4D4D4D",
+              fontSize: "30px"
             }}
           >
             Job Matcher
           </NavLink>
+          <NavbarToggler onClick={this.toggle} />
           {this.props.authenticatoin_succeed && (
-            <Nav className="ml-auto" navbar>
-              {this.props.currentUser &&
-              this.props.currentUser.is_seeker &&
-              !this.props.currentUser.is_employer ? (
-                <NavItem>
-                  <NavLink
-                    to="/components/"
-                    activeStyle={{
-                      margin: "2px"
-                    }}
+            <Collapse isOpen={this.state.navbarTogglerOpen} navbar>
+              {/* <Nav navbar>
+              <NavItem  style={{color: '#4D4D4D', padding: '12px'}} activeStyle={{color: 'red'}}> Hi {this.props.currentUser.first_name}</NavItem>
+            </Nav> */}
+              <Nav className="ml-auto" navbar>
+                {this.props.currentUser &&
+                this.props.currentUser.is_seeker &&
+                !this.props.currentUser.is_employer ? (
+                  <NavItem
+                    style={{ color: "#4D4D4D", padding: "8px" }}
+                    activeStyle={{ color: "red" }}
                   >
                     Free Apps:{this.props.currentUser.free_apps}
-                  </NavLink>
-                </NavItem>
-              ) : null}
+                  </NavItem>
+                ) : null}
 
-              {this.props.currentUser &&
-              this.props.currentUser.is_employer &&
-              !this.props.currentUser.is_seeker ? (
-                <>
-                  <NavItem>
-                    <NavLink
-                      to="/components/"
-                      activeStyle={{
-                        margin: "2px"
-                      }}
-                    >
+                {this.props.currentUser &&
+                this.props.currentUser.is_employer &&
+                !this.props.currentUser.is_seeker ? (
+                  <>
+                    <NavItem style={{ color: "#4D4D4D", padding: "8px" }}>
                       Postings Availible:{this.props.currentUser.postings}
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="/components/"
-                      activeStyle={{
-                        margin: "2px"
-                      }}
-                    >
+                    </NavItem>
+                    <NavItem style={{ color: "#4D4D4D", padding: "8px" }}>
                       Free Calls: {this.props.free_calls}
-                    </NavLink>
-                  </NavItem>
-                </>
-              ) : null}
-              <NavItem>Hi {this.props.currentUser.first_name}</NavItem>
-              <NavItem>
-                <NavLink
-                  to="give a path"
-                  activeStyle={{
-                    margin: "2px"
-                  }}
+                    </NavItem>
+                  </>
+                ) : null}
+                <NavItem
+                  style={{ color: "#4D4D4D", margin: "8px" }}
+                  activeStyle={{ color: "red" }}
                 >
                   Balance credits:{this.props.currentUser.credits}
-                </NavLink>
-              </NavItem>
-              <ProfilePhotoContainer>
-                <ProfileImg src={photoSrc} alt="" />
-              </ProfilePhotoContainer>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  My Account
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    <Link to="/">Home</Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Link to="/profile">My Profile</Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Link to="/Matches">Matches</Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Link to="/Messages">Messages</Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Link to="/Billing">Billing</Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Link to="/view">View</Link>
-                  </DropdownItem>
-                  {this.props.currentUser &&
-                  this.props.currentUser.is_employer &&
-                  !this.props.currentUser.is_seeker ? (
+                </NavItem>
+                <ProfilePhotoContainer>
+                  <ProfileImg src={photoSrc} alt="" />
+                </ProfilePhotoContainer>
+                <UncontrolledDropdown
+                  nav
+                  inNavbar
+                  isOpen={this.state.dropdownOpen}
+                  toggle={this.dropDownToggle}
+                >
+                  <DropdownToggle
+                    nav
+                    caret
+                    style={{
+                      color: "#4D4D4D",
+                      color: "initial",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    {this.props.currentUser.first_name}
+                  </DropdownToggle>
+                  <DropdownMenu right>
                     <DropdownItem>
-                      <Link to="/Job">Job</Link>
+                      <Link to="/">Home</Link>
                     </DropdownItem>
-                  ) : null}
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    <Link to="/" onClick={this.handleSignOut}>
-                      Sign Out
-                    </Link>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
+                    <DropdownItem>
+                      <Link to="/profile">My Profile</Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="/Matches">Matches</Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="/Messages">Messages</Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="/Billing">Billing</Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="/view">View</Link>
+                    </DropdownItem>
+                    {this.props.currentUser &&
+                    this.props.currentUser.is_employer &&
+                    !this.props.currentUser.is_seeker ? (
+                      <DropdownItem>
+                        <Link to="/Job">Job</Link>
+                      </DropdownItem>
+                    ) : null}
+                    <DropdownItem divider />
+                    <DropdownItem>
+                      <Link to="/" onClick={this.handleSignOut}>
+                        Sign Out
+                      </Link>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </Nav>
+            </Collapse>
           )}
-        </Navbar>
-      </div>
+        </div>
+      </Navbar>
     );
   }
 }
