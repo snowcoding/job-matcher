@@ -46,7 +46,6 @@ class ViewContainer extends Component {
       freeCredit = this.props.currentUser.free_calls;
     }
     if (freeCredit > 0 || balance > 0) {
-      console.log("user has enough credit", freeCredit, balance);
       this.setState({
         hasEnoughCredit: true,
         hoverText: `you have ${freeCredit || balance} credit left`,
@@ -58,7 +57,6 @@ class ViewContainer extends Component {
         });
       }
     } else {
-      console.log("user needs credit", freeCredit, balance);
       this.setState({
         hasEnoughCredit: false,
         hoverText: `you have ${freeCredit || balance} credit left, not enough`,
@@ -81,7 +79,17 @@ class ViewContainer extends Component {
 
   postMatchActionHandler = () => {
     const userType = this.props.currentUser.is_seeker;
+    let balance = this.props.currentUser.credits;
     let data;
+    if (balance < 10) {
+      this.setState({
+        hasEnoughCredit: false
+      });
+      toast.error(
+        "Please make sure you have at least 10 or more credit, to match a super"
+      );
+      return;
+    }
     if (userType) {
       data = this.populateSeekerDataInfo("SUPER");
       toast.success("This job was Supered!!");
