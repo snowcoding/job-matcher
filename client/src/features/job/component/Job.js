@@ -136,7 +136,13 @@ class Job extends Component {
         this.setState({ jobs });
       })
       .catch(error => {
-        toast.error("ohh, adding job failed. Please try again!");
+        let errorMessageKeys = Object.keys(error.response.data);
+        let errorMessageValue = Object.values(error.response.data);
+        toast.error("ohh, adding job failed, Please try again!");
+        let errorMessage = errorMessageKeys.map(
+          (error, index) => `[${error}]: ${errorMessageValue[index][1]}`
+        );
+        toast.error(errorMessage.join(" "));
         console.log("Response Error: ", { error });
       });
 
