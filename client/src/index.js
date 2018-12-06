@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
 // redux
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
@@ -31,10 +32,12 @@ const store = createStore(
 // let store = createStore(persistedReducer)
 let persistor = persistStore(store);
 
+const hist = createBrowserHistory();
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Router>
+      <Router history={hist}>
         <App />
       </Router>
       ,

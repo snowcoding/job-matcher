@@ -4,7 +4,7 @@ import Profile from "../components/Profile";
 import Form from "../components";
 import { getProfile, updateUser } from "../../auth/store/action";
 import FormEducation from "./FormEducation";
-import FormExprience from "./FormExprience";
+import FormExperience from "./FormExperience";
 import FormPassword from "./FormPassword";
 import FormPersonal from "./FormPersonal";
 import FormCompany from "./FormCompany";
@@ -27,7 +27,7 @@ class ProfileContainer extends Component {
           Skill: <FormSkills />,
           Company: <FormCompany />,
           Education: <FormEducation />,
-          Exprience: <FormExprience />,
+          Experience: <FormExperience />,
           Password: <FormPassword />
         }
       : {};
