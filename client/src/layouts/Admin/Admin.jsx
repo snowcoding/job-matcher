@@ -4,14 +4,14 @@ import { Route, Switch } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-import Sidebar from "components/Sidebar/Sidebar.jsx";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
+import AdminNavbar from "../../presentation/black-dash-components/Navbars/AdminNavbar.jsx";
+import Footer from "../../presentation/black-dash-components/Footer/Footer.jsx";
+import Sidebar from "../../presentation/black-dash-components/Sidebar/Sidebar.jsx";
+import FixedPlugin from "../../presentation/black-dash-components/FixedPlugin/FixedPlugin.jsx";
 
 import routes from "routes.js";
 
-import logo from "assets/img/react-logo.png";
+import logo from "../../assets/img/react-logo.png";
 
 var ps;
 
@@ -62,14 +62,8 @@ class Admin extends React.Component {
   };
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
+      if (prop.path) {
+        return <Route path={prop.path} component={prop.component} key={key} />;
       } else {
         return null;
       }
@@ -80,15 +74,11 @@ class Admin extends React.Component {
   };
   getBrandText = path => {
     for (let i = 0; i < routes.length; i++) {
-      if (
-        this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path
-        ) !== -1
-      ) {
+      if (this.props.location.pathname.indexOf(routes[i].path) !== -1) {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "SeekGeek";
   };
   render() {
     return (
@@ -100,7 +90,7 @@ class Admin extends React.Component {
             bgColor={this.state.backgroundColor}
             logo={{
               outterLink: "https://www.creative-tim.com/",
-              text: "Creative Tim",
+              text: "Seek Geek",
               imgSrc: logo
             }}
             toggleSidebar={this.toggleSidebar}
@@ -123,10 +113,10 @@ class Admin extends React.Component {
             )}
           </div>
         </div>
-        <FixedPlugin
+        {/* <FixedPlugin
           bgColor={this.state.backgroundColor}
           handleBgClick={this.handleBgClick}
-        />
+        /> */}
       </>
     );
   }
