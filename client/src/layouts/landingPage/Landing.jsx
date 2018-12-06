@@ -81,7 +81,7 @@ const zoomIn = keyframes`
 const Menu = styled.div`
   width: 400px;
   padding: 20px;
-  background-color: #042163
+  background-color: #1e1e2e;
   margin: auto;
   z-index: 10;
   position: absolute;
@@ -90,13 +90,16 @@ const Menu = styled.div`
   border-radius: 10px;
   transform: translate(-50%, -50%);
   animation: ${zoomIn} 3s;
-  input{
+  input {
     display: block;
     padding: 5px 15px 5px 5px;
     font-size: 14px;
     margin: 10px auto;
     width: 80%;
     border: none;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
   }
 `;
 class Landing extends React.Component {
@@ -122,7 +125,7 @@ class Landing extends React.Component {
     });
   };
   render() {
-    if (this.props.authenticatoin_succeed) return <Redirect to="/view" />;
+    if (this.props.authenticatoin_succeed) return <Redirect to="/seek" />;
     return (
       <React.Fragment>
         <LandingDiv is_menuOpen={this.state.is_menuOpen}>

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 // redux
@@ -40,7 +40,6 @@ ReactDOM.render(
       <Router history={hist}>
         <App />
       </Router>
-      ,
     </PersistGate>
   </Provider>,
   document.getElementById("root")
