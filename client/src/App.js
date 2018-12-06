@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { ToastContainer, Slide } from "react-toastify";
 // import "./App.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "assets/css/black-dashboard-react.css";
@@ -10,12 +11,13 @@ import AdminLayout from "layouts/Admin/Admin.jsx";
 class App extends Component {
   render() {
     return (
-      /* <div className="App"> */
-      /* <Layout /> */
-      <Switch>
-        <Route path="/" render={props => <AdminLayout {...props} />} />
-      </Switch>
-      /* </div> */
+      <div className="App">
+        {/* <Layout />  */}
+        <Switch>
+          <Route path="/" render={props => <AdminLayout {...props} />} />
+        </Switch>
+        <ToastContainer transition={Slide} />
+      </div>
     );
   }
 }

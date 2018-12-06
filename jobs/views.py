@@ -41,7 +41,7 @@ class MatchViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.Create
         else:
             profile = self.request.user.seeker
 
-        # employer.matches automcatically gives only his matches and no other employer
+        # employer.matches automatically gives only his matches and no other employer
         # employer_action = SUPER or
         # seeker_action = SUPER or
         # employer_action = CALL and seeker_action = APPLY

@@ -4,33 +4,19 @@ import { CardElement, injectStripe } from "react-stripe-elements";
 import { Button, Form, FormGroup, Label, CustomInput } from "reactstrap";
 import { billUser } from "../store/action";
 
-// class BrowseContainer extends Component {
-//   getRandomUserS = () => {
-//     this.props.getRandomUser("seeker");
-//   };
-//   getRandomUserE = () => {
-//     this.props.getRandomUser("employer");
-//   };
-
-//   render() {
-//     return (
-//       <BrowseElement
-//         data={this.props.data}
-//         onClick={[this.getRandomUserE, this.getRandomUserS]}
-//       />
-//     );
-//   }
-// }
-
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    // this.state = { complete: false };
+    this.state = {
+      item: ""
+    };
     this.submit = this.submit.bind(this);
   }
 
-  async submit(ev) {
-    // find a way to send token to action
+  updateItemSelected = e => {
+    this.setState({ item: e.target.value });
+  };
+  async submit() {
     let { token } = await this.props.stripe.createToken({
       user_id: this.props.currentUser.id,
       name:
@@ -39,18 +25,7 @@ class CheckoutForm extends Component {
         this.props.currentUser.last_name
     });
     console.log(token);
-    this.props.billUser(token);
-    // send the token to server here.
-    // await Api.endpoints
-    //   .charge(token.id)
-    //   .then(response => {
-    //     console.log(response);
-    //     console.log("Purchase Complete!");
-    //     this.setState({ complete: true });
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    this.props.billUser({ token, item: this.state.item });
   }
 
   render() {
@@ -62,23 +37,29 @@ class CheckoutForm extends Component {
           <Label>Payment info</Label>
           <CardElement />
         </FormGroup>
-        <FormGroup>
+        <FormGroup onChange={this.updateItemSelected}>
           <div>
             <CustomInput
-              type="checkbox"
-              id="exampleCustomCheckbox"
+              type="radio"
+              name="item"
+              id="exampleCustomradio"
               label="100 Credits - $9.99"
+              value="CREDIT100"
             />
             <CustomInput
-              type="checkbox"
-              id="exampleCustomCheckbox2"
+              type="radio"
+              name="item"
+              id="exampleCustomradio2"
               label="5 Credits - $0.99"
+              value="CREDIT5"
             />
             {this.props.currentUser && this.props.currentUser.is_employer ? (
               <CustomInput
-                type="checkbox"
+                type="radio"
+                name="item"
                 id="exampleCustomCheckbox3"
                 label="Post Job - $9.99"
+                value="POSTING1"
               />
             ) : null}
           </div>

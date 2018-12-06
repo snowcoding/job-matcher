@@ -3,7 +3,7 @@ import * as action from "./actionTypes";
 import { addErrorHandler } from "./error";
 import * as actionType from "../../forms/store/actionType";
 import Api from "../../../api";
-
+import { toast } from "react-toastify";
 const signUpHandler = data => ({
   type: action.SIGNUP__USER,
   data
@@ -46,9 +46,11 @@ export const signUpUser = (userType, data) => {
     Api.endpoints
       .signUp(userType, data)
       .then(result => {
+        toast.success("Welcome");
         dispatch(signUpHandler(result.data));
       })
       .catch(error => {
+        toast.error("Signup failed, Please try again!");
         error.response
           ? dispatch(addErrorHandler(error.response.data))
           : dispatch(addErrorHandler(error.message));
@@ -63,9 +65,11 @@ export const login = data => {
     Api.endpoints
       .signIn(data)
       .then(result => {
+        toast.success("Welcome  back");
         dispatch(loginHandler(result.data));
       })
       .catch(error => {
+        toast.error("login failed, Please try again!");
         error.response
           ? dispatch(addErrorHandler(error.response.data))
           : dispatch(addErrorHandler(error.message));
@@ -79,9 +83,11 @@ export const updateUser = (userType, userId, data) => {
     Api.endpoints
       .updateUser(userType, userId, data)
       .then(result => {
+        toast.success("Profile updated");
         dispatch(updateUserHandler(result.data));
       })
       .catch(error => {
+        toast.error("updateUser failed!");
         error.response
           ? dispatch(addErrorHandler(error.response.data))
           : dispatch(addErrorHandler(error.message));

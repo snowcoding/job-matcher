@@ -77,6 +77,7 @@ export const StyledInput = styled.input`
     &:-webkit-input-placeholder,
     &::-webkit-input-placeholder {
       transform: translateY(-200%);
+      text-transform: capitalize;
       opacity: 0;
       transition: all 0.3s;
     }

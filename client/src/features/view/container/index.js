@@ -5,6 +5,7 @@ import { getMyJobs } from "../../job/store/action";
 import { getProfile } from "../../auth/store/action";
 import ExplicitBaseCard from "../../../presentation/BaseCard";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 const MatchContainer = styled.div`
   width: 400px;
@@ -20,7 +21,8 @@ class ViewContainer extends Component {
     jobIdSelected: null,
     hasEnoughCredit: false,
     hoverText: "",
-    outOfCreditAlert: false
+    outOfCreditAlert: false,
+    confirmAction: false
   };
   componentDidMount() {
     this.props.getProfile();
@@ -44,14 +46,17 @@ class ViewContainer extends Component {
       freeCredit = this.props.currentUser.free_calls;
     }
     if (freeCredit > 0 || balance > 0) {
-      console.log("user has enough credit", freeCredit, balance);
       this.setState({
         hasEnoughCredit: true,
         hoverText: `you have ${freeCredit || balance} credit left`,
         outOfCreditAlert: false
       });
+      if (this.props.currentUser.confirm_spending && freeCredit === 0) {
+        this.setState({
+          confirmAction: true
+        });
+      }
     } else {
-      console.log("user needs credit", freeCredit, balance);
       this.setState({
         hasEnoughCredit: false,
         hoverText: `you have ${freeCredit || balance} credit left, not enough`,
@@ -74,11 +79,20 @@ class ViewContainer extends Component {
 
   postMatchActionHandler = () => {
     const userType = this.props.currentUser.is_seeker;
+    let balance = this.props.currentUser.credits;
     let data;
+    if (balance < 10) {
+      toast.error(
+        "Please make sure you have at least 10 or more credit, to match a super"
+      );
+      return;
+    }
     if (userType) {
       data = this.populateSeekerDataInfo("SUPER");
+      toast.success("This job was Supered!!");
     } else {
       data = this.populateEmployerDataInfo("SUPER");
+      toast.success("This geek was Supered!");
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
@@ -139,6 +153,7 @@ class ViewContainer extends Component {
     if (this.props.success && this.props.currentUser.is_seeker) {
       card = (
         <ExplicitBaseCard
+          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
           btn1Text={"Skip"}
           btn2Text={"Super"}
           btn3Text={"App"}
@@ -154,6 +169,8 @@ class ViewContainer extends Component {
           is_expandable={true}
           requirements={this.props.data.requirements}
           description={this.props.data.description}
+          skills={this.props.data.top_skills}
+          extra_skills={this.props.data.extra_skills}
           is_valid={this.state.hasEnoughCredit}
           btn3Hover={this.state.hoverText}
           outOfCreditAlert={this.state.outOfCreditAlert}
@@ -162,6 +179,7 @@ class ViewContainer extends Component {
     } else if (this.props.success && !this.props.currentUser.is_seeker) {
       card = (
         <ExplicitBaseCard
+          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
           btn1Text={"Skip"}
           btn2Text={"Super"}
           btn3Text={"Call"}
@@ -184,6 +202,8 @@ class ViewContainer extends Component {
           is_expandable={true}
           education={this.props.data.education}
           experience={this.props.data.experience || "experience"}
+          skills={this.props.data.top_skills}
+          extra_skills={this.props.data.extra_skills}
           btn3Hover={this.state.hoverText}
         />
       );
@@ -195,6 +215,7 @@ class ViewContainer extends Component {
     return <MatchContainer>{card}</MatchContainer>;
   }
 }
+
 const MapStateToProps = state => {
   return {
     currentUser: state.user.currentUser,
