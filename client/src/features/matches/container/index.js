@@ -15,12 +15,7 @@ const JobCardDeck = styled.div`
   margin: 20px auto;
 `;
 const CardContainer = styled.div`
-  // width: 400px;
-  // max-width: 900px;
-  // display: flex;
-  // flex-wrap: wrap;
-  // justify-content: space-between;
-  // margin: 20px auto;
+  width: 500px;
 `;
 class MatchContainer extends Component {
   constructor(props) {
