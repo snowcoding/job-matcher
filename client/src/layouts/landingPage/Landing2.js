@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 // import "./assets/css/main.css";
 import "./assets/css/noscript.css";
 import pic01 from "../../assets/images/pic01.jpg";
@@ -10,6 +12,25 @@ import pic06 from "../../assets/images/pic06.jpg";
 import pic07 from "../../assets/images/pic07.jpg";
 import pic08 from "../../assets/images/pic08.jpg";
 
+const StyledMenu = styled(Link)`
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.125);
+    padding: 0 1.35em;
+    color: #ffffff
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all 0.2s ease-in-out;
+
+    &:before{
+      content: ""\\F0C9"";
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-transform: none !important;
+    }
+`;
 const Landing2 = props => {
   return (
     <div id="page-wrapper">
@@ -18,6 +39,7 @@ const Landing2 = props => {
           <a href="#">Seek Geek</a>
         </h1>
         <nav>
+          {/*<StyledMenu>Menu</StyledMenu>*/}
           <a href="#menu">Sign Up | Sign In</a>
         </nav>
       </header>
@@ -47,19 +69,6 @@ const Landing2 = props => {
           </a>
         </div>
       </nav>
-
-      <section id="banner">
-        <div className="inner">
-          <div className="logo">
-            <span className="icon fa-binoculars" />
-          </div>
-          <h2>This is Seek Geek</h2>
-          <p>
-            Another full stack application by{" "}
-            <a href="https://github.com/Lambda-School-Labs">Lambda Labs</a>
-          </p>
-        </div>
-      </section>
 
       <section id="wrapper">
         <section id="one" className="wrapper spotlight style1">
