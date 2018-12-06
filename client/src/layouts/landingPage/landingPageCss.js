@@ -20,6 +20,9 @@ export const LandingDiv = styled.div`
   position: absolute;
   top: 0;
   z-index: 10;
+  transition: all 0.4s;
+  filter: ${props => (props.is_menuOpen ? "blur(0.8px)" : null)};
+  filter: ${props => (props.is_menuOpen ? "brightness(0.6)" : null)};
 `;
 export const LandingHeading = styled.h1`
   animation: movieInLeftSlow 3s;

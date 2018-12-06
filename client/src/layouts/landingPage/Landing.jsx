@@ -6,8 +6,10 @@ import {
   CenterDiv,
   LandingHeading
 } from "./landingPageCss";
-import styled from "styled-components";
-
+import styled, { keyframes } from "styled-components";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../features/auth/store/action";
 const StyledMenu = styled.div`
   text-decoration: none;
   transition: all 0.2s ease-in-out;
@@ -66,44 +68,107 @@ const StyledDivLogo = styled.div`
     width: 2.25em;
   }
 `;
+const zoomIn = keyframes`
+  0%{
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
 const Menu = styled.div`
   width: 400px;
-  height: 500px;
-  background-color: gray;
+  padding: 20px;
+  background-color: #042163
   margin: auto;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  animation: ${zoomIn} 3s;
+  input{
+    display: block;
+    padding: 5px 15px 5px 5px;
+    font-size: 14px;
+    margin: 10px auto;
+    width: 80%;
+    border: none;
+  }
 `;
 class Landing extends React.Component {
   state = {
-    is_menuOpen: false
+    is_menuOpen: false,
+    email: "",
+    password: ""
+  };
+  onChangeHanlder = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
   toggleMenu = e => {
     this.setState({
       is_menuOpen: !this.state.is_menuOpen
     });
   };
+  onSubmitHandler = e => {
+    e.preventDefault();
+    console.log("onsubmit clicked");
+    this.props.login({
+      username: this.state.email,
+      password: this.state.password
+    });
+  };
   render() {
+    if (this.props.authenticatoin_succeed) return <Redirect to="/view" />;
     return (
-      <LandingDiv>
-        <StyledMenu onClick={this.toggleMenu}>Sign Up | Sign In</StyledMenu>
-        <CenterDiv>
-          <section id="banner">
-            <div className="inner">
-              <StyledDivLogo className="logo">
-                <i className="fas fa-binoculars">{""}</i>
-              </StyledDivLogo>
-              <StyledH2>This is Seek Geek</StyledH2>
-              <StyledP>Another full stack application by </StyledP>
-            </div>
-          </section>
-        </CenterDiv>
+      <React.Fragment>
+        <LandingDiv is_menuOpen={this.state.is_menuOpen}>
+          <StyledMenu onClick={this.toggleMenu}>Sign Up | Sign In</StyledMenu>
+          <CenterDiv>
+            <section id="banner">
+              <div className="inner">
+                <StyledDivLogo className="logo">
+                  <i className="fas fa-binoculars">{""}</i>
+                </StyledDivLogo>
+                <StyledH2>This is Seek Geek</StyledH2>
+                <StyledP>Another full stack application by </StyledP>
+              </div>
+            </section>
+          </CenterDiv>
+        </LandingDiv>
         {this.state.is_menuOpen && (
           <Menu>
-            <CenterDiv>Sign up here</CenterDiv>
+            <form onSubmit={this.onSubmitHandler}>
+              <input
+                type="text"
+                onChange={this.onChangeHanlder}
+                value={this.state.email}
+                name={"email"}
+                placeholder={"email"}
+              />
+              <input
+                type="password"
+                onChange={this.onChangeHanlder}
+                value={this.state.password}
+                name={"password"}
+                placeholder={"password"}
+              />
+              <input type="submit" value={"save"} />
+            </form>
           </Menu>
         )}
-      </LandingDiv>
+      </React.Fragment>
     );
   }
 }
 
-export default Landing;
+const MapPropsToState = state => ({
+  authenticatoin_succeed: state.user.authenticatoin_succeed
+});
+export default connect(
+  MapPropsToState,
+  { login }
+)(Landing);
