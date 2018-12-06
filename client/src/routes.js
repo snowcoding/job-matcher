@@ -5,6 +5,7 @@ import Matches from "views/Matches.jsx";
 import Messages from "views/Messages.jsx";
 import JobPostings from "views/JobPostings.jsx";
 import BillingView from "views/BillingView.jsx";
+import UserProfile from "views/UserProfile.jsx";
 
 var routes = [
   {
@@ -47,6 +48,13 @@ var routes = [
     name: "Billing",
     icon: "tim-icons icon-cart",
     component: ProtectedPages(BillingView),
+    layout: "/admin"
+  },
+  {
+    path: "/sibhat",
+    name: "sibhat",
+    icon: "tim-icons icon-cart",
+    component: ProtectedPages(UserProfile),
     layout: "/admin"
   }
 ];
