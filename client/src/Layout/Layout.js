@@ -14,12 +14,13 @@ import BrowseContainer from "../features/profile/container";
 import Job from "../features/job/component/Job";
 import MatchContainer from "../features/matches/container/";
 
+import Admin from "../layouts/Admin/Admin";
 export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <NavBar />
-        <Route path="/" exact component={Landing} />
+        {/* <NavBar />
+        <Route path="/" exact component={Landing} /> */}
         {/*<Route path="/landing2" exact component={Landing2} />*/}
         <Container>
           <Row>
@@ -43,6 +44,7 @@ export default class Layout extends React.Component {
               <Route path="/job" component={ProtectedPages(Job)} />
               <Route path="/view" component={ProtectedPages(View)} />
               <Route path="/testing" exact component={Testing} />
+              {/* <Route path="/admin" component={Admin} /> */}
             </Switch>
           </Row>
         </Container>
