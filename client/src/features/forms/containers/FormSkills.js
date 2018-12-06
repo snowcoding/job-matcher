@@ -69,7 +69,7 @@ class FormSkills extends Component {
     return (
       <Form
         onSubmit={this.onSubmit}
-        title="Top Skills"
+        title="Skills"
         onChange={this.onChange}
         state={this.state}
       />

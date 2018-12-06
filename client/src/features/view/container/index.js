@@ -7,7 +7,7 @@ import ExplicitBaseCard from "../../../presentation/BaseCard";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 
-const MatchContainer = styled.div`
+const CardContainer = styled.div`
   width: 400px;
   max-width: 900px;
   display: flex;
@@ -212,7 +212,7 @@ class ViewContainer extends Component {
     if (!this.props.success) {
       return <h1>waiting</h1>;
     }
-    return <MatchContainer>{card}</MatchContainer>;
+    return <CardContainer>{card}</CardContainer>;
   }
 }
 

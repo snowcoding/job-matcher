@@ -89,23 +89,33 @@ const ExplicitBaseCard = props => {
         <div>
           <StyledH5 is_seeker={props.is_seeker}>{props.name}</StyledH5>
           <CardSubtitle>{props.summary}</CardSubtitle>
+          <CardSubtitle>{props.desired_title}</CardSubtitle>
         </div>
       </CardHeader>
       <StyledCardBody className="card-body">
         <StyledCardTitle className="card-title">{props.title}</StyledCardTitle>
-        {props.skills &&
-          props.skills.map((skill, i) => <CardText key={i}>{skill}</CardText>)}
+        {props.top_skills &&
+          props.top_skills.map((skill, i) => (
+            <CardText key={i}>{skill}</CardText>
+          ))}
+        {props.familiar_with &&
+          props.familiar_with.map((skill, i) => (
+            <CardText key={i}>{skill}</CardText>
+          ))}
         {props.extra_skills &&
           props.extra_skills.map((skill, i) => (
             <CardText key={i}>{skill}</CardText>
           ))}
         <ShowFullCard is_open={props.is_open} className="showfullcard">
-          <CardText>{props.experience}</CardText>
           <CardText>{props.salary_min}</CardText>
           <CardText>{props.salary_max}</CardText>
-          <CardText>{props.education}</CardText>
+
           <CardText>{props.description}</CardText>
           <CardText>{props.requirements}</CardText>
+
+          {/* employer view */}
+          <CardText>{props.experience}</CardText>
+          <CardText>{props.education}</CardText>
         </ShowFullCard>
         <div>
           {props.is_expandable && (

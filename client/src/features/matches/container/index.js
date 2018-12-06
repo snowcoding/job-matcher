@@ -14,6 +14,14 @@ const JobCardDeck = styled.div`
   justify-content: space-between;
   margin: 20px auto;
 `;
+const CardContainer = styled.div`
+  // width: 400px;
+  // max-width: 900px;
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: space-between;
+  // margin: 20px auto;
+`;
 class MatchContainer extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +64,41 @@ class MatchContainer extends Component {
     //console.log("state: ", this.state);
     const { matchesModal, matchSelected } = this.state;
     const job = matchSelected.job ? matchSelected.job : {};
-    console.log("state: ", job);
+    const seeker = matchSelected.seeker ? matchSelected.seeker : {};
+    console.log("job: ", job);
+    console.log("seeker: ", seeker);
+
+    let card;
+    if (this.props.currentUser.is_seeker) {
+      card = (
+        <NewBaseCard
+          //name={job.employer.company_name}
+          title={job.title}
+          is_expandable={true}
+          is_open={true}
+          //fullCardArrow={this.showFullCard}
+          top_skills={job.top_skills}
+          extra_skills={job.extra_skills}
+          familiar_with={job.familiar_with}
+          salary_min={job.salary_min}
+          salary_max={job.salary_max}
+          description={job.description}
+          requirements={job.requirements}
+          is_active={job.is_active}
+        />
+      );
+    } else {
+      card = (
+        <NewBaseCard
+          name={seeker.first_name}
+          is_open={true}
+          education={"seeker.education"}
+          experience={"seeker.experience"}
+          desired_title={"seeker.desired_title"}
+          //free_apps={seeker.free_apps}
+        />
+      );
+    }
 
     let { matchesRequestSuccess, currentUser, matches } = this.props;
 
@@ -85,9 +127,6 @@ class MatchContainer extends Component {
                 id={match.id}
                 title={match.userData}
                 name={`${match.name}`}
-                //${match.userData.last_name
-                //userData={this.props.match.userData}
-
                 toggle={this.matchCardClickHandler(match)}
                 btn1Text={"Archive"}
                 btn2Text={"Email"}
@@ -104,25 +143,7 @@ class MatchContainer extends Component {
             matchData={matchSelected}
           >
             <ModalHeader toggle={this.toggleJobModal}>Details </ModalHeader>
-            <ModalBody>
-              {
-                <NewBaseCard
-                  id={this.id}
-                  //title={`${this.state.matchData.seeker.title}`}
-                  name={job.title}
-                  skills={job.top_skills}
-                  summary={job.requirements}
-                  salary_min={job.salary_min}
-                  salary_max={job.salary_max}
-                  description={job.description}
-                  is_active={job.is_active}
-                  // btn1Text={"Cancel"}
-                  // btn2Text={"Apply"}
-                  // btn1={this.btn1}
-                  // btn2={this.btn2}
-                />
-              }
-            </ModalBody>
+            <ModalBody>{<CardContainer>{card}</CardContainer>}</ModalBody>
           </Modal>
         }
       </React.Fragment>
