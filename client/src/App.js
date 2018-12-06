@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer, Slide } from "react-toastify";
 // import "./App.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
