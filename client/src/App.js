@@ -1,16 +1,21 @@
 import React, { Component } from "react";
-import "./App.css";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+// import "./App.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "assets/css/black-dashboard-react.css";
 import "assets/css/nucleo-icons.css";
-import Layout from "./Layout/Layout";
+// import Layout from "./Layout/Layout";
+import AdminLayout from "layouts/Admin/Admin.jsx";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Layout />
-      </div>
+      /* <div className="App"> */
+      /* <Layout /> */
+      <Switch>
+        <Route path="/" render={props => <AdminLayout {...props} />} />
+      </Switch>
+      /* </div> */
     );
   }
 }
