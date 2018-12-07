@@ -274,7 +274,7 @@ class AuthContainer extends Component {
         <MyComponent actionType={actionType} />
       </React.Fragment>
     ) : (
-      <Redirect to="/view" />
+      <Redirect to="/seek" />
     );
   }
 }
