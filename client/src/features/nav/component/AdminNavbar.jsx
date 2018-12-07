@@ -163,7 +163,10 @@ class AdminNavbar extends React.Component {
                       !this.props.currentUser.is_employer ? (
                         <NavLink tag="li">
                           <DropdownItem className="nav-item">
-                            Free Apps:{this.props.currentUser.free_apps}
+                            Free Apps{" "}
+                            <Badge color="info">
+                              {this.props.currentUser.free_apps}
+                            </Badge>
                           </DropdownItem>
                         </NavLink>
                       ) : null}
@@ -174,13 +177,18 @@ class AdminNavbar extends React.Component {
                         <>
                           <NavLink tag="li">
                             <DropdownItem className="nav-item">
-                              Postings Availible:
-                              {this.props.currentUser.postings}
+                              Postings Availible{" "}
+                              <Badge color="default">
+                                {this.props.currentUser.postings}
+                              </Badge>
                             </DropdownItem>
                           </NavLink>
                           <NavLink tag="li">
                             <DropdownItem className="nav-item">
-                              Free Calls: {this.props.free_calls}
+                              Free Calls{" "}
+                              <Badge color="info">
+                                {this.props.currentUser.free_calls}
+                              </Badge>
                             </DropdownItem>
                           </NavLink>
                         </>
@@ -191,14 +199,14 @@ class AdminNavbar extends React.Component {
                           Credits{" "}
                           <Badge color="success">
                             {this.props.currentUser.credits}
-                          </Badge>{" "}
+                          </Badge>
                         </DropdownItem>
                       </NavLink>
-                      <NavLink tag="li">
+                      {/* <NavLink tag="li">
                         <DropdownItem className="nav-item">
                           Another one
                         </DropdownItem>
-                      </NavLink>
+                      </NavLink> */}
                     </DropdownMenu>
                   </UncontrolledDropdown>
                   <UncontrolledDropdown nav>
