@@ -15,14 +15,13 @@ export const LandingDiv = styled.div`
     url(/static/media/bg-lg.c712a03e.jpg);
   background-size: auto, cover;
   background-position: center, center;
-  clip-path: polygon(100% 0, 100% 91%, 0 100%, 0 0);
   color: white;
   position: absolute;
   top: 0;
   z-index: 10;
-  transition: all 0.4s;
-  filter: ${props => (props.is_menuOpen ? "blur(0.8px)" : null)};
-  filter: ${props => (props.is_menuOpen ? "brightness(0.6)" : null)};
+  filter: ${props => (props.is_menuOpen ? "blur(1.8px)" : null)};
+  // filter: ${props => (props.is_menuOpen ? "brightness(0.6)" : null)};
+  transition: filter 0.4s;
 `;
 export const LandingHeading = styled.h1`
   animation: movieInLeftSlow 3s;

@@ -127,7 +127,7 @@ const StyledCardTitle = styled(CardTitle)`
 `;
 
 const ExplicitBaseCard = props => {
-  console.log("ExplicitBaseCard", { props });
+  // console.log("ExplicitBaseCard", { props });
   return (
     <StyledCard width={props.width} onClick={props.toggle}>
       <CardHeader className="styled-card-header">
