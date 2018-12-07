@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer, Slide } from "react-toastify";
 import "./App.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,6 +8,7 @@ import "assets/css/nucleo-icons.css";
 import Landing from "./layouts/landingPage/Landing";
 import AdminLayout from "layouts/Admin/Admin.jsx";
 import { connect } from "react-redux";
+
 class App extends Component {
   render() {
     return (
