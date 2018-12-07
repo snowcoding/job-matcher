@@ -166,9 +166,13 @@ const ExplicitBaseCard = props => {
             }}
           >
             {props.skills &&
-              props.skills.map((skill, i) => <p key={i}>{skill}</p>)}
+              props.skills.map((skill, i) => (
+                <p key={10 * Date.now()}>{skill} </p>
+              ))}
             {props.extra_skills &&
-              props.extra_skills.map((skill, i) => <p key={i}>{skill}</p>)}
+              props.extra_skills.map((skill, i) => (
+                <p key={Math.random() * Date.now()}>{skill}</p>
+              ))}
           </TagCloud>
         )}
         {/*</CardText>*/}
