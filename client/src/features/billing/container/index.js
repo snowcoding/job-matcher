@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { Button, Form, FormGroup, Label, CustomInput } from "reactstrap";
 import { billUser } from "../store/action";
+import { Redirect } from "react-router-dom";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class CheckoutForm extends Component {
 
   render() {
     console.log("Billing:", this.props);
-    if (this.props.complete) return <h1>Purchase Complete!</h1>;
+    if (this.props.complete) return <Redirect to={"/view"} />;
     return (
       <Form>
         <FormGroup>

@@ -64,6 +64,7 @@ class Admin extends React.Component {
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
   };
   getRoutes = routes => {
+    console.log("routes from admin,", { routes });
     return routes.map((prop, key) => {
       if (prop.path) {
         return <Route path={prop.path} component={prop.component} key={key} />;

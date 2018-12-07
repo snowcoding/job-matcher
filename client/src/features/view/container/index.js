@@ -26,18 +26,18 @@ class ViewContainer extends Component {
     confirmAction: false
   };
   componentDidMount() {
-    this.props.getProfile();
     // TODO handle the setime out in cleaner way.
     setTimeout(() => {
       this.getRandomUserHandler();
     }, 500);
   }
+
   showFullCard = e => {
     this.setState({
       is_open: !this.state.is_open
     });
   };
-  validateSuper = (freeCredit, balance) => {
+  validateSuperAction = (freeCredit, balance) => {
     if (freeCredit > 0 || balance > 0) {
       if (balance < 10 && freeCredit < 10) {
         this.setState({
@@ -61,7 +61,7 @@ class ViewContainer extends Component {
       freeCredit = this.props.currentUser.free_calls;
     }
     if (freeCredit > 0 || balance > 0) {
-      this.validateSuper(freeCredit, balance);
+      this.validateSuperAction(freeCredit, balance);
       this.setState({
         hasEnoughCreditForRegularAction: true,
         hoverText: `you have ${freeCredit || balance} credit left`,
@@ -92,6 +92,7 @@ class ViewContainer extends Component {
     }
     this.setState({ jobIdSelected: null });
     this.validate();
+    this.props.getProfile();
   };
 
   postMatchActionHandler = () => {
@@ -109,7 +110,7 @@ class ViewContainer extends Component {
       toast.success("This job was Supered!!");
     } else {
       data = this.populateEmployerDataInfo("SUPER");
-      toast.success("This geek was Supered!");
+      toast.success(`You Supered ${this.props.data.first_name}`);
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
@@ -120,8 +121,10 @@ class ViewContainer extends Component {
     let data;
     if (userType) {
       data = this.populateSeekerDataInfo("APPLY");
+      toast.success("Your application has been sent!");
     } else {
       data = this.populateEmployerDataInfo("CALL");
+      toast.success(`Your call to ${this.props.data.first_name} has been sent`);
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
@@ -157,7 +160,6 @@ class ViewContainer extends Component {
     this.validate();
   };
   render() {
-    console.log("view container:", this.props.data);
     let dropDownToggleText;
     if (this.state.jobIdSelected) {
       dropDownToggleText = this.props.jobs.filter(

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import TagCloud from "react-tag-cloud";
+import randomColor from "randomcolor";
 import {
   Card,
   CardImg,
@@ -23,26 +25,73 @@ const ShowFullCard = styled.div`
 `;
 const StyledH5 = styled.h5`
   color: ${props => (props.is_seeker ? "red" : "green")};
+  color: white;
   text-transform: capitalize;
   cursor: pointer;
 `;
+const StyledButton = styled(Button)`
+  // background-color: #207ccae8;
+  // color: #444444;
+  background-color: ${props => {
+    if (props.btn1) return "#31638f";
+    if (props.btn2) return "#200ccae8";
+    if (props.btn3) return "#209ccae8";
+    if (props.arrow) return "none";
+  }};
+`;
+
+const StyledDropdownToggle = styled(DropdownToggle)`
+  margin: auto;
+  /* padding: 6px 135px; */
+  /* width: 100%; */
+  /* box-sizing: border-box; */
+  border: none;
+  border: 1px solid;
+  border-radius: 0;
+  background-color: transparent;
+  color: white;
+  transition: all 0.4s;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #444444 !important;
+    color: white !important;
+    border: 1px solid white !important;
+    border: 1px solid white !important;
+  }
+  &:not(:disabled):not(.disabled):active {
+    background-color: #444444;
+    color: white;
+    border: 1px solid;
+  }
+`;
 const StyledCard = styled(Card)`
     width: ${props => (props.width ? props.width : "100%")}
+    background-color: #444
+    color: white;
     margin: 10px auto;
-    border: 1px solid;
     text-align: start;
-    border-radius: 10px;
+    border-radius: 0;
+    border-left: 20px solid #207ccae8;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     padding: 15px 10px;
+    i{
+        cursor: pointer;
+        &:hover{
+            color: #207ccae8;
+        }
+    }
     @media (min-width: 900px) {
-    margin: 10px 5px;
-  }
+      margin: 10px 5px;
+    }
 `;
 const CardHeader = styled.div`
   width: "100%";
   height: 100px;
   display: flex;
   border-radius: 1px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #207ccae8;
   padding-bottom: 10px;
   img {
     width: 100px;
@@ -74,9 +123,11 @@ const CardFooter = styled.div`
 const StyledCardTitle = styled(CardTitle)`
   font-size: 18px;
   text-transform: capitalize;
+  text-decoration: underline;
 `;
 
 const ExplicitBaseCard = props => {
+  // console.log("ExplicitBaseCard", { props });
   return (
     <StyledCard width={props.width} onClick={props.toggle}>
       <CardHeader className="styled-card-header">
@@ -93,12 +144,35 @@ const ExplicitBaseCard = props => {
       </CardHeader>
       <StyledCardBody className="card-body">
         <StyledCardTitle className="card-title">{props.title}</StyledCardTitle>
-        {props.skills &&
-          props.skills.map((skill, i) => <CardText key={i}>{skill}</CardText>)}
-        {props.extra_skills &&
-          props.extra_skills.map((skill, i) => (
-            <CardText key={i}>{skill}</CardText>
-          ))}
+        {
+          //props.skills &&
+          //  props.skills.map((skill, i) => <CardText key={i}>{skill}</CardText>)}
+          //  {props.extra_skills &&
+          //    props.extra_skills.map((skill, i) => (
+          //    <CardText key={i}>{skill}</CardText>
+          //  ))
+        }
+        {/*<CardText>*/}
+        {props.skills && (
+          <TagCloud
+            style={{
+              fontFamily: "sans-serif",
+              fontSize: 15,
+              fontWeight: "bold",
+              color: () => randomColor(),
+              width: "100%",
+              minHeight: "50px",
+              padding: 5
+            }}
+          >
+            {props.skills &&
+              props.skills.map((skill, i) => <p key={i}>{skill}</p>)}
+            {props.extra_skills &&
+              props.extra_skills.map((skill, i) => <p key={i}>{skill}</p>)}
+          </TagCloud>
+        )}
+        {/*</CardText>*/}
+
         <ShowFullCard is_open={props.is_open} className="showfullcard">
           <CardText>{props.experience}</CardText>
           <CardText>{props.salary_min}</CardText>
@@ -108,16 +182,22 @@ const ExplicitBaseCard = props => {
           <CardText>{props.requirements}</CardText>
         </ShowFullCard>
         <div>
-          {props.is_expandable && (
-            <Button onClick={props.fullCardArrow}>V</Button>
-          )}
+          {props.is_expandable &&
+            (props.is_open ? (
+              <i className="fas fa-arrow-up" onClick={props.fullCardArrow} />
+            ) : (
+              <i className="fas fa-arrow-down" onClick={props.fullCardArrow}>
+                {" "}
+                Read more...
+              </i>
+            ))}
         </div>
       </StyledCardBody>
       {props.dropDown && (
         <UncontrolledButtonDropdown>
-          <DropdownToggle caret size="lg" style={{ margin: "auto" }}>
+          <StyledDropdownToggle caret size="lg" style={{ margin: "auto" }}>
             {props.dropDownToggleText}
-          </DropdownToggle>
+          </StyledDropdownToggle>
           <DropdownMenu>
             {props.dropDown.map((job, index) => (
               <DropdownItem
@@ -132,9 +212,13 @@ const ExplicitBaseCard = props => {
       )}
       <CardFooter className="icard-footer">
         {props.btn1 && (
-          <Button onClick={props.btn1} disabled={!props.is_valid}>
+          <StyledButton
+            onClick={props.btn1}
+            disabled={!props.is_valid}
+            btn1={"true"}
+          >
             {props.btn1Text}
-          </Button>
+          </StyledButton>
         )}
         {props.btn2 &&
           (props.confirmAction === true ? (
@@ -144,9 +228,13 @@ const ExplicitBaseCard = props => {
               disabled={!props.is_validbtn2}
             />
           ) : (
-            <Button onClick={props.btn2} disabled={!props.is_validbtn2}>
+            <StyledButton
+              onClick={props.btn2}
+              disabled={!props.is_validbtn2}
+              btn2={"true"}
+            >
               {props.btn2Text}
-            </Button>
+            </StyledButton>
           ))}
         {props.btn3 &&
           (props.confirmAction === true ? (
@@ -157,12 +245,18 @@ const ExplicitBaseCard = props => {
               id="toggler"
             />
           ) : (
-            <Button onClick={props.btn3} disabled={!props.is_validbtn3}>
+            <StyledButton
+              onClick={props.btn3}
+              disabled={!props.is_validbtn3}
+              btn3={"true"}
+            >
               <span id="toggler">{props.btn3Text}</span>
-            </Button>
+            </StyledButton>
           ))}
         {props.btn4 && (
-          <Button onClick={() => props.btn4(props.id)}>{props.btn4Text}</Button>
+          <StyledButton onClick={() => props.btn4(props.id)}>
+            {props.btn4Text}
+          </StyledButton>
         )}
       </CardFooter>
 

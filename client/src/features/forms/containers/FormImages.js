@@ -20,7 +20,7 @@ class ImagePicker extends React.Component {
   }
 
   componentDidMount() {
-    const { folderName, setImageUrls } = this.props;
+    const { folderName } = this.props;
 
     this.uppy = Uppy({
       id: "MyUppy",
