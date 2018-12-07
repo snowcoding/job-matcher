@@ -2,8 +2,12 @@ from django.contrib import admin
 
 from .models import User, Employer, Seeker
 
-# Register your models here.
-admin.site.register(User)
+# admin.py
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['id', 'email', 'first_name', 'last_name', 'is_seeker', 'is_employer', 'updated_at', 'created_at']
+    ordering = ['-created_at']  # ORDER BY DESC
 
 
 @admin.register(Seeker)
