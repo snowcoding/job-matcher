@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Modal, ModalHeader, ModalBody, CardDeck } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import styled from "styled-components";
-//import BaseCard from "../components/BaseCard";
-import BaseModal from "../components/BaseModal";
 import NewBaseCard from "../../../presentation/BaseCard";
 import { getMatches } from "../store/action";
 import { connect } from "react-redux";

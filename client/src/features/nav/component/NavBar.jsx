@@ -22,7 +22,7 @@ class NavBar extends React.Component {
 
   handleSignOut = e => {
     e.preventDefault();
-    this.props.onLogOut();
+    this.props.logOut();
   };
   toggle = () => {
     this.setState({ navbarTogglerOpen: !this.state.navbarTogglerOpen });
@@ -110,7 +110,7 @@ class NavBar extends React.Component {
                     caret
                     style={{
                       color: "#4D4D4D",
-                      color: "initial",
+                      // color: "initial",
                       textTransform: "uppercase"
                     }}
                   >
@@ -166,15 +166,15 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = dispatch => ({
-  onLogOut: user => {
-    dispatch(logOut());
-  }
-});
+// const mapDispatchToProps = dispatch => ({
+//   onLogOut: user => {
+//     dispatch(logOut());
+//   }
+// });
 
 const ConnectedNavBar = connect(
   mapStateToProps,
-  mapDispatchToProps
+  { logOut }
 )(NavBar);
 
 export default class Wrapper extends React.Component {

@@ -1,20 +1,27 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const LandingDiv = styled.div`
   width: 100%;
   min-height: 100vh;
   font-size: 16px;
-  padding-top: 100px;
+  // padding-top: 100px;
+  background-color: #2e3141;
   background-image: linear-gradient(
-      rgba(74, 74, 74, 0.7),
-      rgba(47, 47, 47, 0.7)
+      to top,
+      rgba(46, 49, 65, 0.8),
+      rgba(46, 49, 65, 0.8)
     ),
-    url(../../assets/bg-lg.jpg);
-  background-size: cover;
-  clip-path: polygon(100% 0, 100% 91%, 0 100%, 0 0);
-
+    url(/static/media/bg-lg.c712a03e.jpg);
+  background-size: auto, cover;
+  background-position: center, center;
   color: white;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  filter: ${props => (props.is_menuOpen ? "blur(1.8px)" : null)};
+  // filter: ${props => (props.is_menuOpen ? "brightness(0.6)" : null)};
+  transition: filter 0.4s;
 `;
 export const LandingHeading = styled.h1`
   animation: movieInLeftSlow 3s;
@@ -34,27 +41,29 @@ export const LandingHeading = styled.h1`
     }
   }
 `;
-export const CenterDiv = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: movieInLeft 2s;
-
-  @keyframes movieInLeft {
+const MoveInLeft = keyframes`
     0% {
       opacity: 0;
-      transform: translate(-50%, -55%);
+      transform: translate(-40%, -50%);
     }
     80% {
-      transform: translate(-50%, -53%);
+      transform: translate(-54%, -50%);
     }
     100% {
       opacity: 1;
       transform: translate(-50%, -50%);
     }
-  }
 `;
+export const CenterDiv = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ${MoveInLeft} 2s;
+  width: 80%;
+  margin: auto;
+`;
+
 export const StyledLink = styled(Link)`
   padding: 10px 20px;
   font-size: 16px;

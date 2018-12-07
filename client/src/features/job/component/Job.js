@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { CardDeck } from "reactstrap";
 import API from "../../../api";
 import styled from "styled-components";
 import JobCard from "./JobCard";

@@ -32,6 +32,7 @@ class ConfirmSpending extends React.Component {
           onClick={this.toggle}
           id={this.props.id}
           disabled={this.props.disabled}
+          color={this.props.color}
         >
           {this.props.buttonLabel}
         </Button>
