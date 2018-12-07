@@ -141,10 +141,10 @@ const ExplicitBaseCard = props => {
             <ConfirmSpending
               buttonLabel={props.btn2Text}
               confirmAction={props.btn2}
-              disabled={!props.is_valid}
+              disabled={!props.is_validbtn2}
             />
           ) : (
-            <Button onClick={props.btn2} disabled={!props.is_valid}>
+            <Button onClick={props.btn2} disabled={!props.is_validbtn2}>
               {props.btn2Text}
             </Button>
           ))}
@@ -153,11 +153,11 @@ const ExplicitBaseCard = props => {
             <ConfirmSpending
               buttonLabel={props.btn3Text}
               confirmAction={props.btn3}
-              disabled={!props.is_valid}
+              disabled={!props.is_validbtn3}
               id="toggler"
             />
           ) : (
-            <Button onClick={props.btn3} disabled={!props.is_valid}>
+            <Button onClick={props.btn3} disabled={!props.is_validbtn3}>
               <span id="toggler">{props.btn3Text}</span>
             </Button>
           ))}

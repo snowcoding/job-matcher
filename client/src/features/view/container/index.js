@@ -19,7 +19,8 @@ class ViewContainer extends Component {
   state = {
     is_open: false,
     jobIdSelected: null,
-    hasEnoughCredit: false,
+    hasEnoughCreditForRegularAction: false,
+    hasEnoughCreditForSuperAction: false,
     hoverText: "",
     outOfCreditAlert: false,
     confirmAction: false
@@ -36,6 +37,20 @@ class ViewContainer extends Component {
       is_open: !this.state.is_open
     });
   };
+  validateSuper = (freeCredit, balance) => {
+    if (freeCredit > 0 || balance > 0) {
+      if (balance < 10 && freeCredit < 10) {
+        this.setState({
+          hasEnoughCreditForSuperAction: false,
+          hoverText: `you need at least credit to match super`
+        });
+      } else {
+        this.setState({
+          hasEnoughCreditForSuperAction: true
+        });
+      }
+    }
+  };
   validate = () => {
     const userType = this.props.currentUser.is_seeker;
     let freeCredit;
@@ -46,8 +61,9 @@ class ViewContainer extends Component {
       freeCredit = this.props.currentUser.free_calls;
     }
     if (freeCredit > 0 || balance > 0) {
+      this.validateSuper(freeCredit, balance);
       this.setState({
-        hasEnoughCredit: true,
+        hasEnoughCreditForRegularAction: true,
         hoverText: `you have ${freeCredit || balance} credit left`,
         outOfCreditAlert: false
       });
@@ -58,7 +74,8 @@ class ViewContainer extends Component {
       }
     } else {
       this.setState({
-        hasEnoughCredit: false,
+        hasEnoughCreditForRegularAction: false,
+        hasEnoughCreditForSuperAction: false,
         hoverText: `you have ${freeCredit || balance} credit left, not enough`,
         outOfCreditAlert: "Purchase credit to enable skip super and apply!"
       });
@@ -146,7 +163,6 @@ class ViewContainer extends Component {
       dropDownToggleText = this.props.jobs.filter(
         job => job.id === this.state.jobIdSelected
       )[0].title;
-      console.log(dropDownToggleText[0].title);
     }
 
     let card;
@@ -171,9 +187,11 @@ class ViewContainer extends Component {
           description={this.props.data.description}
           skills={this.props.data.top_skills}
           extra_skills={this.props.data.extra_skills}
-          is_valid={this.state.hasEnoughCredit}
+          is_validbtn2={this.state.hasEnoughCreditForSuperAction}
+          is_validbtn3={this.state.hasEnoughCreditForRegularAction}
           btn3Hover={this.state.hoverText}
           outOfCreditAlert={this.state.outOfCreditAlert}
+          is_valid={this.state.hasEnoughCreditForRegularAction}
         />
       );
     } else if (this.props.success && !this.props.currentUser.is_seeker) {
@@ -192,7 +210,14 @@ class ViewContainer extends Component {
             dropDownToggleText || "Select Job to Create a Match"
           }
           jobSelected={this.jobSelected}
-          is_valid={this.state.jobIdSelected && this.state.hasEnoughCredit}
+          is_valid={this.state.jobIdSelected}
+          is_validbtn2={
+            this.state.jobIdSelected && this.state.hasEnoughCreditForSuperAction
+          }
+          is_validbtn3={
+            this.state.jobIdSelected &&
+            this.state.hasEnoughCreditForRegularAction
+          }
           title={this.props.data.desired_title}
           summary={this.props.data.summary}
           is_seeker={this.props.data.is_seeker}
