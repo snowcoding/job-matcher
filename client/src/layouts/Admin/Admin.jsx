@@ -4,7 +4,10 @@ import { Route, Switch } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
-import AdminNavbar from "../../presentation/black-dash-components/Navbars/AdminNavbar.jsx";
+// dumb navbar
+// import AdminNavbar from "../../presentation/black-dash-components/Navbars/AdminNavbar.jsx";
+// smart navbar
+import AdminNavbar from "../../features/nav/component/AdminNavbar";
 import Footer from "../../presentation/black-dash-components/Footer/Footer.jsx";
 import Sidebar from "../../presentation/black-dash-components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "../../presentation/black-dash-components/FixedPlugin/FixedPlugin.jsx";

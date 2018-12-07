@@ -6,25 +6,22 @@ import "assets/css/black-dashboard-react.css";
 import "assets/css/nucleo-icons.css";
 import Landing from "./layouts/landingPage/Landing";
 import AdminLayout from "layouts/Admin/Admin.jsx";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Switch>
-          <Route
-            path="/"
-            render={props =>
-              !this.props.authenticatoin_succeed ? (
-                <Landing {...props} />
-              ) : (
-                <AdminLayout {...props} />
-              )
-            }
-          />
-        </Switch>
+        <Route
+          path="/"
+          render={props =>
+            !this.props.authenticatoin_succeed ? (
+              <Landing {...props} />
+            ) : (
+              <AdminLayout {...props} />
+            )
+          }
+        />
         <ToastContainer transition={Slide} />
       </div>
     );

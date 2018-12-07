@@ -1,11 +1,6 @@
 import React from "react";
 import "./index.css";
-import {
-  LandingDiv,
-  StyledLink,
-  CenterDiv,
-  LandingHeading
-} from "./landingPageCss";
+import { LandingDiv, CenterDiv } from "./landingPageCss";
 import styled, { keyframes } from "styled-components";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
