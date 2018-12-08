@@ -76,7 +76,7 @@ class User(AbstractUser, BaseModel):
         verbose_name_plural = _('users')
 
     def __str__(self):
-        return f'{self.id}: {self.email}'
+        return f'{self.id}: {self.email} {self.first_name} {self.last_name}'
 
 
 class Profile(BaseModel):
@@ -110,8 +110,8 @@ class Seeker(Profile):
     top_skills = SkillsField(size=5)
     extra_skills = SkillsField()
     other_skills = SkillsField()
-    experience = models.CharField(max_length=500, blank=True)
-    education = models.CharField(max_length=500, blank=True)
+    experience = models.CharField(max_length=10000, blank=True)
+    education = models.CharField(max_length=10000, blank=True)
     # Start with 5 free apps (applications) [done]
     # Get plus 1 free app per day [pending]
     # Max 10 free Apps stored [pending]
@@ -120,8 +120,7 @@ class Seeker(Profile):
 
 
 class Employer(Profile):
-    company_name = models.CharField(_('company name'), max_length=30, blank=True)
+    company_name = models.CharField(_('company name'), max_length=100, blank=True)
     # Get one free call per day(employer version of app / match) [pending]
     free_calls = models.IntegerField(default=0)
     postings = models.IntegerField(default=1)
-
