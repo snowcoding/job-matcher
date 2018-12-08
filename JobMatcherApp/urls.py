@@ -1,25 +1,24 @@
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
-# import Router from 'express'
-from rest_framework import routers
-from rest_framework_jwt.views import obtain_jwt_token
+from . import views
 
-from .views import UserViewSet, SignUpView
-
-# routes = Router()
-router = routers.DefaultRouter() # SimpleRouter
-
-# routes.get('', handler)
-# routes.post('', handler)
-# routes.put('', handler)
-# routes.delete('', handler)
-# All methods that are defined in the Http_method_names list of UserViewSet
-router.register('users', UserViewSet)
+router = DefaultRouter(trailing_slash=True)
+router.register('seekers', views.SeekerViewSet, base_name='seeker')
+router.register('employers', views.EmployerViewSet, base_name='employer')
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
-    path('signup', SignUpView.as_view()),
-    path('signin', obtain_jwt_token)
-]
 
-urlpatterns += router.urls
+    # Oauth2 endpoints
+    path('o/token/', views.ProfileTokenView.as_view(), name="token"),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+
+    # Signup and profile info
+    path('signup/seeker/', views.signup_seeker, name='signup_seeker'),
+    path('signup/employer/', views.signup_employer, name='signup_employer'),
+    path('me/', views.me, name='me'),
+
+    # view sets
+    path('', include(router.urls)),
+]

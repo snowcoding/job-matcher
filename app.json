@@ -10,6 +10,21 @@
     },
     "SECRET_KEY": {
       "required": true
+    },
+    "STRIPE_SECRET_KEY": {
+      "required": true
+    },
+    "EMAIL_HOST": {
+      "required": true
+    },
+    "EMAIL_HOST_USER": {
+      "required": true
+    },
+    "EMAIL_HOST_PASSWORD": {
+      "required": true
+    },
+    "DEFAULT_FROM_EMAIL": {
+      "required": true
     }
   },
   "formation": {
@@ -17,9 +32,7 @@
       "quantity": 1
     }
   },
-  "addons": [
-    "heroku-postgresql"
-  ],
+  "addons": ["heroku-postgresql"],
   "buildpacks": [
     {
       "url": "heroku/python"

@@ -1,93 +1,92 @@
-from .models import User, Employer, Seeker
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
+import json
 
-# This handles the viewing of the DRF
-from rest_framework import viewsets
-from rest_framework.views import APIView
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from oauth2_provider.models import AccessToken
+from oauth2_provider.views import TokenView
+from rest_framework import viewsets, mixins
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.response import Response
-from rest_framework_jwt.settings import api_settings
 
-# Import UserSerializer from the local serializer file
-# import {UserSerializer} from './serializer
-from .serializer import (UserSerializer, EmployerSerializer, SeekerSerializer)
+from JobMatcherApp.models import Employer, Seeker
+from . import serializers
 
 
-# Create your views here.
-# class Modal extends React.Component {
-#   static propTypes = {}
-# }
+@swagger_auto_schema(methods=['get'],
+                     responses={200: openapi.Response('Seeker or Employer profile', serializers.ProfileSerializer)})
+@api_view(http_method_names=['GET'])
+def me(request):
+    """Returns representation of the authenticated user profile (Seeker or Employer) making the request."""
 
-jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+    if request.user.is_seeker:
+        serializer = serializers.SeekerSerializer(instance=request.user.seeker)
+    else:
+        serializer = serializers.EmployerSerializer(instance=request.user.employer)
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    Http_method_names = ['get', 'post', 'put', 'delete', 'patch']
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = EmployerSerializer
-    Http_method_names = ['get', 'post', 'put', 'delete', 'patch']
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = SeekerSerializer
-    Http_method_names = ['get', 'post', 'put', 'delete', 'patch']
+    return Response(data=serializer.data)
 
 
-# @TODO  
-class SignUpView(APIView):
+@swagger_auto_schema(methods=['post'], request_body=serializers.SignupSeekerSerializer)
+@api_view(http_method_names=['POST'])
+@permission_classes([])
+def signup_seeker(request):
+    """Signs up a Seeker and returns an access and refresh JSON web token pair"""
 
-    authentication_classes = []
-    permission_classes = []
+    serializer = serializers.SignupSeekerSerializer(data=request.data, context={'request': request})
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(data=serializer.data)
 
-    def generate_token(self, user):
-        payload = jwt_payload_handler(user)
-        token = jwt_encode_handler(payload)
-        return token
 
-    def post(self, request, format=None):
+@swagger_auto_schema(methods=['post'], request_body=serializers.SignupEmployerSerializer)
+@api_view(http_method_names=['POST'])
+@permission_classes([])
+def signup_employer(request):
+    """Signs up a Employer and returns an access and refresh JSON web token pair"""
 
-        # print(request.data)
-        
-        is_seeker = request.data.get('is_seeker', None)
-        email = request.data.get('email', None)
-        first_name = request.data.get('first_name', None)
-        last_name = request.data.get('last_name', None)
-        password = request.data.get('password', None)
+    serializer = serializers.SignupEmployerSerializer(data=request.data, context={'request': request})
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(data=serializer.data)
 
-        # Remove is_seeker because it's not part of the User Model
-        if request.data.get('is_seeker') is not None:
-            request.data.pop('is_seeker')
-        
-        # initializing serialized_user
-        serialized_user = None 
-        token = None
 
-        # Check all fields for existence  
-        if is_seeker is not None and email is not None and first_name is not None and last_name is not None and password is not None:
-            
-            # Check is_seeker boolean to decide which type of user to create 
-            try:
-                if is_seeker:
-                    user = Seeker.objects.create_user(**request.data)
-                    token = self.generate_token(user)
-                    serialized_user = SeekerSerializer(user)
-                else:
-                    user = Employer.objects.create_user(**request.data)
-                    token = self.generate_token(user)
-                    serialized_user = EmployerSerializer(user)
-            
-            # If email is already taken, catch the Integrity Error
-            except IntegrityError as e:
-                return Response({'error':str(e)}, 400)
+class ProfileTokenView(TokenView):
+    """Returns OAuth2 access and refresh tokens in addition to user profile under 'profile' key"""
 
-        # If serialized_user is still none, that means the request was missing some fields
-        if serialized_user is None:
-            return Response({'error':'malformed request, please make sure all required fields are included'}, 400)
+    def post(self, request, *args, **kwargs):
+        # Get original response from OAuth2 library
+        response = super().post(request=request, *args, **kwargs)
+        # Return it in case any failures
+        if response.status_code != 200:
+            return response
+
+        # Decode json body to add profile based on user type
+        data = json.loads(response.content)
+        user = AccessToken.objects.get(token=data['access_token']).user
+        if user.is_seeker:
+            data['profile'] = serializers.SeekerSerializer(instance=user.seeker).data
         else:
-            return Response({'message':'Signed up Successfully', 'data':serialized_user.data, 'token': token})
-        
+            data['profile'] = serializers.EmployerSerializer(instance=user.employer).data
+
+        # Encode json and return the modified response
+        response.content = json.dumps(data)
+        return response
+
+
+class SeekerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = serializers.SeekerSerializer
+    queryset = Seeker.objects.all()
+
+    @action(methods=['get'], detail=False)
+    def random(self, request):
+        # TODO filter out if SKIPPED/ SUPER or CALL for any available jobs
+        # Return a list of jobs that are allowed an action, if no jobs, empty
+        seeker = self.get_queryset().order_by("?").first()
+        serializer = self.get_serializer(instance=seeker)
+        return Response(data=serializer.data)
+
+
+class EmployerViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin,
+                      viewsets.GenericViewSet):
+    serializer_class = serializers.EmployerSerializer
+    queryset = Employer.objects.all()
