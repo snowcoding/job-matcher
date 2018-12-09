@@ -266,7 +266,7 @@ class ViewContainer extends Component {
 
     return (
       <MatchContainer>
-        <TransitionGroup>{this.state.show_card ? card : null} </TransitionGroup>
+        <TransitionGroup>{this.state.show_card ? card : null}</TransitionGroup>
       </MatchContainer>
     );
   }
