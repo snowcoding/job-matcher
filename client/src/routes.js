@@ -6,7 +6,7 @@ import Messages from "views/Messages.jsx";
 import JobPostings from "views/JobPostings.jsx";
 import BillingView from "views/BillingView.jsx";
 import UserProfile from "views/UserProfile.jsx";
-
+import TestingCard from "./views/TestingView";
 var routes = [
   {
     path: "/seek",
@@ -50,7 +50,7 @@ var routes = [
     component: ProtectedPages(BillingView),
     layout: "/admin"
   }
-  // Here lie the deprecated routes (RIP)
+  // Routes for testing
   // {
   //   path: "/sibhat",
   //   name: "sibhat",
@@ -65,5 +65,12 @@ var routes = [
   //   component: LandingView,
   //   layout: "/admin"
   // }
+//   {
+//     path: "/testing",
+//     name: "Testing",
+//     icon: "tim-icons icon-compass-05",
+//     component: TestingCard,
+//     layout: "/admin"
+//   }
 ];
 export default routes;
