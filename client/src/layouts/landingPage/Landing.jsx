@@ -67,9 +67,7 @@ const StyledDivLogo = styled.div`
 
 class Landing extends React.Component {
   state = {
-    is_menuOpen: true,
-    email: "",
-    password: ""
+    is_menuOpen: true
   };
 
   toggleMenu = e => {
