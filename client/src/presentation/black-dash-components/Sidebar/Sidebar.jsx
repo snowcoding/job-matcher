@@ -99,8 +99,6 @@ class Sidebar extends React.Component {
           ) : null}
           <Nav>
             {routes.map((prop, key) => {
-              console.log("Key: " + key);
-              console.log(prop);
               if (prop.redirect) return null;
               if (
                 prop.name === "Job Postings" &&
