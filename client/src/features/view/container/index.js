@@ -93,11 +93,10 @@ class ViewContainer extends Component {
       this.props.getRandomUser("seeker");
       this.props.getMyJobs();
     }
-    // this.setState({ jobIdSelected: null, show_card: true });
     this.props.getProfile();
     this.validate();
   };
-  animetionOnComplete = () => {
+  animationOnComplete = () => {
     this.setState({ jobIdSelected: null, show_card: true });
   };
 
@@ -207,7 +206,7 @@ class ViewContainer extends Component {
           outOfCreditAlert={this.state.outOfCreditAlert}
           is_valid={this.state.hasEnoughCreditForRegularAction}
           btnSizeForAll={"ml"}
-          animationOnComplete={this.animetionOnComplete}
+          animationOnComplete={this.animationOnComplete}
         />
       );
     } else {
@@ -260,7 +259,7 @@ class ViewContainer extends Component {
           skills={this.props.data.top_skills}
           extra_skills={this.props.data.extra_skills}
           btn3Hover={this.state.hoverText}
-          animationOnComplete={this.animetionOnComplete}
+          animationOnComplete={this.animationOnComplete}
         />
       );
     }
