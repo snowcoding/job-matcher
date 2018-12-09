@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { getRandomUser, postSuperAction } from "../store/action";
 import { getMyJobs } from "../../job/store/action";
 import { getProfile } from "../../auth/store/action";
-import ExplicitBaseCard from "../../../presentation/BaseCard";
+import ExplicitBaseCard from "../../../presentation/BLKTestCard";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import TransitionGroup from "react-transition-group/TransitionGroup";
 
 const MatchContainer = styled.div`
   width: 400px;
@@ -17,6 +18,7 @@ const MatchContainer = styled.div`
 `;
 class ViewContainer extends Component {
   state = {
+    show_card: false,
     is_open: false,
     jobIdSelected: null,
     hasEnoughCreditForRegularAction: false,
@@ -82,7 +84,8 @@ class ViewContainer extends Component {
     }
   };
 
-  getRandomUserHandler = () => {
+  getRandomUserHandler = async () => {
+    this.setState({ show_card: !this.state.show_card });
     const userType = this.props.currentUser.is_seeker;
     if (userType) {
       this.props.getRandomUser("job");
@@ -90,9 +93,12 @@ class ViewContainer extends Component {
       this.props.getRandomUser("seeker");
       this.props.getMyJobs();
     }
-    this.setState({ jobIdSelected: null });
-    this.validate();
+    // this.setState({ jobIdSelected: null, show_card: true });
     this.props.getProfile();
+    this.validate();
+  };
+  animetionOnComplete = () => {
+    this.setState({ jobIdSelected: null, show_card: true });
   };
 
   postMatchActionHandler = () => {
@@ -160,21 +166,27 @@ class ViewContainer extends Component {
     this.validate();
   };
   render() {
-    let dropDownToggleText;
-    if (this.state.jobIdSelected) {
-      dropDownToggleText = this.props.jobs.filter(
-        job => job.id === this.state.jobIdSelected
-      )[0].title;
+    if (!this.props.success) {
+      return <h1>waiting</h1>;
     }
-
-    let card;
-    if (this.props.success && this.props.currentUser.is_seeker) {
+    let card = <h1>waiting2</h1>;
+    let dropDownToggleText;
+    if (this.props.currentUser.is_seeker) {
       card = (
         <ExplicitBaseCard
-          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
-          btn1Text={"Skip"}
-          btn2Text={"Super"}
-          btn3Text={"App"}
+          // confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
+          // btn1Text={"Skip"}
+          btn1color={"info"}
+          btn1ClassName={"btn-simple btn-icon"}
+          btn1Icon={"far fa-thumbs-down"}
+          btn2color={"primary"}
+          // btn2Text={"Super"}
+          btn2ClassName={"btn-simple btn-icon"}
+          btn2Icon={"far fa-heart"}
+          // btn3Text={"Call"}
+          btn3color={"success"}
+          btn3ClassName={"btn-simple btn-icon"}
+          btn3Icon={"far fa-thumbs-up"}
           btn1={this.getRandomUserHandler}
           btn2={this.postMatchActionHandler}
           btn3={this.postInterest}
@@ -194,15 +206,31 @@ class ViewContainer extends Component {
           btn3Hover={this.state.hoverText}
           outOfCreditAlert={this.state.outOfCreditAlert}
           is_valid={this.state.hasEnoughCreditForRegularAction}
+          btnSizeForAll={"ml"}
+          animationOnComplete={this.animetionOnComplete}
         />
       );
-    } else if (this.props.success && !this.props.currentUser.is_seeker) {
+    } else {
+      if (this.state.jobIdSelected) {
+        dropDownToggleText = this.props.jobs.filter(
+          job => job.id === this.state.jobIdSelected
+        )[0].title;
+      }
       card = (
         <ExplicitBaseCard
-          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
-          btn1Text={"Skip"}
-          btn2Text={"Super"}
-          btn3Text={"Call"}
+          // confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
+          btnSizeForAll={"ml"}
+          btn1color={"info"}
+          btn1ClassName={"btn-simple btn-icon"}
+          btn1Icon={"far fa-thumbs-down"}
+          btn2color={"primary"}
+          // btn2Text={"Super"}
+          btn2ClassName={"btn-simple btn-icon"}
+          btn2Icon={"far fa-heart"}
+          // btn3Text={"Call"}
+          btn3color={"success"}
+          btn3ClassName={"btn-simple btn-icon"}
+          btn3Icon={"far fa-thumbs-up"}
           btn1={this.getRandomUserHandler}
           btn2={this.postMatchActionHandler}
           btn3={this.postInterest}
@@ -232,14 +260,16 @@ class ViewContainer extends Component {
           skills={this.props.data.top_skills}
           extra_skills={this.props.data.extra_skills}
           btn3Hover={this.state.hoverText}
+          animationOnComplete={this.animetionOnComplete}
         />
       );
     }
 
-    if (!this.props.success) {
-      return <h1>waiting</h1>;
-    }
-    return <MatchContainer>{card}</MatchContainer>;
+    return (
+      <MatchContainer>
+        <TransitionGroup>{this.state.show_card ? card : null}</TransitionGroup>
+      </MatchContainer>
+    );
   }
 }
 
