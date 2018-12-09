@@ -84,7 +84,7 @@ class ViewContainer extends Component {
     }
   };
 
-  getRandomUserHandler = async () => {
+  getRandomUserHandler = () => {
     this.setState({ show_card: !this.state.show_card });
     const userType = this.props.currentUser.is_seeker;
     if (userType) {
