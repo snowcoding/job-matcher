@@ -90,7 +90,7 @@ class MyComponent extends React.Component {
         />
       </div>
     ) : (
-      <Redirect to="/views" />
+      <Redirect to="/seek" />
     );
   }
 }
