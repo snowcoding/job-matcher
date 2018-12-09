@@ -21,10 +21,18 @@ const JobCardDeck = styled.div`
     align-items: center;
     position: fixed;
     top: 70px;
-    left: 20px;
+    right: 20px;
     z-index: 100;
     border-radius: 50%;
     background-color: #ffffffd6;
+    width: 125px;
+    height: 125px;
+    color: black;
+    .card-title {
+      color: black;
+      font-size: 16px;
+      font-weight: 600;
+    }
   }
 `;
 
