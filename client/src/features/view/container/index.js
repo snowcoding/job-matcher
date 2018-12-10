@@ -191,7 +191,7 @@ class ViewContainer extends Component {
           btn3={this.postInterest}
           name={this.props.data.company_name}
           title={this.props.data.title}
-          summary={this.props.data.id} // change id to summary
+          summary={this.props.data.summary} // change id to summary
           is_seeker={this.props.data.is_seeker}
           fullCardArrow={this.showFullCard}
           is_open={this.state.is_open}
@@ -207,6 +207,7 @@ class ViewContainer extends Component {
           is_valid={this.state.hasEnoughCreditForRegularAction}
           btnSizeForAll={"ml"}
           animationOnComplete={this.animationOnComplete}
+          photo={this.props.data.photo}
         />
       );
     } else {
@@ -260,6 +261,7 @@ class ViewContainer extends Component {
           extra_skills={this.props.data.extra_skills}
           btn3Hover={this.state.hoverText}
           animationOnComplete={this.animationOnComplete}
+          photo={this.props.data.photo}
         />
       );
     }
