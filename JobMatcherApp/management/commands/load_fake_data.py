@@ -52,6 +52,18 @@ class Command(BaseCommand):
         num_employers = 10
         num_sentences = 25
         password = make_password('5555555555')
+        company_name_static = ['Apple', 'Facebook', 'Netflix', 'Airbnb', 'Snapchat', 'Starbucks', 'Adobe', 'Slack', 'Lyft',
+                               'Instagram']
+        company_summary_static = ['More than just a fruit, we charge 1000 for a phone',
+                                  'Data is so safe, that even your Grandma is on here',
+                                  'Come on, come all, everybody gets a special',
+                                  'Now everyone can make themselves at home',
+                                  'Now you see it, now you dont',
+                                  'Overpricing coffee since 1971',
+                                  "Finally don't have to update Reader anymore",
+                                  "We're all grown up and about to IPO",
+                                  "Sure have another, you're not driving",
+                                  "Maybe she's born with it, maybe it's a 100 filters"]
 
         users = User.objects.bulk_create([
             User(email=f'{i}@seeker.com', password=password, first_name=fake.first_name_male(),
@@ -91,13 +103,16 @@ class Command(BaseCommand):
         employers = Employer.objects.bulk_create([
             Employer(
                 user=users[i],
-                summary=fake.catch_phrase(),
+                # summary=fake.catch_phrase(),
+                summary=company_summary_static[i],
                 credits=random.randrange(0, 1000),
                 free_calls=random.randrange(0, 1000),
                 postings=random.randrange(0, 100),
-                photo=f'https://randomuser.me/api/portraits/men/{random.randrange(0, 99)}.jpg'
-                if i % 2 == 0 else f'https://randomuser.me/api/portraits/women/{random.randrange(0, 99)}.jpg',
-                company_name=f'#{i + 1} - {fake.company()}',
+                # photo=f'https://randomuser.me/api/portraits/men/{random.randrange(0, 99)}.jpg'
+                # if i % 2 == 0 else f'https://randomuser.me/api/portraits/women/{random.randrange(0, 99)}.jpg',
+                # company_name=f'#{i + 1} - {fake.company()}',
+                photo=f'https://logo.clearbit.com/{company_name_static[i]}.com',
+                company_name=company_name_static[i]
             ) for i in range(num_employers)
         ])
         self.stdout.write(self.style.SUCCESS(f'Successfully added {num_employers} employers'))
@@ -106,7 +121,8 @@ class Command(BaseCommand):
         jobs = Job.objects.bulk_create([
             Job(
                 employer=random.choice(employers),
-                title=f'#{i + 1} - {random.choice(TITLES)}',
+                # title=f'#{i + 1} - {random.choice(TITLES)}',
+                title=f'{random.choice(TITLES)}',
                 salary_min=random.randrange(80, 120),
                 salary_max=random.randrange(121, 250),
                 top_skills=random.choices(SKILLS, k=3),
