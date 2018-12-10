@@ -33,7 +33,10 @@ class ConfirmSpending extends React.Component {
           id={this.props.id}
           disabled={this.props.disabled}
           color={this.props.color}
+          size={this.props.size}
+          className={this.props.className}
         >
+          <i className={this.props.btn2Icon} />
           {this.props.buttonLabel}
         </Button>
         <Modal

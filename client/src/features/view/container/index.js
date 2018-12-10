@@ -173,7 +173,7 @@ class ViewContainer extends Component {
     if (this.props.currentUser.is_seeker) {
       card = (
         <ExplicitBaseCard
-          // confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
+          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
           // btn1Text={"Skip"}
           btn1color={"info"}
           btn1ClassName={"btn-simple btn-icon"}
@@ -191,7 +191,8 @@ class ViewContainer extends Component {
           btn3={this.postInterest}
           name={this.props.data.company_name}
           title={this.props.data.title}
-          summary={this.props.data.id} // change id to summary
+          summary={this.props.data.summary}
+          photo={this.props.data.photo}
           is_seeker={this.props.data.is_seeker}
           fullCardArrow={this.showFullCard}
           is_open={this.state.is_open}
@@ -217,7 +218,7 @@ class ViewContainer extends Component {
       }
       card = (
         <ExplicitBaseCard
-          // confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
+          confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
           btnSizeForAll={"ml"}
           btn1color={"info"}
           btn1ClassName={"btn-simple btn-icon"}
@@ -234,6 +235,7 @@ class ViewContainer extends Component {
           btn2={this.postMatchActionHandler}
           btn3={this.postInterest}
           name={`${this.props.data.first_name} ${this.props.data.last_name}`}
+          photo={this.props.data.photo}
           dropDown={this.props.jobs}
           dropDownToggleText={
             dropDownToggleText || "Select Job to Create a Match"
