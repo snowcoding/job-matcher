@@ -21,13 +21,14 @@ const Forms = ({ state, onChange, title, onSubmit, btnName }) => {
       <FormGroup key={item[1].id || item[0]} className="form group">
         <StyledInput
           type={item[1].type || "text"}
+          disable={item[1].disable || false}
           name={item[0]}
           id={item[1].id || item[0]}
           placeholder={item[1].placeholder || item[1].name || item[0]}
           value={item[1].value}
           src={item[1].src || undefined}
           onChange={onChange}
-          className={item[1].controlledClass || "form_input"}
+          className={item[1].controlledClass || `form_input ${item[1].disable}`}
           checked={item[1].type === "checkbox" ? item[1].checked : null}
         />
         <StyledLabel
@@ -43,7 +44,7 @@ const Forms = ({ state, onChange, title, onSubmit, btnName }) => {
         onChange={onChange}
         value={item[1].date}
         calendarClassName={item[1].controlledClass || "icalander"}
-        className={item[1].controlledClass || "icalander2"}
+        className={item[1].controlledClass || `icalander2 ${item[1].disable}`}
       />
     )
   );
