@@ -45,7 +45,7 @@ class CheckoutForm extends Component {
 
   render() {
     console.log("Billing:", this.props);
-    if (this.props.complete) return <Redirect to={"/view"} />;
+    if (this.props.complete) return <Redirect to={"/seek"} />;
     return (
       <>
         <CardBody>
