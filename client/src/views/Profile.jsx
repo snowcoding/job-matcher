@@ -24,9 +24,9 @@ class Profile extends React.Component {
           <Row>
             <Col md="8">
               <Card>
-                <CardHeader>
+                {/* <CardHeader>
                   <h5 className="title">Profile Title Here</h5>
-                </CardHeader>
+                </CardHeader> */}
                 <ProfileContainer />
               </Card>
             </Col>
