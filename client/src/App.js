@@ -25,7 +25,10 @@ class App extends Component {
               !this.props.authenticatoin_succeed ? (
                 <Landing {...props} />
               ) : (
-                <AdminLayout {...props} />
+                <>
+                  <AdminLayout {...props} />
+                  <Redirect to="/seek" />
+                </>
               )
             }
           />
