@@ -208,6 +208,7 @@ class ViewContainer extends Component {
           is_valid={this.state.hasEnoughCreditForRegularAction}
           btnSizeForAll={"ml"}
           animationOnComplete={this.animationOnComplete}
+          photo={this.props.data.photo}
         />
       );
     } else {
@@ -262,6 +263,7 @@ class ViewContainer extends Component {
           extra_skills={this.props.data.extra_skills}
           btn3Hover={this.state.hoverText}
           animationOnComplete={this.animationOnComplete}
+          photo={this.props.data.photo}
         />
       );
     }

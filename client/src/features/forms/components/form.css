@@ -24,8 +24,13 @@
   transition: none;
   outline: none;
   border: none;
+  color: grey !important;
 }
 .form-input-checkbox:focus {
   border: none;
   box-shadow: none;
+}
+.disable {
+  background: #cdcdcd;
+  cursor: not-allowed;
 }

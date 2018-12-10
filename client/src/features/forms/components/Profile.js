@@ -16,7 +16,7 @@ const Profile = props => {
         ? item[0] !== "Company"
         : item[0] !== "Skill" &&
           item[0] !== "Education" &&
-          item[0] !== "Exprience"
+          item[0] !== "Experience"
     )
     .map((item, index) => {
       return [

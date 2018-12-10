@@ -52,9 +52,16 @@ class FormSkills extends Component {
     console.log(this.state);
     let userType = this.props.currentUser.is_seeker ? "seeker" : "employer";
     let userId = this.props.currentUser.id;
-    let { top_skills, desired_title, extra_skills, other_skills } = this.state;
+    let {
+      top_skills,
+      desired_title,
+      extra_skills,
+      other_skills,
+      summary
+    } = this.state;
 
     this.props.updateUser(userType, userId, {
+      summary: summary.value,
       desired_title: desired_title.value,
       top_skills:
         top_skills.value.length > 1 ? top_skills.value.split(" ") : "",

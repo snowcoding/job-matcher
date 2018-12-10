@@ -329,7 +329,7 @@ class ExplicitBaseCard extends React.Component {
           />
           <div>
             <StyledH5 is_seeker={props.is_seeker}>{props.name}</StyledH5>
-            <CardSubtitle>{props.summary}</CardSubtitle>
+            <span>{props.summary}</span>
           </div>
         </CardHeader>
         {/************************** CardHeader ends *******************************/}

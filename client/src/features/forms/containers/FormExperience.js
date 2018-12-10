@@ -6,27 +6,42 @@ import { getProfile, updateUser } from "../../auth/store/action";
 
 class ExperienceContainer extends Component {
   state = {
-    date: {
-      date: [new Date(), new Date()],
-      id: "expreince_data"
+    description: {
+      id: "experience_description",
+      value: ""
     },
     title: {
-      value: ""
+      value: "",
+      disable: "disable"
     },
     company: {
-      value: ""
+      value: "",
+      disable: "disable"
     },
     location: {
-      value: ""
+      value: "",
+      disable: "disable"
     },
     headline: {
-      value: ""
+      value: "",
+      disable: "disable"
     },
-    description: {
-      id: "exprience_description",
-      value: ""
+    date: {
+      date: [new Date(), new Date()],
+      id: "experience_data",
+      disable: "disable"
     }
   };
+
+  componentDidMount() {
+    let updateState = JSON.parse(JSON.stringify(this.state));
+    if (this.props.currentUser) {
+      updateState.description.value = `${this.props.currentUser.experience}`;
+      this.setState({
+        ...updateState
+      });
+    }
+  }
 
   onChange = e => {
     let updateState = { ...this.state };
@@ -38,18 +53,18 @@ class ExperienceContainer extends Component {
     this.setState({ ...updateState });
   };
   onSubmit = e => {
-    //adopt to seeker exprience field on backend;
+    //adopt to seeker experience field on backend;
     e.preventDefault();
     let userType = "seeker";
     let userId = this.props.currentUser.id;
     let data = this.state;
     this.props.updateUser(userType, userId, {
-      date: data.date.date,
-      title: data.title.value,
-      company: data.company.value,
-      location: data.location.value,
-      headline: data.headline.value,
-      description: data.description.value
+      // date: data.date.date,
+      // title: data.title.value,
+      // company: data.company.value,
+      // location: data.location.value,
+      // headline: data.headline.value,
+      experience: data.description.value
     });
   };
 
