@@ -6,7 +6,7 @@ import connect from "react-redux/es/connect/connect";
 import { login } from "../../features/auth/store/action";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
-import LinkedIn from "../../features/auth/container/LinkedIn";
+import LinkedIn from "../../features/auth/linkedIn/linkedIn";
 const zoomIn = keyframes`
   0%{
     opacity: 0;
@@ -184,7 +184,7 @@ class MenuLogin extends React.Component {
           />
         </div>
         <div className="menu_social_login">
-          <LinkedIn loginButtonText={"Login"} />
+          <LinkedIn actionType={"Login"} />
         </div>
         <div className="divisor">
           <span className="divisor_1" />

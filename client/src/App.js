@@ -17,17 +17,19 @@ class App extends Component {
     return (
       <div className="App">
         <ToastContainer transition={Slide} />
-        <Route path="/auth" exact component={Auth} />
-        <Route
-          path="/"
-          render={props =>
-            !this.props.authenticatoin_succeed ? (
-              <Landing {...props} />
-            ) : (
-              <AdminLayout {...props} />
-            )
-          }
-        />
+        <Switch>
+          <Route path="/auth/register" component={Auth} />
+          <Route
+            path="/"
+            render={props =>
+              !this.props.authenticatoin_succeed ? (
+                <Landing {...props} />
+              ) : (
+                <AdminLayout {...props} />
+              )
+            }
+          />
+        </Switch>
       </div>
     );
   }
