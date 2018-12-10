@@ -9,6 +9,7 @@ import "assets/css/nucleo-icons.css";
 import Landing from "./layouts/landingPage/Landing";
 import AdminLayout from "layouts/Admin/Admin.jsx";
 import { connect } from "react-redux";
+import Auth from "./features/auth/container/Auth";
 
 class App extends Component {
   // notify = () => toast("Wow so easy !");
@@ -16,16 +17,19 @@ class App extends Component {
     return (
       <div className="App">
         <ToastContainer transition={Slide} />
-        <Route
-          path="/"
-          render={props =>
-            !this.props.authenticatoin_succeed ? (
-              <Landing {...props} />
-            ) : (
-              <AdminLayout {...props} />
-            )
-          }
-        />
+        <Switch>
+          <Route path="/auth/register" component={Auth} />
+          <Route
+            path="/"
+            render={props =>
+              !this.props.authenticatoin_succeed ? (
+                <Landing {...props} />
+              ) : (
+                <AdminLayout {...props} />
+              )
+            }
+          />
+        </Switch>
       </div>
     );
   }

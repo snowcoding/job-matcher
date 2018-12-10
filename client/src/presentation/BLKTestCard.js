@@ -38,18 +38,14 @@ const beat = keyframes`
 const StyledButton = styled(Button)`
   // background-color: #207ccae8;
   // color: #444444;
-    width: 48px !important;
-    height: 48px !important;
-    padding: 10px !important;
-    border-radius: 50%;
-    // animation: ${beat} .5s infinite;
-    transition: all;
-    i{
-        font-size: 26px !important;
-    }
-    &:nth-child(2){
-     animation: ${beat} .5s infinite;
-    }
+  width: 48px !important;
+  height: 48px !important;
+  padding: 10px !important;
+  border-radius: 50%;
+  transition: all;
+  i {
+    font-size: 26px !important;
+  }
 `;
 const StyledCardImg = styled(CardImg)`
   width: 100%;
@@ -92,7 +88,7 @@ const StyledCard = styled(Card)`
     width: ${props => (props.width ? props.width : "100%")}
     background-color: #27293d;
     color: white;
-    margin: 10px auto;
+    margin: 20px auto;
     text-align: start;
     border-radius: 0;
     // border-left: 10px solid #3358f4;
@@ -100,9 +96,10 @@ const StyledCard = styled(Card)`
     padding: 20px 20px;
     border: 1px solid #81818142;
     border-radius: 41px;
-    box-shadow: 1px 1px 10px #a8419b;
-    animation: ${backdrop} 3s infinite;
-    transition: animation 3s;
+    
+    // box-shadow: 1px 1px 10px #a8419b;
+    // animation: ${backdrop} 3s infinite;
+    // transition: animation 3s;
     i{
         cursor: pointer;
         &:hover{
@@ -111,7 +108,7 @@ const StyledCard = styled(Card)`
     }
     @media (min-width: 900px) {
       margin: 10px 5px;
-      margin: auto;
+      margin: 10px auto;
     }
 `;
 const moveUp = keyframes`
@@ -152,7 +149,7 @@ const moveDown = keyframes`
 const CardHeader = styled.div`
   position: relative;
   width: 100%;
-  height: 150px;
+  height: ${props => (props.height ? "100px" : "150px")};
   display: flex;
   // border-radius: 20px;
   border-bottom: 1px solid #4a4a4a;
@@ -168,7 +165,7 @@ const CardHeader = styled.div`
   // animation-delay: 3s;
   transition: animation 0.4s ease;
   img {
-    width: 130px;
+    width: ${props => (props.height ? "100px" : "130px")};
     height: 90%;
     border-radius: 50%;
     padding: 10px;
@@ -190,7 +187,7 @@ const CardHeader = styled.div`
 const StyledCardBody = styled.div`
   position: relative;
   width: 100%;
-  height: 200px;
+  height: ${props => (props.height ? props.height : "200px")};
   padding: 10px 30px;
   text-align: start;
   // border-radius: 20px;
@@ -203,7 +200,7 @@ const StyledCardBody = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    height: 200px;
+    max-height: 200px;
     width: 100%;
     padding: 10px 30px;
     backface-visibility: hidden;
@@ -223,7 +220,7 @@ const StyledCardBody = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 200px;
+    max-height: 200px;
     padding: 10px 30px;
     backface-visibility: hidden;
     background-color: #27293d;
@@ -268,7 +265,7 @@ const CardFooter = styled.div`
 `;
 
 const StyledCardTitle = styled.p`
-  font-size: 25px;
+  font-size: 18px;
   text-transform: capitalize;
   text-decoration: none;
   font-weight: 600;
@@ -315,9 +312,14 @@ class ExplicitBaseCard extends React.Component {
     // console.log("ExplicitBaseCard", {props});
     let { props } = this;
     return (
-      <StyledCard width={props.width} onClick={props.toggle} id={"baseCard"}>
+      <StyledCard width={props.width} id={"baseCard"}>
         {/************************** CardHeader starts *******************************/}
-        <CardHeader className="styled-card-header" is_open={props.is_open}>
+        <CardHeader
+          className="styled-card-header"
+          is_open={props.is_open}
+          height={props.height}
+          onClick={props.toggle}
+        >
           <CardImg
             src={
               props.photo ||
@@ -333,7 +335,11 @@ class ExplicitBaseCard extends React.Component {
         {/************************** CardHeader ends *******************************/}
 
         {/************************** StyledCardBody starts *******************************/}
-        <StyledCardBody className="card-body" is_open={props.is_open}>
+        <StyledCardBody
+          className="card-body"
+          is_open={props.is_open}
+          height={props.height}
+        >
           <div className="front">
             <StyledCardTitle className="icard-title">
               {props.title}
@@ -359,12 +365,43 @@ class ExplicitBaseCard extends React.Component {
           </div>
           <div className="back">
             <ShowFullCard is_open={true} className="showfullcard">
-              <CardText>experience: {props.experience}</CardText>
-              <CardText>salary_min: {props.salary_min}</CardText>
-              <CardText>salary_max: {props.salary_max}</CardText>
-              <CardText>education: {props.education}</CardText>
-              <CardText>description: {props.description}</CardText>
-              <CardText>requirements: {props.requirements}</CardText>
+              {props.experience && (
+                <CardBody>
+                  {" "}
+                  <CardTitle>Experience: </CardTitle>{" "}
+                  <CardText> {props.experience}</CardText>
+                </CardBody>
+              )}
+              {props.education && (
+                <CardBody>
+                  <CardTitle> Education: </CardTitle>{" "}
+                  <CardText> {props.education}</CardText>{" "}
+                </CardBody>
+              )}
+              {props.salary_min && (
+                <CardBody>
+                  <CardTitle>Salary-min: </CardTitle>
+                  <CardText>{props.salary_min}</CardText>
+                </CardBody>
+              )}
+              {props.salary_max && (
+                <CardBody>
+                  <CardTitle>Salary-max: </CardTitle>{" "}
+                  <CardText> {props.salary_max}</CardText>
+                </CardBody>
+              )}
+              {props.description && (
+                <CardBody>
+                  <CardTitle>Description: </CardTitle>{" "}
+                  <CardText>{props.description}</CardText>
+                </CardBody>
+              )}
+              {props.requirements && (
+                <CardBody>
+                  <CardTitle> Requirements: </CardTitle>{" "}
+                  <CardText>{props.requirements}</CardText>
+                </CardBody>
+              )}
             </ShowFullCard>
           </div>
         </StyledCardBody>
@@ -418,6 +455,7 @@ class ExplicitBaseCard extends React.Component {
                 color={props.btn1color}
                 className={props.btn1ClassName}
                 size={props.btnSizeForAll}
+                name={props.btn1Name}
               >
                 {props.btn1Text}
                 <i className={props.btn1Icon} />
@@ -443,6 +481,8 @@ class ExplicitBaseCard extends React.Component {
                   disabled={!props.is_validbtn2}
                   color={props.btn2color}
                   size={props.btnSizeForAll}
+                  className={props.btn2ClassName}
+                  btn2Icon={props.btn2Icon}
                 />
               ) : (
                 <StyledButton
@@ -452,6 +492,7 @@ class ExplicitBaseCard extends React.Component {
                   color={props.btn2color}
                   className={props.btn2ClassName}
                   size={props.btnSizeForAll}
+                  name={props.btn2Name}
                 >
                   {props.btn2Text}
                   <i className={props.btn2Icon} />
@@ -476,7 +517,11 @@ class ExplicitBaseCard extends React.Component {
                   buttonLabel={props.btn3Text}
                   confirmAction={props.btn3}
                   disabled={!props.is_validbtn3}
-                  id="toggler"
+                  id="button3"
+                  color={props.btn3color}
+                  size={props.btnSizeForAll}
+                  className={props.btn3ClassName}
+                  btn2Icon={props.btn3Icon}
                 />
               ) : (
                 <StyledButton
@@ -486,7 +531,7 @@ class ExplicitBaseCard extends React.Component {
                   color={props.btn3color}
                   className={props.btn3ClassName}
                   size={props.btnSizeForAll}
-                  id="toggler"
+                  id="button3"
                 >
                   {props.btn3Text}
                   <i className={props.btn3Icon} />
@@ -503,8 +548,16 @@ class ExplicitBaseCard extends React.Component {
             */}
 
             {props.btn4 && (
-              <StyledButton onClick={() => props.btn4(props.id)}>
+              <StyledButton
+                onClick={() => props.btn4(props.id)}
+                btn3={"true"}
+                color={props.btn4color}
+                className={props.btn4ClassName}
+                size={props.btnSizeForAll}
+                id="button4"
+              >
                 {props.btn4Text}
+                <i className={props.btn4Icon} />
               </StyledButton>
             )}
           </div>
@@ -518,7 +571,7 @@ class ExplicitBaseCard extends React.Component {
 
         */}
         {props.btn3Hover && (
-          <UncontrolledTooltip placement="right" target="toggler">
+          <UncontrolledTooltip placement="right" target="button3">
             {props.btn3Hover}
           </UncontrolledTooltip>
         )}
