@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Label, Input, Col } from "reactstrap";
+import styled from "styled-components";
+
+const StyledInput = styled(Input)`
+  display: inline-block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+`;
 
 class JobForm extends Component {
   render() {
@@ -153,7 +160,7 @@ class JobForm extends Component {
         {/* Set if Job is active */}
         <FormGroup check>
           <Label for="is_active">
-            <Input
+            <StyledInput
               onChange={this.props.onFormChange}
               type="checkbox"
               name="is_active"

@@ -14,7 +14,11 @@ import {
 } from "reactstrap";
 import { billUser } from "../store/action";
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
 
+const CardInfo = styled.blockquote`
+  background: white;
+`;
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -48,11 +52,11 @@ class CheckoutForm extends Component {
           <Form>
             <Row>
               <Col>
-                <blockquote className="blockquote">
+                <CardInfo className="blockquote">
                   <FormGroup>
                     <CardElement />
                   </FormGroup>
-                </blockquote>
+                </CardInfo>
               </Col>
             </Row>
 
