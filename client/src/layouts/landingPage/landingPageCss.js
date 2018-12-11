@@ -44,14 +44,9 @@ export const LandingHeading = styled.h1`
 const MoveInLeft = keyframes`
     0% {
       opacity: 0;
-      transform: translate(-40%, -50%);
-    }
-    80% {
-      transform: translate(-54%, -50%);
     }
     100% {
       opacity: 1;
-      transform: translate(-50%, -50%);
     }
 `;
 export const CenterDiv = styled.div`

@@ -16,12 +16,13 @@ const DynamicTagLine = styled(Col)`
   text-align: start;
   padding-left: 5px;
   font-weight: bold;
-  font-style: italic;
-  // span {
-  //   background-color: blue;
-  //   color: white;
-  //   padding: 4px;
-  // }
+  // font-style: italic;
+  span {
+    text-decoration: underline;
+    //   background-color: blue;
+    //   color: white;
+    //   padding: 4px;
+  }
 `;
 const StyledMenu = styled.div`
   text-decoration: none;
@@ -48,7 +49,7 @@ const StyledMenu = styled.div`
 `;
 
 const StyledH2 = styled.h2`
-  border-bottom: solid 2px rgba(255, 255, 255, 0.125);
+  // border-bottom: solid 2px rgba(255, 255, 255, 0.125);
   font-size: 2.25em;
   margin-bottom: 25px;
   padding-bottom: 14px;
@@ -110,9 +111,17 @@ class Landing extends React.Component {
                   <Row>
                     <FixedTagLine xs={6}>Helping employers find</FixedTagLine>
                     <DynamicTagLine xs={6}>
-                      <Typing speed={100} loop={true} component={"span"}>
-                        {"Geniuses, Engineers, Developers, Data Scientists, Mobile Devs, Full Stack Developers, Executives"
-                          .split(", ")
+                      <Typing
+                        speed={100}
+                        loop={true}
+                        component={"span"}
+                        startDelay={2000}
+                        className={"typer_cursor"}
+                        hideCursor={true}
+                        cursorClassName={"typer_cursor"}
+                      >
+                        {"Geniuses,Engineers,Developers,Data Scientists,Mobile Devs,Full Stack Developers,Executives"
+                          .split(",")
                           .map(word => (
                             <React.Fragment>
                               <span>{` ${word} `}</span>
