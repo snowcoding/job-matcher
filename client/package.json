@@ -44,6 +44,7 @@
     "react-toastify": "^4.4.3",
     "react-transition-group": "^1.2.1",
     "react-typeform": "^1.0.3",
+    "react-typing-animation": "^1.5.1",
     "reactstrap": "6.5.0",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
