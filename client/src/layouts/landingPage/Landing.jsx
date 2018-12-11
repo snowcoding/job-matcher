@@ -67,7 +67,7 @@ const StyledDivLogo = styled.div`
 
 class Landing extends React.Component {
   state = {
-    is_menuOpen: true
+    is_menuOpen: false
   };
 
   toggleMenu = e => {
@@ -88,7 +88,7 @@ class Landing extends React.Component {
                   <i className="fas fa-binoculars">{""}</i>
                 </StyledDivLogo>
                 <StyledH2>This is Seek Geek</StyledH2>
-                <StyledP>Another full stack application by </StyledP>
+                <StyledP>.....####.....</StyledP>
               </div>
             </section>
           </CenterDiv>
