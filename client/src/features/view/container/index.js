@@ -14,9 +14,9 @@ const MatchContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 20px auto;
+  margin: 0px auto;
   @media (max-width: 450px) {
-    margin: 10px auto;
+    margin: 0px auto;
     width: 91%;
   }
 `;

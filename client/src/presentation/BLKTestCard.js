@@ -60,13 +60,13 @@ const StyledCard = styled(Card)`
   height: ${props => (props.width ? "400px" : "auto")};
   background-color: #27293d;
   color: white;
-  margin: 20px auto;
+  margin: 0px auto;
   text-align: start;
   border-radius: 0;
   // border-left: 10px solid #3358f4;
-  padding: 15px 10px;
   padding: 20px 20px;
   border: 1px solid #81818142;
+  border-radius: 10px;
   overflow: hidden;
   i {
     cursor: pointer;
