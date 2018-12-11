@@ -1,11 +1,28 @@
 import React from "react";
 import "./index.css";
 import { LandingDiv, CenterDiv } from "./landingPageCss";
-import styled, { keyframes } from "styled-components";
-import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+import Typing from "react-typing-animation";
+import { Row, Col } from "reactstrap";
 import MenuLogin from "./MenuLogin";
 import TransitionGroup from "react-transition-group/TransitionGroup"; // ES6
 
+const FixedTagLine = styled(Col)`
+  text-align: right;
+  padding-right: 0;
+  // @media()
+`;
+const DynamicTagLine = styled(Col)`
+  text-align: start;
+  padding-left: 5px;
+  font-weight: bold;
+  font-style: italic;
+  // span {
+  //   background-color: blue;
+  //   color: white;
+  //   padding: 4px;
+  // }
+`;
 const StyledMenu = styled.div`
   text-decoration: none;
   transition: all 0.2s ease-in-out;
@@ -29,6 +46,7 @@ const StyledMenu = styled.div`
     text-decoration: none;
   }
 `;
+
 const StyledH2 = styled.h2`
   border-bottom: solid 2px rgba(255, 255, 255, 0.125);
   font-size: 2.25em;
@@ -67,7 +85,7 @@ const StyledDivLogo = styled.div`
 
 class Landing extends React.Component {
   state = {
-    is_menuOpen: true
+    is_menuOpen: false
   };
 
   toggleMenu = e => {
@@ -88,7 +106,27 @@ class Landing extends React.Component {
                   <i className="fas fa-binoculars">{""}</i>
                 </StyledDivLogo>
                 <StyledH2>This is Seek Geek</StyledH2>
-                <StyledP>Another full stack application by </StyledP>
+                <h3>
+                  <Row>
+                    <FixedTagLine xs={6}>Helping employers find</FixedTagLine>
+                    <DynamicTagLine xs={6}>
+                      <Typing speed={100} loop={true} component={"span"}>
+                        {"Geniuses, Engineers, Developers, Data Scientists, Mobile Devs, Full Stack Developers, Executives"
+                          .split(", ")
+                          .map(word => (
+                            <React.Fragment>
+                              <span>{` ${word} `}</span>
+                              <Typing.Backspace
+                                count={word.length + 1}
+                                delay={1000}
+                              />
+                              {/*<Typing.Delay ms={1000} />*/}
+                            </React.Fragment>
+                          ))}
+                      </Typing>
+                    </DynamicTagLine>
+                  </Row>
+                </h3>
               </div>
             </section>
           </CenterDiv>
