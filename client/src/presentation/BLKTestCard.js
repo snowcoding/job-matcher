@@ -30,52 +30,23 @@ const StyledH5 = styled.h5`
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
+  margin-bottom: 0;
 `;
 
-const beat = keyframes`
-	to { transform: scale(1.1); }
-`;
 const StyledButton = styled(Button)`
   // background-color: #207ccae8;
   // color: #444444;
   width: 48px !important;
   height: 48px !important;
-  padding: 10px !important;
+  padding: 5px !important;
   border-radius: 50%;
+  box-sizing: border-box;
   transition: all;
   i {
     font-size: 26px !important;
   }
 `;
-const StyledCardImg = styled(CardImg)`
-  width: 100%;
-  border-radius: 50%;
-`;
-const StyledDropdownToggle = styled(DropdownToggle)`
-  margin: auto;
-  /* padding: 6px 135px; */
-  /* width: 100%; */
-  /* box-sizing: border-box; */
-  border: none;
-  // border: 1px solid;
-  // border-radius: 0;
-  background-color: #27293d !important;
-  color: white;
-  transition: all 0.4s;
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: transparent !important;
-    color: white !important;
-    border: 1px solid white !important;
-    border: 1px solid white !important;
-  }
-  &:not(:disabled):not(.disabled):active {
-    background-color: transparent;
-    color: white;
-    border: 1px solid;
-  }
-`;
+
 const backdrop = keyframes`
     from{
          box-shadow: 1px 1px 15px #a8419b;
@@ -85,31 +56,28 @@ const backdrop = keyframes`
     }
 `;
 const StyledCard = styled(Card)`
-    width: ${props => (props.width ? props.width : "100%")}
-    background-color: #27293d;
-    color: white;
-    margin: 20px auto;
-    text-align: start;
-    border-radius: 0;
-    // border-left: 10px solid #3358f4;
-    padding: 15px 10px;
-    padding: 20px 20px;
-    border: 1px solid #81818142;
-    border-radius: 41px;
-    
-    // box-shadow: 1px 1px 10px #a8419b;
-    // animation: ${backdrop} 3s infinite;
-    // transition: animation 3s;
-    i{
-        cursor: pointer;
-        &:hover{
-            color: #207ccae8;
-        }
+  width: ${props => (props.width ? props.width : "100%")};
+  height: ${props => (props.width ? "400px" : "auto")};
+  background-color: #27293d;
+  color: white;
+  margin: 0px auto;
+  text-align: start;
+  border-radius: 0;
+  // border-left: 10px solid #3358f4;
+  padding: 20px 20px;
+  border: 1px solid #81818142;
+  border-radius: 10px;
+  overflow: hidden;
+  i {
+    cursor: pointer;
+    &:hover {
+      color: #207ccae8;
     }
-    @media (min-width: 900px) {
-      margin: 10px 5px;
-      margin: 10px auto;
-    }
+  }
+  @media (min-width: 900px) {
+    margin: 10px 5px;
+    margin: 10px auto;
+  }
 `;
 const moveUp = keyframes`
     0%{
@@ -147,42 +115,40 @@ const moveDown = keyframes`
 `;
 
 const CardHeader = styled.div`
-  position: relative;
-  width: 100%;
-  height: ${props => (props.height ? "100px" : "150px")};
-  display: flex;
-  // border-radius: 20px;
-  border-bottom: 1px solid #4a4a4a;
-  border-top: 1px solid #4a4a4a;
-  border-radius: 20px;
-  padding: 10px;
-  background-color: #27293d;
-  top: "0px";
-  margin-bottom: 5px;
-
-  animation: ${props => (props.is_open ? moveUp : moveDown)};
-  animation-duration: 2s;
-  // animation-delay: 3s;
-  transition: animation 0.4s ease;
-  img {
-    width: ${props => (props.height ? "100px" : "130px")};
-    height: 90%;
-    border-radius: 50%;
-    padding: 10px;
-    margin: auto;
-    // border: 1px solid white;
-  }
-  div {
-    flex: 1;
-    margin: auto;
-    margin-left: 20px;
-  }
-  h6 {
-    overflow: scroll;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: unset;
-  }
+  // position: relative;
+  // width: 100%;
+  // height:  ${props => (props.height ? "80px" : "100px")};
+  // display: flex;
+  // border-bottom: 1px solid #4a4a4a;
+  // border-top: 1px solid #4a4a4a;
+  // // border-radius: 20px;
+  // padding: 10px;
+  // background-color: #27293d;
+  // margin-bottom: 5px;
+  //
+  // animation: ${props => (props.is_open ? moveUp : moveDown)};
+  // animation-duration: 2s;
+  // transition: animation 0.4s ease;
+  //
+  // img {
+  //   width: auto;
+  //   height: 90%;
+  //   border-radius: 50%;
+  //   padding: 2px;
+  //   margin: auto;
+  //   border: 1px solid #4a4a4a;
+  // }
+  // div {
+  //   flex: 1;
+  //   margin: auto;
+  //   margin-left: 20px;
+  // }
+  // h6 {
+  //   overflow: scroll;
+  //   font-size: 12px;
+  //   font-weight: 500;
+  //   text-transform: unset;
+  // }
 `;
 const StyledCardBody = styled.div`
   position: relative;
@@ -190,7 +156,9 @@ const StyledCardBody = styled.div`
   height: ${props => (props.height ? props.height : "200px")};
   padding: 10px 30px;
   text-align: start;
-  // border-radius: 20px;
+  // border-top: 1px solid white;
+  margin-top: 10px;
+  padding-top: 10px;
   background-color: transparent;
   transform-style: preserve-3d;
   perspective: 2000px;
@@ -314,22 +282,37 @@ class ExplicitBaseCard extends React.Component {
     return (
       <StyledCard width={props.width} id={"baseCard"}>
         {/************************** CardHeader starts *******************************/}
+
         <CardHeader
-          className="styled-card-header"
+          className="styled-card-header card-user"
           is_open={props.is_open}
           height={props.height}
           onClick={props.toggle}
         >
-          <CardImg
-            src={
-              props.photo ||
-              "https://images.unsplash.com/photo-1527605555-b01c458b8029?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-            }
-            alt="Card image cap"
-          />
-          <div>
-            <StyledH5 is_seeker={props.is_seeker}>{props.name}</StyledH5>
-            <span>{props.summary}</span>
+          {/*<CardImg*/}
+          {/*src={*/}
+          {/*props.photo ||*/}
+          {/*"https://images.unsplash.com/photo-1527605555-b01c458b8029?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"*/}
+          {/*}*/}
+          {/*alt="Card image cap"*/}
+          {/*/>*/}
+          {/*<div>*/}
+          {/*<StyledH5 is_seeker={props.is_seeker}>{props.name}</StyledH5>*/}
+          {/*<span>{props.summary}</span>*/}
+          {/*</div>*/}
+          <div className="author">
+            <div className="block block-one" />
+            <div className="block block-two" />
+            <div className="block block-three" />
+            <div className="block block-four" />
+            <a href="#pablo" onClick={e => e.preventDefault()}>
+              <img
+                alt="..."
+                className="avatar"
+                src={props.photo || require("assets/img/anime3.png")}
+              />
+              <h5 className="title">{props.name}</h5>
+            </a>
           </div>
         </CardHeader>
         {/************************** CardHeader ends *******************************/}

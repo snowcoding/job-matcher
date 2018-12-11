@@ -3,7 +3,7 @@ import API from "../../../api";
 import styled from "styled-components";
 import JobCard from "./JobCard";
 import JobModal from "./JobModal";
-import ExplicitBaseCard from "../../../presentation/BaseCard";
+import ExplicitBaseCard from "../../../presentation/BLKTestCard";
 import { toast } from "react-toastify";
 
 const JobCardDeck = styled.div`
@@ -226,14 +226,24 @@ class Job extends Component {
               key={job.id}
               id={job.id}
               title={job.title}
-              name={job.employer.company_name}
-              btn1={() => console.log("Archive Button clicked")}
-              btn1Text="Archive"
-              btn4={e => this.jobCardClickHandler(e)}
-              btn4Text="Edit"
-              is_valid={true}
+              name={`${job.employer.company_name}`}
+              photo={job.employer.photo}
               summary={job.description}
-              width="300px"
+              btn1Icon={"fas fa-archive"}
+              btn1Name={"archived"}
+              btn1color={"info"}
+              btn4color={"success"}
+              btn4Icon={"fas fa-edit"}
+              btn4Name={"email"}
+              btn1ClassName={"btn-simple"}
+              btn1={() => toast.success("Coming soon")}
+              btn4={e => this.jobCardClickHandler(e, job)} // ******************
+              btn4ClassName={"btn-simple"}
+              width={"300px"}
+              is_valid={true}
+              is_validbtn4={true}
+              btnSizeForAll={"sm"}
+              height={"auto"}
             />
           ))}
         </JobCardDeck>

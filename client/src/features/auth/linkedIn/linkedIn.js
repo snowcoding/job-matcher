@@ -3,6 +3,10 @@ import React from "react";
 import Api from "../../../api";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+const StyledDiv = styled.div`
+  display: ${props => (props.login ? "none" : "block")};
+`;
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -69,7 +73,7 @@ class MyComponent extends React.Component {
   render() {
     return !this.props.LINKEDIN_SUCCESS ? (
       <div>
-        <div>
+        <StyledDiv login={this.props.login}>
           <label htmlFor="is_seeker"> Are you seeker? </label>
           <input
             type="checkbox"
@@ -78,7 +82,7 @@ class MyComponent extends React.Component {
             id="is_seeker"
             value={this.state.is_seeker}
           />
-        </div>
+        </StyledDiv>
         <LinkedinSDK
           clientId="86k7v2sks14nul"
           callBack={this.responseLinkedin}

@@ -123,7 +123,7 @@ class MatchContainer extends Component {
               width={"300px"}
               is_valid={true}
               is_validbtn4={true}
-              btnSizeForAll={"lg"}
+              btnSizeForAll={"sm"}
               height={"auto"}
             />
           ))}
