@@ -23,7 +23,7 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundColor: props.currentUser.is_seeker ? "primary" : "blue",
+      backgroundColor: props.currentUser.is_seeker ? "primary" : "green",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
     };
