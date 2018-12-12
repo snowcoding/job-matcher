@@ -94,7 +94,7 @@ class Sidebar extends React.Component {
           {logoImg !== null || logoText !== null ? (
             <div className="logo">
               {logoImg}
-              <b>{logoText}</b>
+              {logoText}
             </div>
           ) : null}
           <Nav>
@@ -121,7 +121,7 @@ class Sidebar extends React.Component {
                       onClick={this.props.toggleSidebar}
                     >
                       <i className={prop.icon} />
-                      <b>{rtlActive ? prop.rtlName : prop.name}</b>
+                      <p>{rtlActive ? prop.rtlName : prop.name}</p>
                     </NavLink>
                   </li>
                 );
