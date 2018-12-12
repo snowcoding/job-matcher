@@ -16,6 +16,8 @@ import {
   Row,
   Col
 } from "reactstrap";
+import CSSLoader from "../../../presentation/CSSLoader/CSSLoader";
+
 const JobCardDeck = styled.div`
   width: 100%;
   display: flex;
@@ -98,7 +100,7 @@ class MatchContainer extends Component {
             summary: match.seeker.summary
           }));
 
-    if (!this.props.matchesRequestSuccess) return <h4>fetching data</h4>;
+    if (!this.props.matchesRequestSuccess) return <CSSLoader />;
     return (
       <React.Fragment>
         <JobCardDeck className="card-decks">

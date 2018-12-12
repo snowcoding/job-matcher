@@ -7,6 +7,7 @@ import ExplicitBaseCard from "../../../presentation/BLKTestCard";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import TransitionGroup from "react-transition-group/TransitionGroup";
+import CSSLoader from "../../../presentation/CSSLoader/CSSLoader";
 
 const MatchContainer = styled.div`
   width: 400px;
@@ -188,9 +189,9 @@ class ViewContainer extends Component {
   };
   render() {
     if (!this.props.success) {
-      return <h1>waiting</h1>;
+      return <CSSLoader />;
     }
-    let card = <h1>waiting2</h1>;
+    let card = <CSSLoader />;
     let dropDownToggleText;
     if (this.props.currentUser.is_seeker) {
       card = (
