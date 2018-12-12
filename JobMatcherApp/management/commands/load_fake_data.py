@@ -13,14 +13,25 @@ from jobs.models import Job, Match
 fake = Faker()
 
 SKILLS = ['Leadership', 'Vision', 'Execution', 'React', 'Vue', 'JS', 'Django', 'DRF', 'GraphQL', 'Node', 'AWS',
-          'Python', 'TensorFlow', 'Watson', 'SciKit', 'CSS', 'ES6', 'Vue', 'Agile', 'Scrum', 'Git', 'Auth0', 'OAuth2']
-TITLES = ['VP Of Engineering', 'Senior Frontend Engineer', 'Senior Backend Engineer', 'Senior Tech Lead',
-          'Frontend Dev', 'Backend Dev', 'Full Stack Developer', 'Data Scientist', 'The ML/AI Guy', 'Full Stack Guy',
-          'UI/UX Designer', 'iOS Developer', 'Android Developer']
+          'Python', 'TensorFlow', 'Watson', 'SciKit', 'CSS', 'ES6', 'Vue', 'Agile', 'Scrum', 'Git', 'Auth0', 'OAuth2',
+          'Python', 'C++', 'CI/CD']
+
+TITLES = ['VP Of Engineering',
+          'Snr Frontend Engineer',
+          'Snr Backend Engineer',
+          'Senior Tech Lead',
+          'Frontend Developer',
+          'Backend Developer',
+          'Full Stack Developer',
+          'Data Scientist',
+          'The ML/AI Engineer',
+          'Full Stack Engineer',
+          'UI/UX Designer',
+          'iOS Developer',
+          'Android Developer']
 TAGS = ['BS', 'in', 'Math', 'and', 'CS', 'from', 'Santa', 'Clara', 'University', 'Worked', 'in', 'Silicon', 'Graphics',
         '1985', 'Joined', 'Netscape', 'in', '1990', 'and', 'created', 'JS', 'in', '10', 'days.', 'In', '1998',
-        'Cofounded',
-        'Mozilla.', 'Brave', 'Browser']
+        'Co-founder', 'Mozilla.', 'Brave', 'Browser']
 
 YEARS = [str(i) for i in range(2000, 2018)]
 
@@ -49,21 +60,25 @@ class Command(BaseCommand):
                                    authorization_grant_type=Application.GRANT_PASSWORD)
         num_jobs = 50
         num_seekers = 100
-        num_employers = 10
+        num_employers = 11
         num_sentences = 25
         password = make_password('5555555555')
-        company_name_static = ['Apple', 'Facebook', 'Netflix', 'Airbnb', 'Snapchat', 'Starbucks', 'Adobe', 'Slack', 'Lyft',
-                               'Instagram']
+        company_name_static = ['Apple', 'Facebook', 'Netflix', 'Snapchat', 'Starbucks', 'Adobe', 'Slack',
+                               'Lyft', 'Instagram', 'Stripe', 'Pinterest']
         company_summary_static = ['More than just a fruit, we charge 1000 for a phone',
                                   'Data is so safe, that even your Grandma is on here',
                                   'Come on, come all, everybody gets a special',
-                                  'Now everyone can make themselves at home',
                                   'Now you see it, now you dont',
                                   'Overpricing coffee since 1971',
                                   "Finally don't have to update Reader anymore",
                                   "We're all grown up and about to IPO",
                                   "Sure have another, you're not driving",
-                                  "Maybe she's born with it, maybe it's a 100 filters"]
+                                  "Maybe she's born with it, maybe it's a 100 filters",
+                                  "We making taking payments so easy, a monkey could do it",
+                                  "Every interesting picture ever... lots of cats"]
+
+        seeker_summary = "A senior professional committed to excellence in engineering. Looking to join a successful " \
+                         "company with growth opportunities."
 
         users = User.objects.bulk_create([
             User(email=f'{i}@seeker.com', password=password, first_name=fake.first_name_male(),
@@ -76,12 +91,13 @@ class Command(BaseCommand):
         seekers = Seeker.objects.bulk_create([
             Seeker(
                 user=users[i],
-                summary=fake.catch_phrase(),
+                # summary=fake.catch_phrase(),
+                summary=seeker_summary,
                 photo=f'https://randomuser.me/api/portraits/men/{random.randrange(0, 99)}.jpg'
                 if i % 2 == 0 else f'https://randomuser.me/api/portraits/women/{random.randrange(0, 99)}.jpg',
                 credits=random.randrange(0, 100),
                 free_apps=random.randrange(0, 10),
-                desired_title=f'#{i + 1} - {random.choice(SKILLS)}',
+                desired_title=f'{random.choice(TITLES)}',
                 top_skills=random.choices(SKILLS, k=3),
                 extra_skills=random.choices(SKILLS, k=3),
                 other_skills=random.choices(SKILLS, k=3),

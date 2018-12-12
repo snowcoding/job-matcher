@@ -101,7 +101,8 @@ class ViewContainer extends Component {
     this.validate();
   };
   animationOnComplete = () => {
-    this.setState({ jobIdSelected: null, show_card: true });
+    // this.setState({ jobIdSelected: null, show_card: true });
+    this.setState({ show_card: true });
   };
 
   postMatchActionHandler = () => {
@@ -116,10 +117,18 @@ class ViewContainer extends Component {
     }
     if (userType) {
       data = this.populateSeekerDataInfo("SUPER");
-      toast.success("This job was Supered!!");
+      toast.success(
+        `We just let ${
+          this.props.data.employer.company_name
+        } know that you are really interested, check your matches to reach out!`
+      );
     } else {
       data = this.populateEmployerDataInfo("SUPER");
-      toast.success(`You Supered ${this.props.data.first_name}`);
+      toast.success(
+        `${
+          this.props.data.first_name
+        } now knows that you're really interested, check your matches to reach out!`
+      );
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
@@ -130,10 +139,19 @@ class ViewContainer extends Component {
     let data;
     if (userType) {
       data = this.populateSeekerDataInfo("APPLY");
-      toast.success("Your application has been sent!");
+      toast.success(
+        `Got it. Check your matches to see if ${
+          this.props.data.employer.company_name
+        } is also interested`
+      );
     } else {
       data = this.populateEmployerDataInfo("CALL");
-      toast.success(`Your call to ${this.props.data.first_name} has been sent`);
+      // toast.success(`Your call to ${this.props.data.first_name} has been sent`);
+      toast.success(
+        `Got it. Check your matches to see if ${
+          this.props.data.first_name
+        } is also interested`
+      );
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
@@ -143,7 +161,7 @@ class ViewContainer extends Component {
     this.validate();
     this.props.postSuperAction(data);
     this.getRandomUserHandler();
-    this.setState({ jobIdSelected: null });
+    // this.setState({ jobIdSelected: null });
   };
 
   populateSeekerDataInfo = action => {
@@ -205,6 +223,7 @@ class ViewContainer extends Component {
           description={this.props.data.description}
           skills={this.props.data.top_skills}
           extra_skills={this.props.data.extra_skills}
+          familiar_with={this.props.data.familiar_with}
           is_validbtn2={this.state.hasEnoughCreditForSuperAction}
           is_validbtn3={this.state.hasEnoughCreditForRegularAction}
           btn3Hover={this.state.hoverText}
@@ -265,6 +284,7 @@ class ViewContainer extends Component {
           experience={this.props.data.experience || "experience"}
           skills={this.props.data.top_skills}
           extra_skills={this.props.data.extra_skills}
+          familiar_with={this.props.data.other_skills}
           btn3Hover={this.state.hoverText}
           animationOnComplete={this.animationOnComplete}
           photo={this.props.data.photo}
