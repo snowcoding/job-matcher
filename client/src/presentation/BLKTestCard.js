@@ -24,13 +24,8 @@ const ShowFullCard = styled.div`
   display: ${props => (props.is_open ? "block" : "none")};
 `;
 const StyledH5 = styled.h5`
-  color: ${props => (props.is_seeker ? "red" : "green")};
-  color: white;
-  text-transform: capitalize;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 0;
+  padding: ${props => (props.is_seeker ? "0px 9%" : "0 0")};
+  text-align: ${props => (props.is_seeker ? "left" : "center")};
 `;
 
 const StyledButton = styled(Button)`
@@ -47,6 +42,13 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const StyledCompanyName = styled.h1`
+  margin-bottom: 12px;
+`;
+
+const StyledSkilledDiv = styled.div`
+  margin-top: 20px;
+`;
 const backdrop = keyframes`
     from{
          box-shadow: 1px 1px 15px #a8419b;
@@ -311,7 +313,10 @@ class ExplicitBaseCard extends React.Component {
                 className="avatar"
                 src={props.photo || require("assets/img/anime3.png")}
               />
-              <h5 className="title">{props.name}</h5>
+              <StyledCompanyName className="title">
+                {props.name}
+              </StyledCompanyName>
+              <StyledH5 is_seeker={props.is_seeker}>{props.summary}</StyledH5>
             </a>
           </div>
         </CardHeader>
@@ -327,14 +332,32 @@ class ExplicitBaseCard extends React.Component {
             <StyledCardTitle className="icard-title">
               {props.title}
             </StyledCardTitle>
-            {props.skills &&
-              props.skills.map((skill, i) => (
-                <span key={i * Date.now()}>{skill} </span>
-              ))}
-            {props.extra_skills &&
-              props.extra_skills.map((skill, i) => (
-                <span key={Math.random() * i * Date.now()}>{skill}</span>
-              ))}
+            <StyledSkilledDiv>
+              {props.skills && (
+                <li>
+                  {" "}
+                  {props.skills.map((skill, i) => (
+                    <span key={i * Date.now()}>{skill} </span>
+                  ))}
+                </li>
+              )}
+              {props.extra_skills && (
+                <li>
+                  {" "}
+                  {props.extra_skills.map((skill, i) => (
+                    <span key={Math.random() * i * Date.now()}>{skill} </span>
+                  ))}
+                </li>
+              )}
+              {props.familiar_with && (
+                <li>
+                  {" "}
+                  {props.familiar_with.map((skill, i) => (
+                    <span key={Math.random() * i * Date.now()}>{skill} </span>
+                  ))}
+                </li>
+              )}
+            </StyledSkilledDiv>
             {/*ShowFullCard
             Usage: this styled component is useful if you have data that needs to display conditionally.
             props:
