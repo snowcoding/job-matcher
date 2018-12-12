@@ -6,7 +6,7 @@ import Messages from "views/Messages.jsx";
 import JobPostings from "views/JobPostings.jsx";
 import BillingView from "views/BillingView.jsx";
 import UserProfile from "views/UserProfile.jsx";
-
+import TestingCard from "./views/TestingView";
 var routes = [
   {
     path: "/seek",
@@ -49,14 +49,15 @@ var routes = [
     icon: "tim-icons icon-cart",
     component: ProtectedPages(BillingView),
     layout: "/admin"
-  },
-  {
-    path: "/sibhat",
-    name: "sibhat",
-    icon: "tim-icons icon-cart",
-    component: ProtectedPages(UserProfile),
-    layout: "/admin"
   }
+  // Routes for testing
+  // {
+  //   path: "/sibhat",
+  //   name: "sibhat",
+  //   icon: "tim-icons icon-cart",
+  //   component: ProtectedPages(UserProfile),
+  //   layout: "/admin"
+  // }
   // {
   //   path: "/",
   //   name: "Home",
@@ -64,5 +65,12 @@ var routes = [
   //   component: LandingView,
   //   layout: "/admin"
   // }
+//   {
+//     path: "/testing",
+//     name: "Testing",
+//     icon: "tim-icons icon-compass-05",
+//     component: TestingCard,
+//     layout: "/admin"
+//   }
 ];
 export default routes;

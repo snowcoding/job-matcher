@@ -37,6 +37,7 @@ export const FormDiv = styled.div`
 `;
 export const Title = styled.h1`
   font-size: 20px;
+  color: #000000 !important;
 `;
 export const FormGroup = styled.div`
   width: 100%;

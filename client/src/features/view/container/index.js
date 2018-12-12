@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { getRandomUser, postSuperAction } from "../store/action";
 import { getMyJobs } from "../../job/store/action";
 import { getProfile } from "../../auth/store/action";
-import ExplicitBaseCard from "../../../presentation/BaseCard";
+import ExplicitBaseCard from "../../../presentation/BLKTestCard";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import TransitionGroup from "react-transition-group/TransitionGroup";
 
 const MatchContainer = styled.div`
   width: 400px;
@@ -13,10 +14,15 @@ const MatchContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 20px auto;
+  margin: 0px auto;
+  @media (max-width: 450px) {
+    margin: 0px auto;
+    width: 91%;
+  }
 `;
 class ViewContainer extends Component {
   state = {
+    show_card: false,
     is_open: false,
     jobIdSelected: null,
     hasEnoughCreditForRegularAction: false,
@@ -83,6 +89,7 @@ class ViewContainer extends Component {
   };
 
   getRandomUserHandler = () => {
+    this.setState({ show_card: !this.state.show_card });
     const userType = this.props.currentUser.is_seeker;
     if (userType) {
       this.props.getRandomUser("job");
@@ -90,9 +97,12 @@ class ViewContainer extends Component {
       this.props.getRandomUser("seeker");
       this.props.getMyJobs();
     }
-    this.setState({ jobIdSelected: null });
-    this.validate();
     this.props.getProfile();
+    this.validate();
+  };
+  animationOnComplete = () => {
+    // this.setState({ jobIdSelected: null, show_card: true });
+    this.setState({ show_card: true });
   };
 
   postMatchActionHandler = () => {
@@ -107,10 +117,18 @@ class ViewContainer extends Component {
     }
     if (userType) {
       data = this.populateSeekerDataInfo("SUPER");
-      toast.success("This job was Supered!!");
+      toast.success(
+        `We just let ${
+          this.props.data.employer.company_name
+        } know that you are really interested, check your matches to reach out!`
+      );
     } else {
       data = this.populateEmployerDataInfo("SUPER");
-      toast.success(`You Supered ${this.props.data.first_name}`);
+      toast.success(
+        `${
+          this.props.data.first_name
+        } now knows that you're really interested, check your matches to reach out!`
+      );
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
@@ -121,10 +139,19 @@ class ViewContainer extends Component {
     let data;
     if (userType) {
       data = this.populateSeekerDataInfo("APPLY");
-      toast.success("Your application has been sent!");
+      toast.success(
+        `Got it. Check your matches to see if ${
+          this.props.data.employer.company_name
+        } is also interested`
+      );
     } else {
       data = this.populateEmployerDataInfo("CALL");
-      toast.success(`Your call to ${this.props.data.first_name} has been sent`);
+      // toast.success(`Your call to ${this.props.data.first_name} has been sent`);
+      toast.success(
+        `Got it. Check your matches to see if ${
+          this.props.data.first_name
+        } is also interested`
+      );
     }
     this.postCallAction(data);
     this.getRandomUserHandler();
@@ -134,7 +161,7 @@ class ViewContainer extends Component {
     this.validate();
     this.props.postSuperAction(data);
     this.getRandomUserHandler();
-    this.setState({ jobIdSelected: null });
+    // this.setState({ jobIdSelected: null });
   };
 
   populateSeekerDataInfo = action => {
@@ -160,27 +187,34 @@ class ViewContainer extends Component {
     this.validate();
   };
   render() {
-    let dropDownToggleText;
-    if (this.state.jobIdSelected) {
-      dropDownToggleText = this.props.jobs.filter(
-        job => job.id === this.state.jobIdSelected
-      )[0].title;
+    if (!this.props.success) {
+      return <h1>waiting</h1>;
     }
-
-    let card;
-    if (this.props.success && this.props.currentUser.is_seeker) {
+    let card = <h1>waiting2</h1>;
+    let dropDownToggleText;
+    if (this.props.currentUser.is_seeker) {
       card = (
         <ExplicitBaseCard
           confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
-          btn1Text={"Skip"}
-          btn2Text={"Super"}
-          btn3Text={"App"}
+          // btn1Text={"Skip"}
+          btn1color={"info"}
+          btn1ClassName={"btn-simple btn-icon"}
+          btn1Icon={"far fa-thumbs-down"}
+          btn2color={"primary"}
+          // btn2Text={"Super"}
+          btn2ClassName={"btn-simple btn-icon"}
+          btn2Icon={"far fa-heart"}
+          // btn3Text={"Call"}
+          btn3color={"success"}
+          btn3ClassName={"btn-simple btn-icon"}
+          btn3Icon={"far fa-thumbs-up"}
           btn1={this.getRandomUserHandler}
           btn2={this.postMatchActionHandler}
           btn3={this.postInterest}
           name={this.props.data.company_name}
           title={this.props.data.title}
-          summary={this.props.data.id} // change id to summary
+          summary={this.props.data.summary}
+          photo={this.props.data.photo}
           is_seeker={this.props.data.is_seeker}
           fullCardArrow={this.showFullCard}
           is_open={this.state.is_open}
@@ -189,24 +223,43 @@ class ViewContainer extends Component {
           description={this.props.data.description}
           skills={this.props.data.top_skills}
           extra_skills={this.props.data.extra_skills}
+          familiar_with={this.props.data.familiar_with}
           is_validbtn2={this.state.hasEnoughCreditForSuperAction}
           is_validbtn3={this.state.hasEnoughCreditForRegularAction}
           btn3Hover={this.state.hoverText}
           outOfCreditAlert={this.state.outOfCreditAlert}
           is_valid={this.state.hasEnoughCreditForRegularAction}
+          btnSizeForAll={"ml"}
+          animationOnComplete={this.animationOnComplete}
+          photo={this.props.data.photo}
         />
       );
-    } else if (this.props.success && !this.props.currentUser.is_seeker) {
+    } else {
+      if (this.state.jobIdSelected) {
+        dropDownToggleText = this.props.jobs.filter(
+          job => job.id === this.state.jobIdSelected
+        )[0].title;
+      }
       card = (
         <ExplicitBaseCard
           confirmAction={this.state.confirmAction} //seems to need to be passed before button is rendered
-          btn1Text={"Skip"}
-          btn2Text={"Super"}
-          btn3Text={"Call"}
+          btnSizeForAll={"ml"}
+          btn1color={"info"}
+          btn1ClassName={"btn-simple btn-icon"}
+          btn1Icon={"far fa-thumbs-down"}
+          btn2color={"primary"}
+          // btn2Text={"Super"}
+          btn2ClassName={"btn-simple btn-icon"}
+          btn2Icon={"far fa-heart"}
+          // btn3Text={"Call"}
+          btn3color={"success"}
+          btn3ClassName={"btn-simple btn-icon"}
+          btn3Icon={"far fa-thumbs-up"}
           btn1={this.getRandomUserHandler}
           btn2={this.postMatchActionHandler}
           btn3={this.postInterest}
           name={`${this.props.data.first_name} ${this.props.data.last_name}`}
+          photo={this.props.data.photo}
           dropDown={this.props.jobs}
           dropDownToggleText={
             dropDownToggleText || "Select Job to Create a Match"
@@ -231,15 +284,21 @@ class ViewContainer extends Component {
           experience={this.props.data.experience || "experience"}
           skills={this.props.data.top_skills}
           extra_skills={this.props.data.extra_skills}
+          familiar_with={this.props.data.other_skills}
           btn3Hover={this.state.hoverText}
+          animationOnComplete={this.animationOnComplete}
+          photo={this.props.data.photo}
         />
       );
     }
 
-    if (!this.props.success) {
-      return <h1>waiting</h1>;
-    }
-    return <MatchContainer>{card}</MatchContainer>;
+    return (
+      <MatchContainer>
+        <TransitionGroup component={MatchContainer}>
+          {this.state.show_card ? card : null}
+        </TransitionGroup>
+      </MatchContainer>
+    );
   }
 }
 

@@ -1,10 +1,29 @@
 import React from "react";
 import "./index.css";
 import { LandingDiv, CenterDiv } from "./landingPageCss";
-import styled, { keyframes } from "styled-components";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { login } from "../../features/auth/store/action";
+import styled from "styled-components";
+import Typing from "react-typing-animation";
+import { Row, Col } from "reactstrap";
+import MenuLogin from "./MenuLogin";
+import TransitionGroup from "react-transition-group/TransitionGroup"; // ES6
+
+const FixedTagLine = styled(Col)`
+  text-align: right;
+  padding-right: 0;
+  // @media()
+`;
+const DynamicTagLine = styled(Col)`
+  text-align: start;
+  padding-left: 5px;
+  font-weight: bold;
+  // font-style: italic;
+  span {
+    text-decoration: underline;
+    //   background-color: blue;
+    //   color: white;
+    //   padding: 4px;
+  }
+`;
 const StyledMenu = styled.div`
   text-decoration: none;
   transition: all 0.2s ease-in-out;
@@ -28,8 +47,9 @@ const StyledMenu = styled.div`
     text-decoration: none;
   }
 `;
+
 const StyledH2 = styled.h2`
-  border-bottom: solid 2px rgba(255, 255, 255, 0.125);
+  // border-bottom: solid 2px rgba(255, 255, 255, 0.125);
   font-size: 2.25em;
   margin-bottom: 25px;
   padding-bottom: 14px;
@@ -63,64 +83,19 @@ const StyledDivLogo = styled.div`
     width: 2.25em;
   }
 `;
-const zoomIn = keyframes`
-  0%{
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  100%{
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
-const Menu = styled.div`
-  width: 400px;
-  padding: 20px;
-  background-color: #1e1e2e;
-  margin: auto;
-  z-index: 10;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  transform: translate(-50%, -50%);
-  animation: ${zoomIn} 3s;
-  input {
-    display: block;
-    padding: 5px 15px 5px 5px;
-    font-size: 14px;
-    margin: 10px auto;
-    width: 80%;
-    border: none;
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-  }
-`;
+
 class Landing extends React.Component {
   state = {
-    is_menuOpen: false,
-    email: "",
-    password: ""
+    is_menuOpen: false
   };
-  onChangeHanlder = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+
   toggleMenu = e => {
     this.setState({
       is_menuOpen: !this.state.is_menuOpen
     });
   };
-  onSubmitHandler = e => {
-    e.preventDefault();
-    console.log("onsubmit clicked");
-    this.props.login({
-      username: this.state.email,
-      password: this.state.password
-    });
-  };
+
   render() {
-    if (this.props.authenticatoin_succeed) return <Redirect to="/seek" />;
     return (
       <React.Fragment>
         <LandingDiv is_menuOpen={this.state.is_menuOpen}>
@@ -132,41 +107,50 @@ class Landing extends React.Component {
                   <i className="fas fa-binoculars">{""}</i>
                 </StyledDivLogo>
                 <StyledH2>This is Seek Geek</StyledH2>
-                <StyledP>Another full stack application by </StyledP>
+                <h3>
+                  <Row>
+                    <FixedTagLine xs={6}>Helping employers find</FixedTagLine>
+                    <DynamicTagLine xs={6}>
+                      <Typing
+                        speed={100}
+                        loop={true}
+                        component={"span"}
+                        startDelay={2000}
+                        className={"typer_cursor"}
+                        hideCursor={true}
+                        cursorClassName={"typer_cursor"}
+                      >
+                        {"Geniuses,Engineers,Developers,Data Scientists,Mobile Devs,Full Stack Developers,Executives"
+                          .split(",")
+                          .map(word => (
+                            <React.Fragment>
+                              <span>{` ${word} `}</span>
+                              <Typing.Backspace
+                                count={word.length + 1}
+                                delay={1000}
+                              />
+                              {/*<Typing.Delay ms={1000} />*/}
+                            </React.Fragment>
+                          ))}
+                      </Typing>
+                    </DynamicTagLine>
+                  </Row>
+                </h3>
               </div>
             </section>
           </CenterDiv>
         </LandingDiv>
         {this.state.is_menuOpen && (
-          <Menu>
-            <form onSubmit={this.onSubmitHandler}>
-              <input
-                type="text"
-                onChange={this.onChangeHanlder}
-                value={this.state.email}
-                name={"email"}
-                placeholder={"email"}
-              />
-              <input
-                type="password"
-                onChange={this.onChangeHanlder}
-                value={this.state.password}
-                name={"password"}
-                placeholder={"password"}
-              />
-              <input type="submit" value={"save"} />
-            </form>
-          </Menu>
+          <TransitionGroup>
+            <MenuLogin
+              is_menuOpen={this.state.is_menuOpen}
+              onClick={this.toggleMenu}
+            />
+          </TransitionGroup>
         )}
       </React.Fragment>
     );
   }
 }
 
-const MapPropsToState = state => ({
-  authenticatoin_succeed: state.user.authenticatoin_succeed
-});
-export default connect(
-  MapPropsToState,
-  { login }
-)(Landing);
+export default Landing;

@@ -72,8 +72,12 @@ let matchesEndpoints = {
   },
   postMatches(data) {
     return api.post(`/matches/`, data);
+  },
+  sendEmail(data) {
+    return api.post("/send/", data);
   }
 };
+
 let billingEndpoints = {
   // Todo: Add billing endpoints here
   async charge(token, item) {

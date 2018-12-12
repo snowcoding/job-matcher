@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
+import { connect } from "react-redux";
 
 // core components
 // dumb navbar
@@ -14,7 +15,7 @@ import FixedPlugin from "../../presentation/black-dash-components/FixedPlugin/Fi
 
 import routes from "routes.js";
 
-import logo from "../../assets/img/react-logo.png";
+import logo from "../../assets/img/bino-logo.png";
 
 var ps;
 
@@ -22,7 +23,7 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundColor: "blue",
+      backgroundColor: props.currentUser.is_seeker ? "primary" : "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
     };
@@ -66,7 +67,13 @@ class Admin extends React.Component {
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.path) {
-        return <Route path={prop.path} component={prop.component} key={key} />;
+        if (prop.name === "Job Postings" && this.props.currentUser.is_seeker) {
+          return null;
+        } else {
+          return (
+            <Route path={prop.path} component={prop.component} key={key} />
+          );
+        }
       } else {
         return null;
       }
@@ -92,8 +99,8 @@ class Admin extends React.Component {
             routes={routes}
             bgColor={this.state.backgroundColor}
             logo={{
-              outterLink: "https://www.creative-tim.com/",
-              text: "Seek Geek",
+              outterLink: "https://stage.seekgeek.app/",
+              text: "SeekGeek",
               imgSrc: logo
             }}
             toggleSidebar={this.toggleSidebar}
@@ -125,4 +132,7 @@ class Admin extends React.Component {
   }
 }
 
-export default Admin;
+const MapPropsToState = state => ({
+  ...state.user
+});
+export default connect(MapPropsToState)(Admin);
