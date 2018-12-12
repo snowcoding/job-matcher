@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import PropTypes from "prop-types";
+import CSSLoader from "../../../presentation/CSSLoader/CSSLoader";
 
 class BaseModal extends Component {
   render() {
@@ -34,7 +35,7 @@ class BaseModal extends Component {
         </ul>
       );
     } else {
-      userElement = <p>waiting</p>;
+      userElement = <CSSLoader />;
     }
 
     return (
