@@ -76,10 +76,7 @@ const StyledCard = styled(Card)`
       color: #207ccae8;
     }
   }
-  @media (min-width: 900px) {
-    margin: 10px 5px;
-    margin: 10px auto;
-  }
+  margin-bottom: 20px;
 `;
 const moveUp = keyframes`
     0%{
